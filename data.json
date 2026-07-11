@@ -1,0 +1,13 @@
+{
+  "jewelry": [],
+  "materials": [],
+  "categories": ["Бусины", "Камни", "Кварц", "Гематит", "Керамика", "Перламутр", "Жемчуг", "Акрил", "Хрусталь", "Стекло", "Подвески", "Фурнитура"],
+  "sales": [],
+  "receipts": [],
+  "settings": {
+    "markupCoefficient": 2,
+    "alenaMarkup": 300,
+    "additionalCosts": 0,
+    "defaultDiscount": 0
+  }
+}
