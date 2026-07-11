@@ -10,8 +10,9 @@
 <meta name="apple-mobile-web-app-title" content="BAWI">
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%237B68AE' width='100' height='100' rx='20'/><text x='50' y='65' font-size='50' text-anchor='middle' fill='white'>💎</text></svg>">
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Comba:wght@700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
+@font-face{font-family:'Comba Test Bold Ultra Wide';src:url('combatest.woff') format('woff');font-weight:700;font-style:normal;font-display:swap}
 ﻿*{margin:0;padding:0;box-sizing:border-box}
 :root{--accent:#7B68AE;--dark:#6A5ACD;--text:#2D1B4E;--card:rgba(255,255,255,0.88);--green:#4CAF50;--blue:#2196F3;--orange:#FF9800;--pink:#E91E63;--shadow:0 8px 32px rgba(45,27,78,0.12);--radius:16px;--transition:0.3s ease}
 html{scroll-behavior:smooth}
@@ -19,7 +20,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:linear-gradient(135d
 h1,h2,h3,h4{font-family:'Montserrat',sans-serif;font-weight:600}
 .sidebar{position:fixed;left:0;top:0;width:240px;height:100vh;background:linear-gradient(180deg,rgba(106,90,205,0.95),rgba(123,104,174,0.95));backdrop-filter:blur(20px);z-index:1000;padding:24px 0;box-shadow:4px 0 24px rgba(45,27,78,0.2)}
 .sidebar .logo{text-align:center;padding:0 20px 30px;border-bottom:1px solid rgba(255,255,255,0.15)}
-.sidebar .logo h1{color:#fff;font-size:28px;font-family:'Comba',sans-serif;letter-spacing:2px}
+.sidebar .logo h1{color:#fff;font-size:28px;font-family:'Comba Test Bold Ultra Wide',sans-serif;letter-spacing:2px}
 .sidebar .logo p{color:rgba(255,255,255,0.7);font-size:12px;margin-top:4px}
 .sidebar nav{padding:16px 0}
 .sidebar nav a{display:flex;align-items:center;gap:12px;padding:12px 24px;color:rgba(255,255,255,0.8);text-decoration:none;font-size:15px;transition:var(--transition);border-left:3px solid transparent}
