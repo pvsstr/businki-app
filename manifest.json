@@ -1,0 +1,18 @@
+{
+  "name": "Бусинки — Украшения ручной работы",
+  "short_name": "Бусинки",
+  "description": "Управление бизнесом украшений ручной работы",
+  "start_url": "./Бусинки_приложение.html",
+  "display": "standalone",
+  "background_color": "#7B68AE",
+  "theme_color": "#7B68AE",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect fill='%237B68AE' width='512' height='512' rx='80'/><text x='256' y='320' font-size='260' text-anchor='middle' fill='white'>💎</text></svg>",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
