@@ -328,7 +328,7 @@ h2{font-size:20px}
     <div style="display:flex;gap:8px;flex-wrap:wrap">
       <button class="btn btn-primary" onclick="saveGitHubSettings()">&#128190; Сохранить настройки</button>
       <button class="btn btn-success" onclick="syncFromGitHub()">&#128260; Загрузить с GitHub</button>
-      <button class="btn btn-outline" onclick="syncToGitHub()">&#128228; Отправить в GitHub</button>
+      <button class="btn btn-outline" onclick="confirmSyncToGitHub()">&#128228; Отправить в GitHub</button>
     </div>
   </div>
 </div>
@@ -438,6 +438,7 @@ async function syncFromGitHub(){var cfg=getGhConfig();if(!cfg.token||!cfg.repo){
 async function syncToGitHub(){var cfg=getGhConfig();if(!cfg.token||!cfg.repo){showGhStatus('Введите токен и репозиторий!','red');return}showGhStatus('Отправка...','orange');ghSyncing=true;try{if(!ghFileSha){var check=await fetch('https://api.github.com/repos/'+cfg.repo+'/contents/'+cfg.file,{headers:{'Authorization':'Bearer '+cfg.token,'Accept':'application/vnd.github.v3+json'}});if(check.ok){var cj=await check.json();ghFileSha=cj.sha}else if(check.status!==404)throw new Error('HTTP '+check.status)}var content=JSON.stringify(DATA,null,2);var encoded=btoa(unescape(encodeURIComponent(content)));var body={message:'Обновление данных Бусинки',content:encoded};if(ghFileSha)body.sha=ghFileSha;var resp=await fetch('https://api.github.com/repos/'+cfg.repo+'/contents/'+cfg.file,{method:'PUT',headers:{'Authorization':'Bearer '+cfg.token,'Content-Type':'application/json','Accept':'application/vnd.github.v3+json'},body:JSON.stringify(body)});if(!resp.ok)throw new Error('HTTP '+resp.status+': '+await resp.text());var result=await resp.json();ghFileSha=result.content.sha;showGhStatus('Отправлено! '+new Date().toLocaleTimeString('ru-RU'),'green')}catch(e){showGhStatus('Ошибка: '+e.message,'red')}ghSyncing=false}
 var _origSave=save;
 save=function(){localStorage.setItem('businki_data',JSON.stringify(DATA));if(!ghSyncing&&localStorage.getItem('gh_token')&&localStorage.getItem('gh_repo')){syncToGitHub()}};
+function confirmSyncToGitHub(){openModal('<div class="confirm-dialog"><div class="icon">⚠️</div><div class="text" style="font-size:15px;line-height:1.6">Ты точно хочешь это отправить в GitHub?<br><br>Смотри мне, если сломаешь, я тебе задницу надеру!</div><div class="buttons"><button class="btn btn-success" onclick="closeModal();syncToGitHub()">Да</button><button class="btn btn-outline" onclick="closeModal()">Нет</button></div></div>')}
 function initGitHubSync(){var cfg=getGhConfig();if(cfg.token&&cfg.repo){showGhStatus('Синхронизация...','orange');syncFromGitHub()}}
 
 renderDashboard();initGitHubSync();
