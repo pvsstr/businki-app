@@ -2,7 +2,7 @@
   "name": "Бусинки — Украшения ручной работы",
   "short_name": "Бусинки",
   "description": "Управление бизнесом украшений ручной работы",
-  "start_url": "./Бусинки_приложение.html",
+ "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#7B68AE",
   "theme_color": "#7B68AE",
