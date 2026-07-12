@@ -455,7 +455,7 @@ renderDashboard();initGitHubSync();
 
 // PWA: Register service worker
 if('serviceWorker' in navigator){
-  var swCode='self.addEventListener("install",function(e){e.waitUntil(caches.open("businki-v2").then(function(cache){return cache.addAll(["./","./Бусинки_приложение.html"]).catch(function(){})}))});self.addEventListener("fetch",function(e){e.respondWith(caches.match(e.request).then(function(r){return r||fetch(e.request).then(function(resp){return caches.open("businki-v2").then(function(cache){cache.put(e.request,resp.clone());return resp})})}).catch(function(){return caches.match("./Бусинки_приложение.html")})})});';
+  var swCode='self.addEventListener("install",function(e){e.waitUntil(caches.open("businki-v3").then(function(cache){return cache.addAll(["./","./index.html"]).catch(function(){})}))});self.addEventListener("activate",function(e){e.waitUntil(caches.keys().then(function(names){return Promise.all(names.filter(function(n){return n.indexOf("businki-")===0&&n!=="businki-v3"}).map(function(n){return caches.delete(n)}))})});self.addEventListener("fetch",function(e){e.respondWith(caches.match(e.request).then(function(r){return r||fetch(e.request).then(function(resp){return caches.open("businki-v3").then(function(cache){cache.put(e.request,resp.clone());return resp})})}).catch(function(){return caches.match("./index.html")})})});';
   var swBlob=new Blob([swCode],{type:'application/javascript'});
   var swUrl=URL.createObjectURL(swBlob);
   navigator.serviceWorker.register(swUrl).catch(function(){});
