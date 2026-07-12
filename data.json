@@ -1583,7 +1583,16 @@
       "buyer": ""
     }
   ],
-  "receipts": [],
+  "receipts": [
+    {
+      "id": 1,
+      "date": "2026-07-12",
+      "supplier": "",
+      "items": "",
+      "total": 0,
+      "photo": null
+    }
+  ],
   "settings": {
     "markupCoefficient": 2,
     "alenaMarkup": 300,
