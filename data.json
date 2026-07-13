@@ -1605,6 +1605,16 @@
       "diameter": 0,
       "pricePerCm": 0,
       "pricePerPiece": 25
+    },
+    {
+      "id": 110,
+      "category": "Подвески",
+      "name": "Сердце золото",
+      "purchasePrice": 180,
+      "length": 0,
+      "diameter": 0,
+      "pricePerCm": 0,
+      "pricePerPiece": 0
     }
   ],
   "categories": [
