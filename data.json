@@ -1595,6 +1595,16 @@
       "diameter": 0,
       "pricePerCm": 15,
       "pricePerPiece": 15
+    },
+    {
+      "id": 109,
+      "category": "Кварц",
+      "name": "Кварц зелёный",
+      "purchasePrice": 25,
+      "length": 0,
+      "diameter": 0,
+      "pricePerCm": 0,
+      "pricePerPiece": 25
     }
   ],
   "categories": [
