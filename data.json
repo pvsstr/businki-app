@@ -1720,6 +1720,16 @@
       "diameter": 0,
       "pricePerCm": 0,
       "pricePerPiece": 0
+    },
+    {
+      "id": 114,
+      "category": "Кварц",
+      "name": "Кварц фиолетовый",
+      "purchasePrice": 380,
+      "length": 30,
+      "diameter": 0.4,
+      "pricePerCm": 12.67,
+      "pricePerPiece": 5.07
     }
   ],
   "categories": [
