@@ -1615,6 +1615,16 @@
       "diameter": 0,
       "pricePerCm": 0,
       "pricePerPiece": 0
+    },
+    {
+      "id": 111,
+      "category": "Фурнитура",
+      "name": "Соед. кольцо (золото)",
+      "purchasePrice": 2,
+      "length": 0,
+      "diameter": 0,
+      "pricePerCm": 0,
+      "pricePerPiece": 0
     }
   ],
   "categories": [
