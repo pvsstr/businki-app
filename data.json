@@ -360,7 +360,7 @@
       "length": 35,
       "diameter": 0.4,
       "pricePerCm": 3.43,
-      "pricePerPiece": 300
+      "pricePerPiece": 1.37
     },
     {
       "id": 2,
@@ -370,7 +370,7 @@
       "length": 40,
       "diameter": 1,
       "pricePerCm": 3.25,
-      "pricePerPiece": 130
+      "pricePerPiece": 3.25
     },
     {
       "id": 3,
@@ -380,7 +380,7 @@
       "length": 13.6,
       "diameter": 0.4,
       "pricePerCm": 14.71,
-      "pricePerPiece": 500
+      "pricePerPiece": 5.88
     },
     {
       "id": 4,
@@ -390,7 +390,7 @@
       "length": 40,
       "diameter": 0.8,
       "pricePerCm": 4.5,
-      "pricePerPiece": 225
+      "pricePerPiece": 3.6
     },
     {
       "id": 5,
@@ -410,7 +410,7 @@
       "length": 60,
       "diameter": 0.4,
       "pricePerCm": 5,
-      "pricePerPiece": 750
+      "pricePerPiece": 2.0
     },
     {
       "id": 7,
@@ -420,7 +420,7 @@
       "length": 40,
       "diameter": 0.4,
       "pricePerCm": 2.75,
-      "pricePerPiece": 275
+      "pricePerPiece": 1.1
     },
     {
       "id": 8,
@@ -430,7 +430,7 @@
       "length": 0,
       "diameter": 0,
       "pricePerCm": 0,
-      "pricePerPiece": 0
+      "pricePerPiece": 50
     },
     {
       "id": 9,
@@ -440,7 +440,7 @@
       "length": 0,
       "diameter": 0,
       "pricePerCm": 0,
-      "pricePerPiece": 0
+      "pricePerPiece": 5
     },
     {
       "id": 10,
@@ -450,7 +450,7 @@
       "length": 30,
       "diameter": 0.4,
       "pricePerCm": 3.83,
-      "pricePerPiece": 287.5
+      "pricePerPiece": 1.53
     },
     {
       "id": 11,
@@ -460,7 +460,7 @@
       "length": 39,
       "diameter": 0.8,
       "pricePerCm": 12.31,
-      "pricePerPiece": 600
+      "pricePerPiece": 9.85
     },
     {
       "id": 12,
@@ -490,7 +490,7 @@
       "length": 39,
       "diameter": 0.4,
       "pricePerCm": 11.28,
-      "pricePerPiece": 1100
+      "pricePerPiece": 4.51
     },
     {
       "id": 15,
@@ -500,7 +500,7 @@
       "length": 39,
       "diameter": 0.6,
       "pricePerCm": 10.77,
-      "pricePerPiece": 700
+      "pricePerPiece": 6.46
     },
     {
       "id": 16,
@@ -510,7 +510,7 @@
       "length": 38,
       "diameter": 0.6,
       "pricePerCm": 9.47,
-      "pricePerPiece": 600
+      "pricePerPiece": 5.68
     },
     {
       "id": 17,
@@ -520,7 +520,7 @@
       "length": 39,
       "diameter": 0.8,
       "pricePerCm": 9.23,
-      "pricePerPiece": 450
+      "pricePerPiece": 7.38
     },
     {
       "id": 18,
@@ -530,7 +530,7 @@
       "length": 38,
       "diameter": 0.4,
       "pricePerCm": 9.5,
-      "pricePerPiece": 902.5
+      "pricePerPiece": 3.8
     },
     {
       "id": 19,
@@ -540,7 +540,7 @@
       "length": 39,
       "diameter": 0.4,
       "pricePerCm": 19.23,
-      "pricePerPiece": 1875
+      "pricePerPiece": 7.69
     },
     {
       "id": 20,
@@ -550,7 +550,7 @@
       "length": 39.4,
       "diameter": 0.3,
       "pricePerCm": 4.57,
-      "pricePerPiece": 600
+      "pricePerPiece": 1.37
     },
     {
       "id": 21,
@@ -560,7 +560,7 @@
       "length": 38,
       "diameter": 0.5,
       "pricePerCm": 9.21,
-      "pricePerPiece": 700
+      "pricePerPiece": 4.61
     },
     {
       "id": 22,
@@ -570,7 +570,7 @@
       "length": 38,
       "diameter": 0.8,
       "pricePerCm": 13.16,
-      "pricePerPiece": 625
+      "pricePerPiece": 10.53
     },
     {
       "id": 23,
@@ -580,7 +580,7 @@
       "length": 39,
       "diameter": 0.7,
       "pricePerCm": 11.69,
-      "pricePerPiece": 651.43
+      "pricePerPiece": 8.18
     },
     {
       "id": 24,
@@ -590,7 +590,7 @@
       "length": 38,
       "diameter": 0.4,
       "pricePerCm": 16.32,
-      "pricePerPiece": 1550
+      "pricePerPiece": 6.53
     },
     {
       "id": 25,
@@ -600,7 +600,7 @@
       "length": 38,
       "diameter": 0.6,
       "pricePerCm": 11.71,
-      "pricePerPiece": 741.67
+      "pricePerPiece": 7.03
     },
     {
       "id": 26,
@@ -610,7 +610,7 @@
       "length": 0,
       "diameter": 0,
       "pricePerCm": 0,
-      "pricePerPiece": 0
+      "pricePerPiece": 34
     },
     {
       "id": 27,
@@ -630,7 +630,7 @@
       "length": 38,
       "diameter": 0.8,
       "pricePerCm": 9.47,
-      "pricePerPiece": 450
+      "pricePerPiece": 7.58
     },
     {
       "id": 29,
@@ -640,7 +640,7 @@
       "length": 39,
       "diameter": 0.6,
       "pricePerCm": 8.21,
-      "pricePerPiece": 533.33
+      "pricePerPiece": 4.92
     },
     {
       "id": 30,
@@ -660,7 +660,7 @@
       "length": 39,
       "diameter": 0.6,
       "pricePerCm": 6.41,
-      "pricePerPiece": 416.67
+      "pricePerPiece": 3.85
     },
     {
       "id": 32,
@@ -670,7 +670,7 @@
       "length": 39,
       "diameter": 1,
       "pricePerCm": 11.03,
-      "pricePerPiece": 430
+      "pricePerPiece": 11.03
     },
     {
       "id": 33,
@@ -680,7 +680,7 @@
       "length": 39,
       "diameter": 0.4,
       "pricePerCm": 4.62,
-      "pricePerPiece": 450
+      "pricePerPiece": 1.85
     },
     {
       "id": 34,
@@ -690,7 +690,7 @@
       "length": 39,
       "diameter": 0.1,
       "pricePerCm": 10.13,
-      "pricePerPiece": 3950
+      "pricePerPiece": 1.01
     },
     {
       "id": 35,
@@ -700,7 +700,7 @@
       "length": 39,
       "diameter": 0.2,
       "pricePerCm": 10.51,
-      "pricePerPiece": 2050
+      "pricePerPiece": 2.1
     },
     {
       "id": 36,
@@ -710,7 +710,7 @@
       "length": 39,
       "diameter": 0.6,
       "pricePerCm": 10.51,
-      "pricePerPiece": 683.33
+      "pricePerPiece": 6.31
     },
     {
       "id": 37,
@@ -740,7 +740,7 @@
       "length": 32.5,
       "diameter": 1.5,
       "pricePerCm": 7.69,
-      "pricePerPiece": 166.67
+      "pricePerPiece": 11.54
     },
     {
       "id": 40,
@@ -750,7 +750,7 @@
       "length": 30,
       "diameter": 1.2,
       "pricePerCm": 6.67,
-      "pricePerPiece": 166.67
+      "pricePerPiece": 8.0
     },
     {
       "id": 41,
@@ -760,7 +760,7 @@
       "length": 31,
       "diameter": 0.8,
       "pricePerCm": 5.81,
-      "pricePerPiece": 225
+      "pricePerPiece": 4.65
     },
     {
       "id": 42,
@@ -770,7 +770,7 @@
       "length": 34.5,
       "diameter": 1.9,
       "pricePerCm": 6.38,
-      "pricePerPiece": 115.79
+      "pricePerPiece": 12.12
     },
     {
       "id": 43,
@@ -780,7 +780,7 @@
       "length": 0,
       "diameter": 0,
       "pricePerCm": 0,
-      "pricePerPiece": 0
+      "pricePerPiece": 40
     },
     {
       "id": 44,
@@ -800,7 +800,7 @@
       "length": 40,
       "diameter": 0.8,
       "pricePerCm": 4.5,
-      "pricePerPiece": 225
+      "pricePerPiece": 3.6
     },
     {
       "id": 46,
@@ -810,7 +810,7 @@
       "length": 40,
       "diameter": 0.4,
       "pricePerCm": 1.9,
-      "pricePerPiece": 190
+      "pricePerPiece": 0.76
     },
     {
       "id": 47,
@@ -820,7 +820,7 @@
       "length": 39,
       "diameter": 0.7,
       "pricePerCm": 8.97,
-      "pricePerPiece": 500
+      "pricePerPiece": 6.28
     },
     {
       "id": 48,
@@ -830,7 +830,7 @@
       "length": 39,
       "diameter": 1.5,
       "pricePerCm": 10.77,
-      "pricePerPiece": 280
+      "pricePerPiece": 16.15
     },
     {
       "id": 49,
@@ -840,7 +840,7 @@
       "length": 0,
       "diameter": 0,
       "pricePerCm": 0,
-      "pricePerPiece": 0
+      "pricePerPiece": 25
     },
     {
       "id": 50,
@@ -850,7 +850,7 @@
       "length": 0,
       "diameter": 0,
       "pricePerCm": 0,
-      "pricePerPiece": 0
+      "pricePerPiece": 30
     },
     {
       "id": 51,
@@ -860,7 +860,7 @@
       "length": 39,
       "diameter": 1.2,
       "pricePerCm": 20.51,
-      "pricePerPiece": 666.67
+      "pricePerPiece": 24.62
     },
     {
       "id": 52,
@@ -870,7 +870,7 @@
       "length": 40.5,
       "diameter": 1.3,
       "pricePerCm": 5.43,
-      "pricePerPiece": 169.23
+      "pricePerPiece": 7.06
     },
     {
       "id": 53,
@@ -880,7 +880,7 @@
       "length": 39,
       "diameter": 0.8,
       "pricePerCm": 11.54,
-      "pricePerPiece": 562.5
+      "pricePerPiece": 9.23
     },
     {
       "id": 54,
@@ -890,7 +890,7 @@
       "length": 45,
       "diameter": 0.9,
       "pricePerCm": 3.62,
-      "pricePerPiece": 181.11
+      "pricePerPiece": 3.26
     },
     {
       "id": 55,
@@ -900,7 +900,7 @@
       "length": 36,
       "diameter": 1.8,
       "pricePerCm": 5.25,
-      "pricePerPiece": 105
+      "pricePerPiece": 9.45
     },
     {
       "id": 56,
@@ -910,7 +910,7 @@
       "length": 38,
       "diameter": 0.8,
       "pricePerCm": 28.42,
-      "pricePerPiece": 1350
+      "pricePerPiece": 22.74
     },
     {
       "id": 57,
@@ -930,7 +930,7 @@
       "length": 39,
       "diameter": 0.2,
       "pricePerCm": 9.74,
-      "pricePerPiece": 1900
+      "pricePerPiece": 1.95
     },
     {
       "id": 59,
@@ -940,7 +940,7 @@
       "length": 0,
       "diameter": 0,
       "pricePerCm": 0,
-      "pricePerPiece": 0
+      "pricePerPiece": 8
     },
     {
       "id": 60,
@@ -950,7 +950,7 @@
       "length": 0,
       "diameter": 0,
       "pricePerCm": 0,
-      "pricePerPiece": 0
+      "pricePerPiece": 7
     },
     {
       "id": 61,
@@ -960,7 +960,7 @@
       "length": 33,
       "diameter": 3,
       "pricePerCm": 8.48,
-      "pricePerPiece": 93.33
+      "pricePerPiece": 25.45
     },
     {
       "id": 62,
@@ -970,7 +970,7 @@
       "length": 41.7,
       "diameter": 1.5,
       "pricePerCm": 7.67,
-      "pricePerPiece": 213.33
+      "pricePerPiece": 11.51
     },
     {
       "id": 63,
@@ -990,7 +990,7 @@
       "length": 0,
       "diameter": 0,
       "pricePerCm": 0,
-      "pricePerPiece": 0
+      "pricePerPiece": 25
     },
     {
       "id": 65,
@@ -1000,7 +1000,7 @@
       "length": 0,
       "diameter": 0,
       "pricePerCm": 0,
-      "pricePerPiece": 0
+      "pricePerPiece": 94
     },
     {
       "id": 66,
@@ -1010,7 +1010,7 @@
       "length": 15,
       "diameter": 1.5,
       "pricePerCm": 33.33,
-      "pricePerPiece": 333.33
+      "pricePerPiece": 50.0
     },
     {
       "id": 67,
@@ -1020,7 +1020,7 @@
       "length": 0,
       "diameter": 0,
       "pricePerCm": 0,
-      "pricePerPiece": 0
+      "pricePerPiece": 300
     },
     {
       "id": 68,
@@ -1030,7 +1030,7 @@
       "length": 6.3,
       "diameter": 2.1,
       "pricePerCm": 79.37,
-      "pricePerPiece": 238.1
+      "pricePerPiece": 166.67
     },
     {
       "id": 69,
@@ -1040,7 +1040,7 @@
       "length": 0,
       "diameter": 0,
       "pricePerCm": 0,
-      "pricePerPiece": 0
+      "pricePerPiece": 50
     },
     {
       "id": 70,
@@ -1050,7 +1050,7 @@
       "length": 0,
       "diameter": 0,
       "pricePerCm": 0,
-      "pricePerPiece": 0
+      "pricePerPiece": 80
     },
     {
       "id": 71,
@@ -1060,7 +1060,7 @@
       "length": 0,
       "diameter": 0,
       "pricePerCm": 0,
-      "pricePerPiece": 0
+      "pricePerPiece": 90
     },
     {
       "id": 72,
@@ -1070,7 +1070,7 @@
       "length": 0,
       "diameter": 0,
       "pricePerCm": 0,
-      "pricePerPiece": 0
+      "pricePerPiece": 105
     },
     {
       "id": 73,
@@ -1080,7 +1080,7 @@
       "length": 0,
       "diameter": 0,
       "pricePerCm": 0,
-      "pricePerPiece": 0
+      "pricePerPiece": 70
     },
     {
       "id": 74,
@@ -1090,7 +1090,7 @@
       "length": 0,
       "diameter": 0,
       "pricePerCm": 0,
-      "pricePerPiece": 0
+      "pricePerPiece": 115
     },
     {
       "id": 75,
@@ -1100,7 +1100,7 @@
       "length": 0,
       "diameter": 0,
       "pricePerCm": 0,
-      "pricePerPiece": 0
+      "pricePerPiece": 115
     },
     {
       "id": 76,
@@ -1110,7 +1110,7 @@
       "length": 0,
       "diameter": 0,
       "pricePerCm": 0,
-      "pricePerPiece": 0
+      "pricePerPiece": 150
     },
     {
       "id": 77,
@@ -1120,7 +1120,7 @@
       "length": 0,
       "diameter": 0,
       "pricePerCm": 0,
-      "pricePerPiece": 0
+      "pricePerPiece": 120
     },
     {
       "id": 78,
@@ -1130,7 +1130,7 @@
       "length": 0,
       "diameter": 0,
       "pricePerCm": 0,
-      "pricePerPiece": 0
+      "pricePerPiece": 150
     },
     {
       "id": 79,
@@ -1140,7 +1140,7 @@
       "length": 0,
       "diameter": 0,
       "pricePerCm": 0,
-      "pricePerPiece": 0
+      "pricePerPiece": 120
     },
     {
       "id": 80,
@@ -1150,7 +1150,7 @@
       "length": 0,
       "diameter": 0,
       "pricePerCm": 0,
-      "pricePerPiece": 0
+      "pricePerPiece": 100
     },
     {
       "id": 81,
@@ -1160,7 +1160,7 @@
       "length": 0,
       "diameter": 0,
       "pricePerCm": 0,
-      "pricePerPiece": 0
+      "pricePerPiece": 50
     },
     {
       "id": 82,
@@ -1170,7 +1170,7 @@
       "length": 0,
       "diameter": 0,
       "pricePerCm": 0,
-      "pricePerPiece": 0
+      "pricePerPiece": 20
     },
     {
       "id": 83,
@@ -1180,7 +1180,7 @@
       "length": 0,
       "diameter": 0,
       "pricePerCm": 0,
-      "pricePerPiece": 0
+      "pricePerPiece": 60
     },
     {
       "id": 84,
@@ -1190,7 +1190,7 @@
       "length": 0,
       "diameter": 0,
       "pricePerCm": 0,
-      "pricePerPiece": 0
+      "pricePerPiece": 180
     },
     {
       "id": 85,
@@ -1200,7 +1200,7 @@
       "length": 0,
       "diameter": 0,
       "pricePerCm": 0,
-      "pricePerPiece": 0
+      "pricePerPiece": 120
     },
     {
       "id": 86,
@@ -1210,7 +1210,7 @@
       "length": 0,
       "diameter": 0,
       "pricePerCm": 0,
-      "pricePerPiece": 0
+      "pricePerPiece": 60
     },
     {
       "id": 87,
@@ -1220,7 +1220,7 @@
       "length": 0,
       "diameter": 0,
       "pricePerCm": 0,
-      "pricePerPiece": 0
+      "pricePerPiece": 80
     },
     {
       "id": 88,
@@ -1250,7 +1250,7 @@
       "length": 0,
       "diameter": 0,
       "pricePerCm": 0,
-      "pricePerPiece": 0
+      "pricePerPiece": 2
     },
     {
       "id": 91,
@@ -1260,7 +1260,7 @@
       "length": 0,
       "diameter": 0,
       "pricePerCm": 0,
-      "pricePerPiece": 0
+      "pricePerPiece": 1
     },
     {
       "id": 92,
@@ -1270,7 +1270,7 @@
       "length": 100,
       "diameter": 1,
       "pricePerCm": 3,
-      "pricePerPiece": 300
+      "pricePerPiece": 3.0
     },
     {
       "id": 93,
@@ -1280,7 +1280,7 @@
       "length": 0,
       "diameter": 0,
       "pricePerCm": 0,
-      "pricePerPiece": 0
+      "pricePerPiece": 25
     },
     {
       "id": 94,
@@ -1290,7 +1290,7 @@
       "length": 0,
       "diameter": 0,
       "pricePerCm": 0,
-      "pricePerPiece": 0
+      "pricePerPiece": 30
     },
     {
       "id": 95,
@@ -1320,7 +1320,7 @@
       "length": 30,
       "diameter": 0.3,
       "pricePerCm": 8.33,
-      "pricePerPiece": 833.33
+      "pricePerPiece": 2.5
     },
     {
       "id": 98,
@@ -1330,7 +1330,7 @@
       "length": 0,
       "diameter": 0,
       "pricePerCm": 0,
-      "pricePerPiece": 0
+      "pricePerPiece": 80
     },
     {
       "id": 99,
@@ -1340,7 +1340,7 @@
       "length": 0,
       "diameter": 0,
       "pricePerCm": 0,
-      "pricePerPiece": 0
+      "pricePerPiece": 105
     },
     {
       "id": 100,
@@ -1350,7 +1350,7 @@
       "length": 0,
       "diameter": 0,
       "pricePerCm": 0,
-      "pricePerPiece": 0
+      "pricePerPiece": 3.8
     },
     {
       "id": 101,
@@ -1360,7 +1360,7 @@
       "length": 0,
       "diameter": 0,
       "pricePerCm": 0,
-      "pricePerPiece": 0
+      "pricePerPiece": 19
     },
     {
       "id": 102,
@@ -1370,7 +1370,7 @@
       "length": 360,
       "diameter": 0.6,
       "pricePerCm": 1.18,
-      "pricePerPiece": 706.67
+      "pricePerPiece": 0.71
     },
     {
       "id": 103,
@@ -1380,7 +1380,7 @@
       "length": 0,
       "diameter": 0,
       "pricePerCm": 0,
-      "pricePerPiece": 0
+      "pricePerPiece": 170
     },
     {
       "id": 104,
@@ -1390,7 +1390,7 @@
       "length": 0,
       "diameter": 0,
       "pricePerCm": 0,
-      "pricePerPiece": 0
+      "pricePerPiece": 80
     },
     {
       "id": 105,
@@ -1400,7 +1400,7 @@
       "length": 0,
       "diameter": 0,
       "pricePerCm": 0,
-      "pricePerPiece": 0
+      "pricePerPiece": 10
     },
     {
       "id": 106,
@@ -1410,7 +1410,7 @@
       "length": 0,
       "diameter": 0,
       "pricePerCm": 0,
-      "pricePerPiece": 0
+      "pricePerPiece": 80
     },
     {
       "id": 107,
@@ -1420,7 +1420,7 @@
       "length": 0,
       "diameter": 0,
       "pricePerCm": 0,
-      "pricePerPiece": 0
+      "pricePerPiece": 15
     }
   ],
   "categories": [
