@@ -359,8 +359,8 @@
       "purchasePrice": 120,
       "length": 35,
       "diameter": 0.4,
-      "pricePerCm": 3.43,
-      "pricePerPiece": 1.37
+      "pricePerCm": 3.4285714285714284,
+      "pricePerPiece": 1.3714285714285714
     },
     {
       "id": 2,
@@ -379,8 +379,8 @@
       "purchasePrice": 200,
       "length": 13.6,
       "diameter": 0.4,
-      "pricePerCm": 14.71,
-      "pricePerPiece": 5.88
+      "pricePerCm": 14.705882352941178,
+      "pricePerPiece": 5.882352941176471
     },
     {
       "id": 4,
@@ -410,7 +410,7 @@
       "length": 60,
       "diameter": 0.4,
       "pricePerCm": 5,
-      "pricePerPiece": 2.0
+      "pricePerPiece": 2
     },
     {
       "id": 7,
@@ -449,8 +449,8 @@
       "purchasePrice": 115,
       "length": 30,
       "diameter": 0.4,
-      "pricePerCm": 3.83,
-      "pricePerPiece": 1.53
+      "pricePerCm": 3.8333333333333335,
+      "pricePerPiece": 1.5333333333333334
     },
     {
       "id": 11,
@@ -459,8 +459,8 @@
       "purchasePrice": 480,
       "length": 39,
       "diameter": 0.8,
-      "pricePerCm": 12.31,
-      "pricePerPiece": 9.85
+      "pricePerCm": 12.307692307692308,
+      "pricePerPiece": 9.846153846153847
     },
     {
       "id": 12,
@@ -469,7 +469,7 @@
       "purchasePrice": 790,
       "length": 80,
       "diameter": 0,
-      "pricePerCm": 9.88,
+      "pricePerCm": 9.875,
       "pricePerPiece": 0
     },
     {
@@ -489,8 +489,8 @@
       "purchasePrice": 440,
       "length": 39,
       "diameter": 0.4,
-      "pricePerCm": 11.28,
-      "pricePerPiece": 4.51
+      "pricePerCm": 11.282051282051283,
+      "pricePerPiece": 4.512820512820514
     },
     {
       "id": 15,
@@ -499,8 +499,8 @@
       "purchasePrice": 420,
       "length": 39,
       "diameter": 0.6,
-      "pricePerCm": 10.77,
-      "pricePerPiece": 6.46
+      "pricePerCm": 10.76923076923077,
+      "pricePerPiece": 6.461538461538462
     },
     {
       "id": 16,
@@ -509,8 +509,8 @@
       "purchasePrice": 360,
       "length": 38,
       "diameter": 0.6,
-      "pricePerCm": 9.47,
-      "pricePerPiece": 5.68
+      "pricePerCm": 9.473684210526315,
+      "pricePerPiece": 5.6842105263157885
     },
     {
       "id": 17,
@@ -519,8 +519,8 @@
       "purchasePrice": 360,
       "length": 39,
       "diameter": 0.8,
-      "pricePerCm": 9.23,
-      "pricePerPiece": 7.38
+      "pricePerCm": 9.23076923076923,
+      "pricePerPiece": 7.384615384615384
     },
     {
       "id": 18,
@@ -530,7 +530,7 @@
       "length": 38,
       "diameter": 0.4,
       "pricePerCm": 9.5,
-      "pricePerPiece": 3.8
+      "pricePerPiece": 3.8000000000000003
     },
     {
       "id": 19,
@@ -539,8 +539,8 @@
       "purchasePrice": 750,
       "length": 39,
       "diameter": 0.4,
-      "pricePerCm": 19.23,
-      "pricePerPiece": 7.69
+      "pricePerCm": 19.23076923076923,
+      "pricePerPiece": 7.6923076923076925
     },
     {
       "id": 20,
@@ -549,8 +549,8 @@
       "purchasePrice": 180,
       "length": 39.4,
       "diameter": 0.3,
-      "pricePerCm": 4.57,
-      "pricePerPiece": 1.37
+      "pricePerCm": 4.568527918781726,
+      "pricePerPiece": 1.3705583756345177
     },
     {
       "id": 21,
@@ -559,8 +559,8 @@
       "purchasePrice": 350,
       "length": 38,
       "diameter": 0.5,
-      "pricePerCm": 9.21,
-      "pricePerPiece": 4.61
+      "pricePerCm": 9.210526315789474,
+      "pricePerPiece": 4.605263157894737
     },
     {
       "id": 22,
@@ -569,8 +569,8 @@
       "purchasePrice": 500,
       "length": 38,
       "diameter": 0.8,
-      "pricePerCm": 13.16,
-      "pricePerPiece": 10.53
+      "pricePerCm": 13.157894736842104,
+      "pricePerPiece": 10.526315789473685
     },
     {
       "id": 23,
@@ -579,8 +579,8 @@
       "purchasePrice": 456,
       "length": 39,
       "diameter": 0.7,
-      "pricePerCm": 11.69,
-      "pricePerPiece": 8.18
+      "pricePerCm": 11.692307692307692,
+      "pricePerPiece": 8.184615384615384
     },
     {
       "id": 24,
@@ -589,8 +589,8 @@
       "purchasePrice": 620,
       "length": 38,
       "diameter": 0.4,
-      "pricePerCm": 16.32,
-      "pricePerPiece": 6.53
+      "pricePerCm": 16.31578947368421,
+      "pricePerPiece": 6.526315789473684
     },
     {
       "id": 25,
@@ -599,8 +599,8 @@
       "purchasePrice": 445,
       "length": 38,
       "diameter": 0.6,
-      "pricePerCm": 11.71,
-      "pricePerPiece": 7.03
+      "pricePerCm": 11.710526315789474,
+      "pricePerPiece": 7.026315789473684
     },
     {
       "id": 26,
@@ -619,7 +619,7 @@
       "purchasePrice": 250,
       "length": 90,
       "diameter": 0,
-      "pricePerCm": 2.78,
+      "pricePerCm": 2.7777777777777777,
       "pricePerPiece": 0
     },
     {
@@ -629,8 +629,8 @@
       "purchasePrice": 360,
       "length": 38,
       "diameter": 0.8,
-      "pricePerCm": 9.47,
-      "pricePerPiece": 7.58
+      "pricePerCm": 9.473684210526315,
+      "pricePerPiece": 7.578947368421052
     },
     {
       "id": 29,
@@ -639,8 +639,8 @@
       "purchasePrice": 320,
       "length": 39,
       "diameter": 0.6,
-      "pricePerCm": 8.21,
-      "pricePerPiece": 4.92
+      "pricePerCm": 8.205128205128204,
+      "pricePerPiece": 4.9230769230769225
     },
     {
       "id": 30,
@@ -659,8 +659,8 @@
       "purchasePrice": 250,
       "length": 39,
       "diameter": 0.6,
-      "pricePerCm": 6.41,
-      "pricePerPiece": 3.85
+      "pricePerCm": 6.410256410256411,
+      "pricePerPiece": 3.8461538461538463
     },
     {
       "id": 32,
@@ -669,8 +669,8 @@
       "purchasePrice": 430,
       "length": 39,
       "diameter": 1,
-      "pricePerCm": 11.03,
-      "pricePerPiece": 11.03
+      "pricePerCm": 11.025641025641026,
+      "pricePerPiece": 11.025641025641026
     },
     {
       "id": 33,
@@ -679,8 +679,8 @@
       "purchasePrice": 180,
       "length": 39,
       "diameter": 0.4,
-      "pricePerCm": 4.62,
-      "pricePerPiece": 1.85
+      "pricePerCm": 4.615384615384615,
+      "pricePerPiece": 1.846153846153846
     },
     {
       "id": 34,
@@ -689,8 +689,8 @@
       "purchasePrice": 395,
       "length": 39,
       "diameter": 0.1,
-      "pricePerCm": 10.13,
-      "pricePerPiece": 1.01
+      "pricePerCm": 10.128205128205128,
+      "pricePerPiece": 1.0128205128205128
     },
     {
       "id": 35,
@@ -699,8 +699,8 @@
       "purchasePrice": 410,
       "length": 39,
       "diameter": 0.2,
-      "pricePerCm": 10.51,
-      "pricePerPiece": 2.1
+      "pricePerCm": 10.512820512820513,
+      "pricePerPiece": 2.1025641025641026
     },
     {
       "id": 36,
@@ -709,8 +709,8 @@
       "purchasePrice": 410,
       "length": 39,
       "diameter": 0.6,
-      "pricePerCm": 10.51,
-      "pricePerPiece": 6.31
+      "pricePerCm": 10.512820512820513,
+      "pricePerPiece": 6.3076923076923075
     },
     {
       "id": 37,
@@ -739,8 +739,8 @@
       "purchasePrice": 250,
       "length": 32.5,
       "diameter": 1.5,
-      "pricePerCm": 7.69,
-      "pricePerPiece": 11.54
+      "pricePerCm": 7.6923076923076925,
+      "pricePerPiece": 11.538461538461538
     },
     {
       "id": 40,
@@ -749,8 +749,8 @@
       "purchasePrice": 200,
       "length": 30,
       "diameter": 1.2,
-      "pricePerCm": 6.67,
-      "pricePerPiece": 8.0
+      "pricePerCm": 6.666666666666667,
+      "pricePerPiece": 8
     },
     {
       "id": 41,
@@ -759,8 +759,8 @@
       "purchasePrice": 180,
       "length": 31,
       "diameter": 0.8,
-      "pricePerCm": 5.81,
-      "pricePerPiece": 4.65
+      "pricePerCm": 5.806451612903226,
+      "pricePerPiece": 4.645161290322581
     },
     {
       "id": 42,
@@ -769,8 +769,8 @@
       "purchasePrice": 220,
       "length": 34.5,
       "diameter": 1.9,
-      "pricePerCm": 6.38,
-      "pricePerPiece": 12.12
+      "pricePerCm": 6.3768115942028984,
+      "pricePerPiece": 12.115942028985506
     },
     {
       "id": 43,
@@ -790,7 +790,7 @@
       "length": 0,
       "diameter": 1.7,
       "pricePerCm": 0,
-      "pricePerPiece": 164.71
+      "pricePerPiece": 164.7058823529412
     },
     {
       "id": 45,
@@ -819,8 +819,8 @@
       "purchasePrice": 350,
       "length": 39,
       "diameter": 0.7,
-      "pricePerCm": 8.97,
-      "pricePerPiece": 6.28
+      "pricePerCm": 8.974358974358974,
+      "pricePerPiece": 6.282051282051282
     },
     {
       "id": 48,
@@ -829,8 +829,8 @@
       "purchasePrice": 420,
       "length": 39,
       "diameter": 1.5,
-      "pricePerCm": 10.77,
-      "pricePerPiece": 16.15
+      "pricePerCm": 10.76923076923077,
+      "pricePerPiece": 16.153846153846153
     },
     {
       "id": 49,
@@ -859,8 +859,8 @@
       "purchasePrice": 800,
       "length": 39,
       "diameter": 1.2,
-      "pricePerCm": 20.51,
-      "pricePerPiece": 24.62
+      "pricePerCm": 20.512820512820515,
+      "pricePerPiece": 24.615384615384617
     },
     {
       "id": 52,
@@ -869,8 +869,8 @@
       "purchasePrice": 220,
       "length": 40.5,
       "diameter": 1.3,
-      "pricePerCm": 5.43,
-      "pricePerPiece": 7.06
+      "pricePerCm": 5.432098765432099,
+      "pricePerPiece": 7.061728395061729
     },
     {
       "id": 53,
@@ -879,8 +879,8 @@
       "purchasePrice": 450,
       "length": 39,
       "diameter": 0.8,
-      "pricePerCm": 11.54,
-      "pricePerPiece": 9.23
+      "pricePerCm": 11.538461538461538,
+      "pricePerPiece": 9.230769230769232
     },
     {
       "id": 54,
@@ -889,8 +889,8 @@
       "purchasePrice": 163,
       "length": 45,
       "diameter": 0.9,
-      "pricePerCm": 3.62,
-      "pricePerPiece": 3.26
+      "pricePerCm": 3.6222222222222222,
+      "pricePerPiece": 3.2600000000000002
     },
     {
       "id": 55,
@@ -900,7 +900,7 @@
       "length": 36,
       "diameter": 1.8,
       "pricePerCm": 5.25,
-      "pricePerPiece": 9.45
+      "pricePerPiece": 9.450000000000001
     },
     {
       "id": 56,
@@ -909,8 +909,8 @@
       "purchasePrice": 1080,
       "length": 38,
       "diameter": 0.8,
-      "pricePerCm": 28.42,
-      "pricePerPiece": 22.74
+      "pricePerCm": 28.42105263157895,
+      "pricePerPiece": 22.73684210526316
     },
     {
       "id": 57,
@@ -919,7 +919,7 @@
       "purchasePrice": 420,
       "length": 90,
       "diameter": 0,
-      "pricePerCm": 4.67,
+      "pricePerCm": 4.666666666666667,
       "pricePerPiece": 0
     },
     {
@@ -929,8 +929,8 @@
       "purchasePrice": 380,
       "length": 39,
       "diameter": 0.2,
-      "pricePerCm": 9.74,
-      "pricePerPiece": 1.95
+      "pricePerCm": 9.743589743589743,
+      "pricePerPiece": 1.9487179487179487
     },
     {
       "id": 59,
@@ -959,8 +959,8 @@
       "purchasePrice": 280,
       "length": 33,
       "diameter": 3,
-      "pricePerCm": 8.48,
-      "pricePerPiece": 25.45
+      "pricePerCm": 8.484848484848484,
+      "pricePerPiece": 25.454545454545453
     },
     {
       "id": 62,
@@ -969,8 +969,8 @@
       "purchasePrice": 320,
       "length": 41.7,
       "diameter": 1.5,
-      "pricePerCm": 7.67,
-      "pricePerPiece": 11.51
+      "pricePerCm": 7.673860911270983,
+      "pricePerPiece": 11.510791366906474
     },
     {
       "id": 63,
@@ -1009,8 +1009,8 @@
       "purchasePrice": 500,
       "length": 15,
       "diameter": 1.5,
-      "pricePerCm": 33.33,
-      "pricePerPiece": 50.0
+      "pricePerCm": 33.333333333333336,
+      "pricePerPiece": 50
     },
     {
       "id": 67,
@@ -1029,8 +1029,8 @@
       "purchasePrice": 500,
       "length": 6.3,
       "diameter": 2.1,
-      "pricePerCm": 79.37,
-      "pricePerPiece": 166.67
+      "pricePerCm": 79.36507936507937,
+      "pricePerPiece": 166.66666666666669
     },
     {
       "id": 69,
@@ -1239,7 +1239,7 @@
       "purchasePrice": 180,
       "length": 700,
       "diameter": 0,
-      "pricePerCm": 0.26,
+      "pricePerCm": 0.2571428571428571,
       "pricePerPiece": 0
     },
     {
@@ -1270,7 +1270,7 @@
       "length": 100,
       "diameter": 1,
       "pricePerCm": 3,
-      "pricePerPiece": 3.0
+      "pricePerPiece": 3
     },
     {
       "id": 93,
@@ -1299,7 +1299,7 @@
       "purchasePrice": 280,
       "length": 45,
       "diameter": 0,
-      "pricePerCm": 6.22,
+      "pricePerCm": 6.222222222222222,
       "pricePerPiece": 0
     },
     {
@@ -1319,7 +1319,7 @@
       "purchasePrice": 250,
       "length": 30,
       "diameter": 0.3,
-      "pricePerCm": 8.33,
+      "pricePerCm": 8.333333333333334,
       "pricePerPiece": 2.5
     },
     {
@@ -1369,8 +1369,8 @@
       "purchasePrice": 424,
       "length": 360,
       "diameter": 0.6,
-      "pricePerCm": 1.18,
-      "pricePerPiece": 0.71
+      "pricePerCm": 1.1777777777777778,
+      "pricePerPiece": 0.7066666666666667
     },
     {
       "id": 103,
@@ -1420,6 +1420,16 @@
       "length": 0,
       "diameter": 0,
       "pricePerCm": 0,
+      "pricePerPiece": 15
+    },
+    {
+      "id": 108,
+      "category": "Фурнитура",
+      "name": "Кольцо соед. серце",
+      "purchasePrice": 15,
+      "length": 0,
+      "diameter": 0,
+      "pricePerCm": 15,
       "pricePerPiece": 15
     }
   ],
