@@ -1612,7 +1612,7 @@
     }
   ],
   "settings": {
-    "markupCoefficient": 2,
+    "markupCoefficient": 2.5,
     "alenaMarkup": 300,
     "additionalCosts": 0,
     "defaultDiscount": 0
