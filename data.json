@@ -1635,6 +1635,16 @@
       "diameter": 0,
       "pricePerCm": 0,
       "pricePerPiece": 0
+    },
+    {
+      "id": 113,
+      "category": "Фурнитура",
+      "name": "Цепь удлиннитель (золото)",
+      "purchasePrice": 40,
+      "length": 0,
+      "diameter": 0,
+      "pricePerCm": 0,
+      "pricePerPiece": 0
     }
   ],
   "categories": [
