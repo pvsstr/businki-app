@@ -113,9 +113,11 @@ label{display:block;font-size:13px;font-weight:500;color:#555;margin-bottom:4px}
 .search-toggle:hover{background:rgba(123,104,174,0.2)}
 .filters-row{display:flex;align-items:center;gap:12px;margin-bottom:20px;flex-wrap:wrap}
 .filters-row select{width:auto;min-width:160px}
-.scroll-top{position:fixed;bottom:30px;right:30px;width:48px;height:48px;border-radius:50%;background:var(--accent);color:#fff;border:none;font-size:20px;cursor:pointer;box-shadow:var(--shadow);display:none;align-items:center;justify-content:center;z-index:900}
+.scroll-top{position:fixed;right:30px;width:48px;height:48px;border-radius:50%;background:var(--accent);color:#fff;border:none;font-size:20px;cursor:pointer;box-shadow:var(--shadow);display:none;align-items:center;justify-content:center;z-index:900}
 .scroll-top.visible{display:flex}
 .scroll-top:hover{transform:translateY(-3px);background:var(--dark)}
+.scroll-top.top{bottom:30px}
+.scroll-top.bottom{bottom:90px}
 .bottom-nav{display:none}
 .assembly-materials{background:#f9f9f9;border-radius:12px;padding:12px;margin-bottom:12px;border:1px solid rgba(123,104,174,0.1)}
 .assembly-material-item{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(0,0,0,0.05);font-size:13px}
@@ -195,7 +197,8 @@ input,select,textarea{font-size:16px;padding:12px 14px;min-height:44px}
 .table-container[style*="max-width:500px"]{max-width:100%!important}
 #page-settings .table-container{padding:16px}
 /* Scroll-to-top */
-.scroll-top{bottom:80px}
+.scroll-top.top{bottom:80px}
+.scroll-top.bottom{bottom:140px}
 /* Tabs — horizontal scroll */
 .tabs{overflow-x:auto;flex-wrap:nowrap;-webkit-overflow-scrolling:touch;padding-bottom:12px}
 .tab{white-space:nowrap;flex-shrink:0;padding:8px 14px}
@@ -227,7 +230,8 @@ h2{font-size:20px}
   <a href="#" data-page="sales"><span class="icon">&#128176;</span><span>Продажи</span></a>
   <a href="#" data-page="settings"><span class="icon">&#9881;&#65039;</span><span>Настройки</span></a>
 </nav>
-<button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">&#8593;</button>
+<button class="scroll-top top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">&#8593;</button>
+<button class="scroll-top bottom" id="scrollBottom" onclick="window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'})">&#8595;</button>
 <div class="main">
 <div class="page active" id="page-dashboard">
   <h2 style="margin-bottom:24px">Главная</h2>
@@ -362,7 +366,7 @@ function fmtDate(d){if(!d)return'';const p=d.split('-');return p[2]+'.'+p[1]+'.'
 function navigateTo(page){document.querySelectorAll('.sidebar nav a, .bottom-nav a').forEach(function(x){x.classList.remove('active')});document.querySelectorAll('.sidebar nav a[data-page="'+page+'"], .bottom-nav a[data-page="'+page+'"]').forEach(function(x){x.classList.add('active')});document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active')});var el=document.getElementById('page-'+page);if(el)el.classList.add('active');if(page==='dashboard')renderDashboard();if(page==='jewelry')renderJewelry();if(page==='materials')renderMaterials();if(page==='receipts')renderReceipts();if(page==='sales')renderSales();if(page==='settings')loadSettings();window.scrollTo({top:0,behavior:'smooth'})}
 document.querySelectorAll('.sidebar nav a').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();navigateTo(a.dataset.page)})});
 document.querySelectorAll('.bottom-nav a').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();navigateTo(a.dataset.page)})});
-window.addEventListener('scroll',function(){document.getElementById('scrollTop').classList.toggle('visible',window.scrollY>400)});
+window.addEventListener('scroll',function(){var maxScroll=document.body.scrollHeight-window.innerHeight;var atTop=window.scrollY>400;var atBottom=window.scrollY<maxScroll-400;document.getElementById('scrollTop').classList.toggle('visible',atTop);document.getElementById('scrollBottom').classList.toggle('visible',atBottom)});
 function openModal(html){document.getElementById('modalContent').innerHTML=html;document.getElementById('modalOverlay').classList.add('active')}
 function closeModal(e){if(!e||e.target===document.getElementById('modalOverlay'))document.getElementById('modalOverlay').classList.remove('active')}
 function calcJewelryPrices(item){var s=DATA.settings;var cost=(item.cost||0)+(item.complexity||0)+(s.additionalCosts||0);var markup=cost*s.markupCoefficient;var price=markup+s.alenaMarkup;if(s.defaultDiscount>0)price=price*(1-s.defaultDiscount/100);return{cost:item.cost||0,effectiveCost:cost,markup:markup,price:Math.round(price)}}
