@@ -1753,24 +1753,14 @@
       "pricePerPiece": 3.6
     },
     {
-      "id": 5,
+      "id": 10,
       "category": "Бусины",
-      "name": "Ракушка",
-      "purchasePrice": 7,
-      "length": 1,
-      "diameter": 1,
-      "pricePerCm": 7,
-      "pricePerPiece": 7
-    },
-    {
-      "id": 6,
-      "category": "Бусины",
-      "name": "Бисер прозрачный с серебром (внутри)",
-      "purchasePrice": 300,
-      "length": 60,
+      "name": "Биконусы стекло",
+      "purchasePrice": 115,
+      "length": 30,
       "diameter": 0.4,
-      "pricePerCm": 5,
-      "pricePerPiece": 2
+      "pricePerCm": 3.8333333333333335,
+      "pricePerPiece": 1.5333333333333334
     },
     {
       "id": 8,
@@ -1783,14 +1773,24 @@
       "pricePerPiece": 50
     },
     {
-      "id": 10,
+      "id": 6,
       "category": "Бусины",
-      "name": "Биконусы стекло",
-      "purchasePrice": 115,
-      "length": 30,
+      "name": "Бисер прозрачный с серебром (внутри)",
+      "purchasePrice": 300,
+      "length": 60,
       "diameter": 0.4,
-      "pricePerCm": 3.8333333333333335,
-      "pricePerPiece": 1.5333333333333334
+      "pricePerCm": 5,
+      "pricePerPiece": 2
+    },
+    {
+      "id": 5,
+      "category": "Бусины",
+      "name": "Ракушка",
+      "purchasePrice": 7,
+      "length": 1,
+      "diameter": 1,
+      "pricePerCm": 7,
+      "pricePerPiece": 7
     }
   ],
   "categories": [
