@@ -653,116 +653,6 @@
   ],
   "materials": [
     {
-      "id": 1,
-      "category": "Бусины",
-      "name": "Бусины стекло 4мм",
-      "purchasePrice": 120,
-      "length": 35,
-      "diameter": 0.4,
-      "pricePerCm": 3.4285714285714284,
-      "pricePerPiece": 1.3714285714285714
-    },
-    {
-      "id": 2,
-      "category": "Бусины",
-      "name": "Бусины стекло 10мм",
-      "purchasePrice": 130,
-      "length": 40,
-      "diameter": 1,
-      "pricePerCm": 3.25,
-      "pricePerPiece": 3.25
-    },
-    {
-      "id": 3,
-      "category": "Бусины",
-      "name": "Бусины акрил (гран.)",
-      "purchasePrice": 200,
-      "length": 13.6,
-      "diameter": 0.4,
-      "pricePerCm": 14.705882352941178,
-      "pricePerPiece": 5.882352941176471
-    },
-    {
-      "id": 4,
-      "category": "Бусины",
-      "name": "Бусины пластик (бел.)",
-      "purchasePrice": 180,
-      "length": 40,
-      "diameter": 0.8,
-      "pricePerCm": 4.5,
-      "pricePerPiece": 3.6
-    },
-    {
-      "id": 5,
-      "category": "Бусины",
-      "name": "Ракушка",
-      "purchasePrice": 7,
-      "length": 1,
-      "diameter": 1,
-      "pricePerCm": 7,
-      "pricePerPiece": 7
-    },
-    {
-      "id": 6,
-      "category": "Бусины",
-      "name": "Бисер прозрачный с серебром (внутри)",
-      "purchasePrice": 300,
-      "length": 60,
-      "diameter": 0.4,
-      "pricePerCm": 5,
-      "pricePerPiece": 2
-    },
-    {
-      "id": 7,
-      "category": "Бусины",
-      "name": "Бусины кошачий глаз",
-      "purchasePrice": 110,
-      "length": 40,
-      "diameter": 0.4,
-      "pricePerCm": 2.75,
-      "pricePerPiece": 1.1
-    },
-    {
-      "id": 8,
-      "category": "Бусины",
-      "name": "Бусины сердце метал",
-      "purchasePrice": 50,
-      "length": 0,
-      "diameter": 0,
-      "pricePerCm": 0,
-      "pricePerPiece": 50
-    },
-    {
-      "id": 9,
-      "category": "Бусины",
-      "name": "Бусина акрил (рандом)",
-      "purchasePrice": 5,
-      "length": 0,
-      "diameter": 0,
-      "pricePerCm": 0,
-      "pricePerPiece": 5
-    },
-    {
-      "id": 10,
-      "category": "Бусины",
-      "name": "Биконусы стекло",
-      "purchasePrice": 115,
-      "length": 30,
-      "diameter": 0.4,
-      "pricePerCm": 3.8333333333333335,
-      "pricePerPiece": 1.5333333333333334
-    },
-    {
-      "id": 11,
-      "category": "Бусины",
-      "name": "Бусины кошачий глаз 8мм",
-      "purchasePrice": 480,
-      "length": 39,
-      "diameter": 0.8,
-      "pricePerCm": 12.307692307692308,
-      "pricePerPiece": 9.846153846153847
-    },
-    {
       "id": 12,
       "category": "Камни",
       "name": "Аквамарин крошка",
@@ -1539,7 +1429,7 @@
       "purchasePrice": 180,
       "length": 700,
       "diameter": 0,
-      "pricePerCm": 0.3,
+      "pricePerCm": 0.2571428571428571,
       "pricePerPiece": 0
     },
     {
@@ -1750,7 +1640,7 @@
       "length": 0,
       "diameter": 0,
       "pricePerCm": 0,
-      "pricePerPiece": 0
+      "pricePerPiece": 180
     },
     {
       "id": 111,
@@ -1760,7 +1650,7 @@
       "length": 0,
       "diameter": 0,
       "pricePerCm": 0,
-      "pricePerPiece": 0
+      "pricePerPiece": 2
     },
     {
       "id": 112,
@@ -1770,7 +1660,7 @@
       "length": 0,
       "diameter": 0,
       "pricePerCm": 0,
-      "pricePerPiece": 0
+      "pricePerPiece": 40
     },
     {
       "id": 113,
@@ -1780,7 +1670,7 @@
       "length": 0,
       "diameter": 0,
       "pricePerCm": 0,
-      "pricePerPiece": 0
+      "pricePerPiece": 40
     },
     {
       "id": 114,
@@ -1789,8 +1679,118 @@
       "purchasePrice": 380,
       "length": 30,
       "diameter": 0.4,
-      "pricePerCm": 12.67,
-      "pricePerPiece": 5.07
+      "pricePerCm": 12.666666666666666,
+      "pricePerPiece": 5.066666666666666
+    },
+    {
+      "id": 1,
+      "category": "Бусины",
+      "name": "Бусины стекло 4мм",
+      "purchasePrice": 120,
+      "length": 35,
+      "diameter": 0.4,
+      "pricePerCm": 3.4285714285714284,
+      "pricePerPiece": 1.3714285714285714
+    },
+    {
+      "id": 2,
+      "category": "Бусины",
+      "name": "Бусины стекло 10мм",
+      "purchasePrice": 130,
+      "length": 40,
+      "diameter": 1,
+      "pricePerCm": 3.25,
+      "pricePerPiece": 3.25
+    },
+    {
+      "id": 11,
+      "category": "Бусины",
+      "name": "Бусины кошачий глаз 8мм",
+      "purchasePrice": 480,
+      "length": 39,
+      "diameter": 0.8,
+      "pricePerCm": 12.307692307692308,
+      "pricePerPiece": 9.846153846153847
+    },
+    {
+      "id": 3,
+      "category": "Бусины",
+      "name": "Бусины акрил (гран.)",
+      "purchasePrice": 200,
+      "length": 13.6,
+      "diameter": 0.4,
+      "pricePerCm": 14.705882352941178,
+      "pricePerPiece": 5.882352941176471
+    },
+    {
+      "id": 4,
+      "category": "Бусины",
+      "name": "Бусины пластик (бел.)",
+      "purchasePrice": 180,
+      "length": 40,
+      "diameter": 0.8,
+      "pricePerCm": 4.5,
+      "pricePerPiece": 3.6
+    },
+    {
+      "id": 5,
+      "category": "Бусины",
+      "name": "Ракушка",
+      "purchasePrice": 7,
+      "length": 1,
+      "diameter": 1,
+      "pricePerCm": 7,
+      "pricePerPiece": 7
+    },
+    {
+      "id": 6,
+      "category": "Бусины",
+      "name": "Бисер прозрачный с серебром (внутри)",
+      "purchasePrice": 300,
+      "length": 60,
+      "diameter": 0.4,
+      "pricePerCm": 5,
+      "pricePerPiece": 2
+    },
+    {
+      "id": 7,
+      "category": "Бусины",
+      "name": "Бусины кошачий глаз",
+      "purchasePrice": 110,
+      "length": 40,
+      "diameter": 0.4,
+      "pricePerCm": 2.75,
+      "pricePerPiece": 1.1
+    },
+    {
+      "id": 8,
+      "category": "Бусины",
+      "name": "Бусины сердце метал",
+      "purchasePrice": 50,
+      "length": 0,
+      "diameter": 0,
+      "pricePerCm": 0,
+      "pricePerPiece": 50
+    },
+    {
+      "id": 9,
+      "category": "Бусины",
+      "name": "Бусина акрил (рандом)",
+      "purchasePrice": 5,
+      "length": 0,
+      "diameter": 0,
+      "pricePerCm": 0,
+      "pricePerPiece": 5
+    },
+    {
+      "id": 10,
+      "category": "Бусины",
+      "name": "Биконусы стекло",
+      "purchasePrice": 115,
+      "length": 30,
+      "diameter": 0.4,
+      "pricePerCm": 3.8333333333333335,
+      "pricePerPiece": 1.5333333333333334
     }
   ],
   "categories": [
