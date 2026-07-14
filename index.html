@@ -61,11 +61,11 @@ tr:hover{background:rgba(123,104,174,0.05)}
 .btn-danger{background:var(--pink);color:#fff}
 .btn-outline{background:transparent;border:2px solid var(--accent);color:var(--accent)}
 .btn-sm{padding:6px 12px;font-size:12px;border-radius:8px}
-input,select,textarea{width:100%;padding:10px 14px;border:2px solid rgba(123,104,174,0.2);border-radius:10px;font-size:14px;font-family:inherit;transition:var(--transition);background:#fff;min-height:42px;box-sizing:border-box}
-select{padding-right:30px;appearance:auto;-webkit-appearance:auto}
+input,select,textarea{width:100%;padding:10px 14px;border:2px solid rgba(123,104,174,0.2);border-radius:10px;font-size:14px;font-family:inherit;transition:var(--transition);background:#fff;height:42px;box-sizing:border-box}
+select{padding-right:30px}
 input:focus,select:focus,textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(123,104,174,0.15)}
-label{display:block;font-size:13px;font-weight:500;color:#555;margin-bottom:4px}
-.form-group{margin-bottom:16px}
+label{display:block;font-size:13px;font-weight:500;color:#555;margin-bottom:6px}
+.form-group{margin-bottom:14px}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .modal-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(45,27,78,0.5);backdrop-filter:blur(4px);z-index:2000;display:none;align-items:center;justify-content:center}
 .modal-overlay.active{display:flex}
@@ -257,6 +257,7 @@ body.theme-liquid-glass .btn-outline:hover{background:rgba(91,127,255,0.12);bord
 body.theme-liquid-glass input,body.theme-liquid-glass select,body.theme-liquid-glass textarea{
 background:rgba(255,255,255,0.4);backdrop-filter:blur(12px);
 border:1px solid rgba(255,255,255,0.5);box-shadow:inset 0 1px 4px rgba(0,0,0,0.06);
+height:42px;box-sizing:border-box;
 }
 body.theme-liquid-glass input:focus,body.theme-liquid-glass select:focus,body.theme-liquid-glass textarea:focus{
 border-color:var(--accent);box-shadow:0 0 0 3px rgba(91,127,255,0.2),inset 0 1px 4px rgba(0,0,0,0.06);
@@ -348,6 +349,7 @@ body.theme-liquid-dark input,body.theme-liquid-dark select,body.theme-liquid-dar
 background:rgba(25,25,40,0.5);backdrop-filter:blur(12px);
 border:1px solid rgba(255,255,255,0.12);color:#E8EAED;
 box-shadow:inset 0 1px 4px rgba(0,0,0,0.25);
+height:42px;box-sizing:border-box;
 }
 body.theme-liquid-dark input:focus,body.theme-liquid-dark select:focus,body.theme-liquid-dark textarea:focus{
 border-color:var(--accent);box-shadow:0 0 0 3px rgba(123,159,255,0.2),inset 0 1px 4px rgba(0,0,0,0.25);
