@@ -1623,6 +1623,16 @@
       "pricePerPiece": 80
     },
     {
+      "id": 113,
+      "category": "Фурнитура",
+      "name": "Цепь удлиннитель (золото)",
+      "purchasePrice": 40,
+      "length": 0,
+      "diameter": 0,
+      "pricePerCm": 0,
+      "pricePerPiece": 40
+    },
+    {
       "id": 90,
       "category": "Фурнитура",
       "name": "Соединительные кольца(нерж)",
@@ -1781,16 +1791,6 @@
       "diameter": 0,
       "pricePerCm": 15,
       "pricePerPiece": 15
-    },
-    {
-      "id": 113,
-      "category": "Фурнитура",
-      "name": "Цепь удлиннитель (золото)",
-      "purchasePrice": 40,
-      "length": 0,
-      "diameter": 0,
-      "pricePerCm": 0,
-      "pricePerPiece": 40
     }
   ],
   "categories": [
