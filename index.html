@@ -120,7 +120,8 @@ label{display:block;font-size:13px;font-weight:500;color:#555;margin-bottom:4px}
 .scroll-top.top{bottom:30px}
 .scroll-top.bottom{bottom:90px}
 .bottom-nav{display:none}
-.assembly-materials{background:#f9f9f9;border-radius:12px;padding:12px;margin-bottom:12px;border:1px solid rgba(123,104,174,0.1)}
+.assembly-materials{background:rgba(123,104,174,0.04);border-radius:12px;padding:12px;margin-bottom:12px;border:1px solid rgba(123,104,174,0.1)}
+.assembly-material-form{background:rgba(123,104,174,0.04);border-radius:12px;padding:16px;margin-bottom:16px;border:1px solid rgba(123,104,174,0.1)}
 .assembly-material-item{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(0,0,0,0.05);font-size:13px}
 .assembly-material-item:last-child{border-bottom:none}
 .assembly-total{background:rgba(123,104,174,0.08);border-radius:12px;padding:16px;margin-top:16px}
@@ -267,6 +268,8 @@ body.theme-liquid-glass .search-toggle{background:rgba(255,255,255,0.35);border:
 body.theme-liquid-glass .scroll-top{background:linear-gradient(135deg,#5B7FFF,#7B5FFF)}
 body.theme-liquid-glass .top-block h3{border-bottom-color:rgba(91,127,255,0.4);color:var(--dark)}
 body.theme-liquid-glass .assembly-materials{background:rgba(255,255,255,0.3);border:1px solid rgba(255,255,255,0.35)}
+body.theme-liquid-glass .assembly-material-form{background:rgba(255,255,255,0.25);border:1px solid rgba(255,255,255,0.3)}
+body.theme-liquid-glass .assembly-material-item span{color:var(--text)}
 body.theme-liquid-glass .assembly-total{background:rgba(91,127,255,0.08)}
 body.theme-liquid-glass .assembly-total .row.total{border-top-color:var(--accent)}
 body.theme-liquid-glass .monthly-expenses{background:rgba(255,255,255,0.25);border:1px solid rgba(255,255,255,0.3)}
@@ -359,6 +362,7 @@ body.theme-liquid-dark .search-input.open{background:rgba(25,25,40,0.5);border-c
 body.theme-liquid-dark .scroll-top{background:linear-gradient(135deg,#5B7FFF,#7B5FFF)}
 body.theme-liquid-dark .top-block h3{border-bottom-color:rgba(123,159,255,0.35);color:var(--accent)}
 body.theme-liquid-dark .assembly-materials{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08)}
+body.theme-liquid-dark .assembly-material-form{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08)}
 body.theme-liquid-dark .assembly-total{background:rgba(123,159,255,0.08)}
 body.theme-liquid-dark .assembly-total .row.total{border-top-color:var(--accent)}
 body.theme-liquid-dark .monthly-expenses{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06)}
@@ -473,7 +477,7 @@ body.theme-liquid-dark .bottom-nav a.active{background:rgba(255,255,255,0.1);col
     <div class="modal" style="max-width:700px;margin:0 auto;position:relative">
       <div class="modal-header"><h2>Сборка нового украшения</h2><button class="modal-close" onclick="closeAssembly()">&times;</button></div>
       <div class="form-group"><label>Название украшения</label><input type="text" id="asmName" placeholder="Без названия"></div>
-      <div id="assemblyMaterialForm" style="background:#f9f9f9;border-radius:12px;padding:16px;margin-bottom:16px">
+      <div id="assemblyMaterialForm" class="assembly-material-form">
         <h4 style="margin-bottom:12px;font-size:14px">Добавить материал</h4>
         <div class="form-row">
           <div class="form-group"><label>Категория</label><select id="asmCategory" onchange="filterAsmMaterials()"><option value="">Выберите...</option></select></div>
@@ -689,7 +693,7 @@ renderDashboard();initGitHubSync();
 
 // PWA: Register service worker
 if('serviceWorker' in navigator){
-  var swCode='self.addEventListener("install",function(e){e.waitUntil(caches.open("businki-v7").then(function(cache){return cache.addAll(["./","./index.html"]).catch(function(){})}))});self.addEventListener("activate",function(e){e.waitUntil(caches.keys().then(function(names){return Promise.all(names.filter(function(n){return n.indexOf("businki-")===0&&n!=="businki-v7"}).map(function(n){return caches.delete(n)}))})});self.addEventListener("fetch",function(e){e.respondWith(caches.match(e.request).then(function(r){return r||fetch(e.request).then(function(resp){return caches.open("businki-v7").then(function(cache){cache.put(e.request,resp.clone());return resp})})}).catch(function(){return caches.match("./index.html")})})});';
+  var swCode='self.addEventListener("install",function(e){e.waitUntil(caches.open("businki-v8").then(function(cache){return cache.addAll(["./","./index.html"]).catch(function(){})}))});self.addEventListener("activate",function(e){e.waitUntil(caches.keys().then(function(names){return Promise.all(names.filter(function(n){return n.indexOf("businki-")===0&&n!=="businki-v8"}).map(function(n){return caches.delete(n)}))})});self.addEventListener("fetch",function(e){e.respondWith(caches.match(e.request).then(function(r){return r||fetch(e.request).then(function(resp){return caches.open("businki-v8").then(function(cache){cache.put(e.request,resp.clone());return resp})})}).catch(function(){return caches.match("./index.html")})})});';
   var swBlob=new Blob([swCode],{type:'application/javascript'});
   var swUrl=URL.createObjectURL(swBlob);
   navigator.serviceWorker.register(swUrl).catch(function(){});
