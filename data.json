@@ -1613,6 +1613,16 @@
       "pricePerPiece": 170
     },
     {
+      "id": 106,
+      "category": "Фурнитура",
+      "name": "Карабин с цепочк. Золото",
+      "purchasePrice": 80,
+      "length": 0,
+      "diameter": 0,
+      "pricePerCm": 0,
+      "pricePerPiece": 80
+    },
+    {
       "id": 90,
       "category": "Фурнитура",
       "name": "Соединительные кольца(нерж)",
@@ -1751,16 +1761,6 @@
       "diameter": 0,
       "pricePerCm": 0,
       "pricePerPiece": 10
-    },
-    {
-      "id": 106,
-      "category": "Фурнитура",
-      "name": "Карабин с цепочк. Золото",
-      "purchasePrice": 80,
-      "length": 0,
-      "diameter": 0,
-      "pricePerCm": 0,
-      "pricePerPiece": 80
     },
     {
       "id": 107,
