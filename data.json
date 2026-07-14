@@ -1603,6 +1603,16 @@
       "pricePerPiece": 40
     },
     {
+      "id": 103,
+      "category": "Фурнитура",
+      "name": "Замок кольцо золото",
+      "purchasePrice": 170,
+      "length": 0,
+      "diameter": 0,
+      "pricePerCm": 0,
+      "pricePerPiece": 170
+    },
+    {
       "id": 90,
       "category": "Фурнитура",
       "name": "Соединительные кольца(нерж)",
@@ -1721,16 +1731,6 @@
       "diameter": 0,
       "pricePerCm": 0,
       "pricePerPiece": 19
-    },
-    {
-      "id": 103,
-      "category": "Фурнитура",
-      "name": "Замок кольцо золото",
-      "purchasePrice": 170,
-      "length": 0,
-      "diameter": 0,
-      "pricePerCm": 0,
-      "pricePerPiece": 170
     },
     {
       "id": 104,
