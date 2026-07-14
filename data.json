@@ -1623,6 +1623,16 @@
       "pricePerPiece": 30
     },
     {
+      "id": 102,
+      "category": "Фурнитура",
+      "name": "Соединительные кольца",
+      "purchasePrice": 424,
+      "length": 360,
+      "diameter": 0.6,
+      "pricePerCm": 1.1777777777777778,
+      "pricePerPiece": 0.7066666666666667
+    },
+    {
       "id": 95,
       "category": "Фурнитура",
       "name": "Цепь сердечки",
@@ -1691,16 +1701,6 @@
       "diameter": 0,
       "pricePerCm": 0,
       "pricePerPiece": 19
-    },
-    {
-      "id": 102,
-      "category": "Фурнитура",
-      "name": "Соединительные кольца",
-      "purchasePrice": 424,
-      "length": 360,
-      "diameter": 0.6,
-      "pricePerCm": 1.1777777777777778,
-      "pricePerPiece": 0.7066666666666667
     },
     {
       "id": 103,
