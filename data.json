@@ -1563,6 +1563,16 @@
       "pricePerPiece": 0
     },
     {
+      "id": 92,
+      "category": "Фурнитура",
+      "name": "Каллот",
+      "purchasePrice": 300,
+      "length": 100,
+      "diameter": 1,
+      "pricePerCm": 3,
+      "pricePerPiece": 3
+    },
+    {
       "id": 91,
       "category": "Фурнитура",
       "name": "Кримп",
@@ -1573,14 +1583,14 @@
       "pricePerPiece": 1
     },
     {
-      "id": 92,
+      "id": 93,
       "category": "Фурнитура",
-      "name": "Каллот",
-      "purchasePrice": 300,
-      "length": 100,
-      "diameter": 1,
-      "pricePerCm": 3,
-      "pricePerPiece": 3
+      "name": "Замочек карабин",
+      "purchasePrice": 25,
+      "length": 0,
+      "diameter": 0,
+      "pricePerCm": 0,
+      "pricePerPiece": 25
     },
     {
       "id": 88,
@@ -1601,16 +1611,6 @@
       "diameter": 0,
       "pricePerCm": 0,
       "pricePerPiece": 2
-    },
-    {
-      "id": 93,
-      "category": "Фурнитура",
-      "name": "Замочек карабин",
-      "purchasePrice": 25,
-      "length": 0,
-      "diameter": 0,
-      "pricePerCm": 0,
-      "pricePerPiece": 25
     },
     {
       "id": 94,
