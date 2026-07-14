@@ -1583,6 +1583,16 @@
       "pricePerPiece": 15
     },
     {
+      "id": 105,
+      "category": "Фурнитура",
+      "name": "Каллот золото",
+      "purchasePrice": 10,
+      "length": 0,
+      "diameter": 0,
+      "pricePerCm": 0,
+      "pricePerPiece": 10
+    },
+    {
       "id": 91,
       "category": "Фурнитура",
       "name": "Кримп",
@@ -1621,16 +1631,6 @@
       "diameter": 0,
       "pricePerCm": 0,
       "pricePerPiece": 170
-    },
-    {
-      "id": 105,
-      "category": "Фурнитура",
-      "name": "Каллот золото",
-      "purchasePrice": 10,
-      "length": 0,
-      "diameter": 0,
-      "pricePerCm": 0,
-      "pricePerPiece": 10
     },
     {
       "id": 106,
@@ -1743,26 +1743,6 @@
       "pricePerPiece": 0
     },
     {
-      "id": 97,
-      "category": "Фурнитура",
-      "name": "Бусины разделители",
-      "purchasePrice": 250,
-      "length": 30,
-      "diameter": 0.3,
-      "pricePerCm": 8.333333333333334,
-      "pricePerPiece": 2.5
-    },
-    {
-      "id": 99,
-      "category": "Фурнитура",
-      "name": "Серьги конго 18мм",
-      "purchasePrice": 105,
-      "length": 0,
-      "diameter": 0,
-      "pricePerCm": 0,
-      "pricePerPiece": 105
-    },
-    {
       "id": 100,
       "category": "Фурнитура",
       "name": "Пин с шариком",
@@ -1781,6 +1761,26 @@
       "diameter": 0,
       "pricePerCm": 0,
       "pricePerPiece": 19
+    },
+    {
+      "id": 97,
+      "category": "Фурнитура",
+      "name": "Бусины разделители",
+      "purchasePrice": 250,
+      "length": 30,
+      "diameter": 0.3,
+      "pricePerCm": 8.333333333333334,
+      "pricePerPiece": 2.5
+    },
+    {
+      "id": 99,
+      "category": "Фурнитура",
+      "name": "Серьги конго 18мм",
+      "purchasePrice": 105,
+      "length": 0,
+      "diameter": 0,
+      "pricePerCm": 0,
+      "pricePerPiece": 105
     },
     {
       "id": 108,
