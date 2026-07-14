@@ -1573,6 +1573,16 @@
       "pricePerPiece": 3
     },
     {
+      "id": 107,
+      "category": "Фурнитура",
+      "name": "Каллот родий",
+      "purchasePrice": 15,
+      "length": 0,
+      "diameter": 0,
+      "pricePerCm": 0,
+      "pricePerPiece": 15
+    },
+    {
       "id": 91,
       "category": "Фурнитура",
       "name": "Кримп",
@@ -1613,14 +1623,14 @@
       "pricePerPiece": 170
     },
     {
-      "id": 107,
+      "id": 105,
       "category": "Фурнитура",
-      "name": "Каллот родий",
-      "purchasePrice": 15,
+      "name": "Каллот золото",
+      "purchasePrice": 10,
       "length": 0,
       "diameter": 0,
       "pricePerCm": 0,
-      "pricePerPiece": 15
+      "pricePerPiece": 10
     },
     {
       "id": 106,
@@ -1771,16 +1781,6 @@
       "diameter": 0,
       "pricePerCm": 0,
       "pricePerPiece": 19
-    },
-    {
-      "id": 105,
-      "category": "Фурнитура",
-      "name": "Каллот золото",
-      "purchasePrice": 10,
-      "length": 0,
-      "diameter": 0,
-      "pricePerCm": 0,
-      "pricePerPiece": 10
     },
     {
       "id": 108,
