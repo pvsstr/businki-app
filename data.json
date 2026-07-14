@@ -1563,26 +1563,6 @@
       "pricePerPiece": 0
     },
     {
-      "id": 88,
-      "category": "Фурнитура",
-      "name": "Цепь нержавейка",
-      "purchasePrice": 120,
-      "length": 100,
-      "diameter": 0,
-      "pricePerCm": 1.2,
-      "pricePerPiece": 0
-    },
-    {
-      "id": 90,
-      "category": "Фурнитура",
-      "name": "Соединительные кольца(нерж)",
-      "purchasePrice": 2,
-      "length": 0,
-      "diameter": 0,
-      "pricePerCm": 0,
-      "pricePerPiece": 2
-    },
-    {
       "id": 91,
       "category": "Фурнитура",
       "name": "Кримп",
@@ -1601,6 +1581,26 @@
       "diameter": 1,
       "pricePerCm": 3,
       "pricePerPiece": 3
+    },
+    {
+      "id": 88,
+      "category": "Фурнитура",
+      "name": "Цепь нержавейка",
+      "purchasePrice": 120,
+      "length": 100,
+      "diameter": 0,
+      "pricePerCm": 1.2,
+      "pricePerPiece": 0
+    },
+    {
+      "id": 90,
+      "category": "Фурнитура",
+      "name": "Соединительные кольца(нерж)",
+      "purchasePrice": 2,
+      "length": 0,
+      "diameter": 0,
+      "pricePerCm": 0,
+      "pricePerPiece": 2
     },
     {
       "id": 93,
