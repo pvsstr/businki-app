@@ -1693,6 +1693,16 @@
       "pricePerPiece": 2
     },
     {
+      "id": 108,
+      "category": "Фурнитура",
+      "name": "Кольцо соед. серце",
+      "purchasePrice": 15,
+      "length": 0,
+      "diameter": 0,
+      "pricePerCm": 15,
+      "pricePerPiece": 15
+    },
+    {
       "id": 94,
       "category": "Фурнитура",
       "name": "Удлинитель с сердечком",
@@ -1781,16 +1791,6 @@
       "diameter": 0,
       "pricePerCm": 0,
       "pricePerPiece": 105
-    },
-    {
-      "id": 108,
-      "category": "Фурнитура",
-      "name": "Кольцо соед. серце",
-      "purchasePrice": 15,
-      "length": 0,
-      "diameter": 0,
-      "pricePerCm": 15,
-      "pricePerPiece": 15
     }
   ],
   "categories": [
