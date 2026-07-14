@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BAWI</title>
-<meta name="theme-color" content="#7B68AE">
+<meta name="theme-color" content="#7B68AE" id="metaThemeColor">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="BAWI">
@@ -206,6 +206,191 @@ input,select,textarea{font-size:16px;padding:12px 14px;min-height:44px}
 h2{font-size:20px}
 }
 
+/* ===== LIQUID GLASS THEME ===== */
+body.theme-liquid-glass {
+--accent:#5B7FFF;--dark:#3D5AFE;--text:#1A1A2E;--card:rgba(255,255,255,0.55);
+--shadow:0 8px 32px rgba(91,127,255,0.15);--radius:20px;
+background:linear-gradient(135deg,rgba(200,210,255,0.6),rgba(180,200,255,0.6),rgba(220,200,255,0.6)),url("Бави.jpg") center/cover fixed;
+}
+body.theme-liquid-glass .sidebar{
+background:linear-gradient(180deg,rgba(255,255,255,0.25),rgba(255,255,255,0.15));
+backdrop-filter:blur(40px) saturate(180%);-webkit-backdrop-filter:blur(40px) saturate(180%);
+border-right:1px solid rgba(255,255,255,0.35);box-shadow:4px 0 32px rgba(91,127,255,0.1);
+}
+body.theme-liquid-glass .sidebar .logo{border-bottom-color:rgba(255,255,255,0.2)}
+body.theme-liquid-glass .sidebar nav a:hover,body.theme-liquid-glass .sidebar nav a.active{
+background:rgba(255,255,255,0.2);border-left-color:rgba(91,127,255,0.6);
+}
+body.theme-liquid-glass .metric-card,body.theme-liquid-glass .top-block,
+body.theme-liquid-glass .table-container,body.theme-liquid-glass .chart-container,
+body.theme-liquid-glass .jewelry-card,body.theme-liquid-glass .modal{
+background:rgba(255,255,255,0.5);backdrop-filter:blur(40px) saturate(180%);
+-webkit-backdrop-filter:blur(40px) saturate(180%);
+border:1px solid rgba(255,255,255,0.45);box-shadow:0 8px 32px rgba(91,127,255,0.1),inset 0 1px 0 rgba(255,255,255,0.5);
+}
+body.theme-liquid-glass .modal-overlay{background:rgba(91,127,255,0.15);backdrop-filter:blur(8px)}
+body.theme-liquid-glass .btn-primary{
+background:linear-gradient(135deg,#5B7FFF,#7B5FFF);color:#fff;
+box-shadow:0 4px 16px rgba(91,127,255,0.3);border:none;
+}
+body.theme-liquid-glass .btn-primary:hover{
+background:linear-gradient(135deg,#4A6EFF,#6A4EFF);
+box-shadow:0 6px 24px rgba(91,127,255,0.4);transform:translateY(-2px);
+}
+body.theme-liquid-glass .btn-success{
+background:linear-gradient(135deg,#34C759,#30B350);box-shadow:0 4px 16px rgba(52,199,89,0.25);
+}
+body.theme-liquid-glass .btn-danger{
+background:linear-gradient(135deg,#FF3B30,#E8352A);box-shadow:0 4px 16px rgba(255,59,48,0.25);
+}
+body.theme-liquid-glass .btn-outline{
+background:rgba(255,255,255,0.3);border:1px solid rgba(91,127,255,0.3);
+backdrop-filter:blur(10px);color:var(--dark);
+}
+body.theme-liquid-glass .btn-outline:hover{background:rgba(91,127,255,0.1);border-color:var(--accent)}
+body.theme-liquid-glass input,body.theme-liquid-glass select,body.theme-liquid-glass textarea{
+background:rgba(255,255,255,0.5);backdrop-filter:blur(10px);
+border:1px solid rgba(255,255,255,0.4);box-shadow:inset 0 1px 4px rgba(0,0,0,0.04);
+}
+body.theme-liquid-glass input:focus,body.theme-liquid-glass select:focus,body.theme-liquid-glass textarea:focus{
+border-color:var(--accent);box-shadow:0 0 0 3px rgba(91,127,255,0.15),inset 0 1px 4px rgba(0,0,0,0.04);
+}
+body.theme-liquid-glass th{background:rgba(91,127,255,0.08)}
+body.theme-liquid-glass tr:hover{background:rgba(91,127,255,0.04)}
+body.theme-liquid-glass .tab{background:rgba(255,255,255,0.3);border:1px solid rgba(255,255,255,0.3)}
+body.theme-liquid-glass .tab.active{background:linear-gradient(135deg,#5B7FFF,#7B5FFF);border-color:transparent}
+body.theme-liquid-glass .search-toggle{background:rgba(255,255,255,0.3);border:1px solid rgba(255,255,255,0.3)}
+body.theme-liquid-glass .scroll-top{background:linear-gradient(135deg,#5B7FFF,#7B5FFF)}
+body.theme-liquid-glass .top-block h3{border-bottom-color:rgba(91,127,255,0.3)}
+body.theme-liquid-glass .assembly-materials{background:rgba(255,255,255,0.3);border:1px solid rgba(255,255,255,0.3)}
+body.theme-liquid-glass .assembly-total{background:rgba(91,127,255,0.06)}
+body.theme-liquid-glass .assembly-total .row.total{border-top-color:var(--accent)}
+body.theme-liquid-glass .jewelry-photo-placeholder{
+background:linear-gradient(135deg,rgba(200,210,255,0.5),rgba(220,200,255,0.5));
+}
+body.theme-liquid-glass .status-sold{background:rgba(52,199,89,0.15)}
+body.theme-liquid-glass .status-stock{background:rgba(91,127,255,0.15)}
+body.theme-liquid-glass .status-repair{background:rgba(255,152,0,0.15)}
+body.theme-liquid-glass .status-reserved{background:rgba(233,30,99,0.15)}
+body.theme-liquid-glass .modal{border:1px solid rgba(255,255,255,0.4);box-shadow:0 20px 60px rgba(91,127,255,0.2)}
+body.theme-liquid-glass .photo-lightbox{background:rgba(0,0,0,0.85);backdrop-filter:blur(20px)}
+@media(max-width:768px){
+body.theme-liquid-glass .bottom-nav{
+background:linear-gradient(180deg,rgba(255,255,255,0.25),rgba(255,255,255,0.15));
+backdrop-filter:blur(40px) saturate(180%);-webkit-backdrop-filter:blur(40px) saturate(180%);
+border-top:1px solid rgba(255,255,255,0.35);box-shadow:0 -4px 32px rgba(91,127,255,0.1);
+}
+body.theme-liquid-glass .bottom-nav a.active{background:rgba(255,255,255,0.2)}
+}
+
+/* ===== LIQUID GLASS DARK THEME ===== */
+body.theme-liquid-dark {
+--accent:#7B9FFF;--dark:#A0BFFF;--text:#E8EAED;--card:rgba(30,30,45,0.55);
+--shadow:0 8px 32px rgba(0,0,0,0.3);--radius:20px;
+background:linear-gradient(135deg,rgba(20,20,35,0.95),rgba(25,25,45,0.95),rgba(15,15,30,0.95)),url("Бави.jpg") center/cover fixed;
+}
+body.theme-liquid-dark .sidebar{
+background:linear-gradient(180deg,rgba(40,40,60,0.6),rgba(30,30,50,0.6));
+backdrop-filter:blur(40px) saturate(150%);-webkit-backdrop-filter:blur(40px) saturate(150%);
+border-right:1px solid rgba(255,255,255,0.08);box-shadow:4px 0 32px rgba(0,0,0,0.3);
+}
+body.theme-liquid-dark .sidebar .logo{border-bottom-color:rgba(255,255,255,0.08)}
+body.theme-liquid-dark .sidebar .logo h1{color:#fff}
+body.theme-liquid-dark .sidebar .logo p{color:rgba(255,255,255,0.5)}
+body.theme-liquid-dark .sidebar nav a{color:rgba(255,255,255,0.6)}
+body.theme-liquid-dark .sidebar nav a:hover,body.theme-liquid-dark .sidebar nav a.active{
+background:rgba(255,255,255,0.08);color:#fff;border-left-color:rgba(123,159,255,0.6);
+}
+body.theme-liquid-dark .metric-card,body.theme-liquid-dark .top-block,
+body.theme-liquid-dark .table-container,body.theme-liquid-dark .chart-container,
+body.theme-liquid-dark .jewelry-card,body.theme-liquid-dark .modal{
+background:rgba(30,30,45,0.55);backdrop-filter:blur(40px) saturate(150%);
+-webkit-backdrop-filter:blur(40px) saturate(150%);
+border:1px solid rgba(255,255,255,0.08);box-shadow:0 8px 32px rgba(0,0,0,0.3),inset 0 1px 0 rgba(255,255,255,0.05);
+}
+body.theme-liquid-dark .modal-overlay{background:rgba(0,0,0,0.5);backdrop-filter:blur(8px)}
+body.theme-liquid-dark .btn-primary{
+background:linear-gradient(135deg,#5B7FFF,#7B5FFF);color:#fff;
+box-shadow:0 4px 16px rgba(91,127,255,0.25);border:none;
+}
+body.theme-liquid-dark .btn-primary:hover{
+background:linear-gradient(135deg,#6A8EFF,#8A6FFF);
+box-shadow:0 6px 24px rgba(91,127,255,0.35);transform:translateY(-2px);
+}
+body.theme-liquid-dark .btn-success{
+background:linear-gradient(135deg,#34C759,#30B350);box-shadow:0 4px 16px rgba(52,199,89,0.2);
+}
+body.theme-liquid-dark .btn-danger{
+background:linear-gradient(135deg,#FF453A,#E83A2F);box-shadow:0 4px 16px rgba(255,69,58,0.2);
+}
+body.theme-liquid-dark .btn-outline{
+background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);
+backdrop-filter:blur(10px);color:var(--accent);
+}
+body.theme-liquid-dark .btn-outline:hover{background:rgba(123,159,255,0.1);border-color:var(--accent)}
+body.theme-liquid-dark input,body.theme-liquid-dark select,body.theme-liquid-dark textarea{
+background:rgba(30,30,45,0.6);backdrop-filter:blur(10px);
+border:1px solid rgba(255,255,255,0.1);color:#E8EAED;
+box-shadow:inset 0 1px 4px rgba(0,0,0,0.2);
+}
+body.theme-liquid-dark input:focus,body.theme-liquid-dark select:focus,body.theme-liquid-dark textarea:focus{
+border-color:var(--accent);box-shadow:0 0 0 3px rgba(123,159,255,0.15),inset 0 1px 4px rgba(0,0,0,0.2);
+}
+body.theme-liquid-dark th{background:rgba(123,159,255,0.1);color:var(--accent)}
+body.theme-liquid-dark tr:hover{background:rgba(123,159,255,0.04)}
+body.theme-liquid-dark .top-block .item .name{color:rgba(255,255,255,0.7)}
+body.theme-liquid-dark .top-block .item .price{color:var(--accent)}
+body.theme-liquid-dark .tab{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);color:rgba(255,255,255,0.5)}
+body.theme-liquid-dark .tab.active{background:linear-gradient(135deg,#5B7FFF,#7B5FFF);border-color:transparent;color:#fff}
+body.theme-liquid-dark .search-toggle{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);color:rgba(255,255,255,0.6)}
+body.theme-liquid-dark .search-input.open{background:rgba(30,30,45,0.6);border-color:rgba(255,255,255,0.1);color:#E8EAED}
+body.theme-liquid-dark .scroll-top{background:linear-gradient(135deg,#5B7FFF,#7B5FFF)}
+body.theme-liquid-dark .top-block h3{border-bottom-color:rgba(123,159,255,0.3);color:var(--accent)}
+body.theme-liquid-dark .assembly-materials{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06)}
+body.theme-liquid-dark .assembly-total{background:rgba(123,159,255,0.06)}
+body.theme-liquid-dark .assembly-total .row.total{border-top-color:var(--accent)}
+body.theme-liquid-dark .jewelry-photo-placeholder{
+background:linear-gradient(135deg,rgba(40,40,60,0.5),rgba(50,50,70,0.5));color:rgba(255,255,255,0.3);
+}
+body.theme-liquid-dark .jewelry-title{color:#fff}
+body.theme-liquid-dark .jewelry-number{color:rgba(255,255,255,0.4)}
+body.theme-liquid-dark .jewelry-composition{color:rgba(255,255,255,0.6)}
+body.theme-liquid-dark .status-sold{background:rgba(52,199,89,0.15);color:#34C759}
+body.theme-liquid-dark .status-stock{background:rgba(91,127,255,0.15);color:#7B9FFF}
+body.theme-liquid-dark .status-repair{background:rgba(255,152,0,0.15);color:#FF9800}
+body.theme-liquid-dark .status-reserved{background:rgba(233,30,99,0.15);color:#FF2D55}
+body.theme-liquid-dark .modal{border:1px solid rgba(255,255,255,0.1);box-shadow:0 20px 60px rgba(0,0,0,0.4)}
+body.theme-liquid-dark .modal-close{color:rgba(255,255,255,0.4)}
+body.theme-liquid-dark .modal-close:hover{color:#fff}
+body.theme-liquid-dark .modal-header h2{color:#fff}
+body.theme-liquid-dark label{color:rgba(255,255,255,0.6)}
+body.theme-liquid-dark .metric-card .label{color:rgba(255,255,255,0.5)}
+body.theme-liquid-dark .metric-card .value{color:#fff}
+body.theme-liquid-dark .metric-card.green .value{color:#34C759}
+body.theme-liquid-dark .metric-card.blue .value{color:#7B9FFF}
+body.theme-liquid-dark .metric-card.orange .value{color:#FF9800}
+body.theme-liquid-dark .metric-card.pink .value{color:#FF2D55}
+body.theme-liquid-dark .photo-lightbox{background:rgba(0,0,0,0.9);backdrop-filter:blur(20px)}
+body.theme-liquid-dark .jewelry-feed .jewelry-card{border-color:rgba(255,255,255,0.06)}
+body.theme-liquid-dark .assembly-material-item span{color:rgba(255,255,255,0.7)}
+body.theme-liquid-dark .assembly-material-item{border-bottom-color:rgba(255,255,255,0.06)}
+body.theme-liquid-dark .chart-container h3{color:rgba(255,255,255,0.8)}
+body.theme-liquid-dark table{color:rgba(255,255,255,0.7)}
+body.theme-liquid-dark th{color:var(--accent)}
+body.theme-liquid-dark td{color:rgba(255,255,255,0.6)}
+body.theme-liquid-dark .pie-legend-item{color:rgba(255,255,255,0.6)}
+body.theme-liquid-dark .bar .bar-value{color:rgba(255,255,255,0.7)}
+body.theme-liquid-dark .bar .bar-label{color:rgba(255,255,255,0.4)}
+@media(max-width:768px){
+body.theme-liquid-dark .bottom-nav{
+background:linear-gradient(180deg,rgba(40,40,60,0.6),rgba(30,30,50,0.6));
+backdrop-filter:blur(40px) saturate(150%);-webkit-backdrop-filter:blur(40px) saturate(150%);
+border-top:1px solid rgba(255,255,255,0.08);box-shadow:0 -4px 32px rgba(0,0,0,0.3);
+}
+body.theme-liquid-dark .bottom-nav a{color:rgba(255,255,255,0.4)}
+body.theme-liquid-dark .bottom-nav a.active{background:rgba(255,255,255,0.08);color:#fff}
+}
+
 </style>
 </head>
 <body>
@@ -318,6 +503,13 @@ h2{font-size:20px}
     <div class="form-group"><label>Наценка Алёны (руб.)</label><input type="number" id="setAlena" step="1" min="0"></div>
     <div class="form-group"><label>Доп. расходы (руб.)</label><input type="number" id="setExtra" step="1" min="0"></div>
     <div class="form-group"><label>Скидка по умолчанию (%)</label><input type="number" id="setDiscount" step="1" min="0" max="100"></div>
+    <div class="form-group"><label>Вид дизайна</label>
+      <select id="setTheme" onchange="switchTheme(this.value)">
+        <option value="classic">Классический</option>
+        <option value="liquid-glass">Liquid Glass (светлая)</option>
+        <option value="liquid-dark">Liquid Glass (тёмная)</option>
+      </select>
+    </div>
     <div style="display:flex;gap:8px;margin-top:20px;flex-wrap:wrap">
       <button class="btn btn-primary" onclick="saveSettings()">&#128190; Сохранить</button>
       <button class="btn btn-success" onclick="exportData()">&#128229; Экспорт данных</button>
@@ -347,6 +539,8 @@ h2{font-size:20px}
 </div>
 
 <script>
+// Apply saved theme immediately
+(function(){var t=localStorage.getItem('bawi_theme')||'classic';if(t!=='classic'){document.body.className='theme-'+t;var mc=document.getElementById('metaThemeColor');if(t==='liquid-glass')mc.content='#5B7FFF';else if(t==='liquid-dark')mc.content='#1A1A2E'}})();
 const PRELOADED={"jewelry": [{"id": 1, "name": "Одиночное с цветочком", "photo": null, "status": "Продан", "composition": "Бисер прозрачный с серебром (внутри) – 7 шт\nАмазонит 4мм – 51 шт\nРозовый кварц 6мм – 8 шт\nЦветочек керамика – 1 шт\nЖемчуг барокко овал – 1 шт\nСердечко перламутр (мал.) – 3 шт\nЦепь нержавейка  – 3,5 см\nТросик – 21 см\nКримп – 2 шт\nКаллот – 2 шт\nЗамочек карабин – 1 шт\nСоединительные кольца – 2 шт", "cost": 469.45, "complexity": 0, "createdAt": "2026-07-10"}, {"id": 2, "name": "Морское с ракушками", "photo": null, "status": "Продан", "composition": "Бусины стекло 4мм – 72 шт\nРакушка – 5 шт\nАквамарин крошка – 10 см\nПерламутр рис  – 15 шт\nКапля чешское стекло – 1 шт\nЦепь нержавейка  – 3 см\nТросик – 40 см\nКримп – 2 шт\nКаллот – 2 шт\nЗамочек карабин – 1 шт\nСоединительные кольца – 2 шт", "cost": 384.74, "complexity": 0, "createdAt": "2026-07-10"}, {"id": 3, "name": "Аквамарин со звездочками", "photo": null, "status": "Продан", "composition": "Бусины стекло 4мм – 20 шт\nАквамарин крошка – 28,1 см\nЗвездочка акрил – 8 шт\nМорск.звезда (с жемч.) – 1 шт\nЦепь нержавейка  – 24 см\nТросик – 38,5 см\nКримп – 2 шт\nКаллот – 2 шт\nЗамочек карабин – 1 шт\nСоединительные кольца – 2 шт", "cost": 475.76, "complexity": 0, "createdAt": "2026-07-10"}, {"id": 4, "name": "Одиночное бел.-фиол.", "photo": null, "status": "Продан", "composition": "Бусины стекло 4мм – 13 шт\nЖемчуг акрил(мал.) – 68 шт\nБабочка акрил – 1 шт\nЗвёздочка чешское стекло – 4 шт\nЦепь нержавейка  – 4 см\nТросик – 31,5 см\nКримп – 2 шт\nКаллот – 2 шт\nЗамочек карабин – 1 шт\nСоединительные кольца – 2 шт", "cost": 155.62, "complexity": 0, "createdAt": "2026-07-10"}, {"id": 5, "name": "Аквамарин с р.кварц. И цветком", "photo": null, "status": "В наличии", "composition": "Аквамарин крошка – 15,6 см\nРозовый кварц 6мм – 12 шт\nГематит круглый (сред.) – 4 шт\nЦветочек керамика – 1 шт\nЖемчуг барокко овал – 1 шт\nЖемчуг акрил – 4 шт\nЦепь нержавейка  – 3,8 см\nТросик – 34 см\nКримп – 2 шт\nКаллот – 2 шт\nЗамочек карабин – 1 шт\nБусины разделители – 19 шт\nСоединительные кольца – 2 шт", "cost": 405.58, "complexity": 0, "createdAt": "2026-07-10"}, {"id": 6, "name": "Самое первое", "photo": null, "status": "В ремонте", "composition": "Бусины стекло 4мм – 18 шт\nБисер прозрачный с серебром (внутри) – 9 шт\nБусина акрил (рандом) – 11 шт\nАквамарин крошка – 4,1 см\nАмазонит 4мм – 6 шт\nПерламутр рис  – 10 шт\nКапля чешское стекло – 2 шт\nМорск.звезда (с жемч.) – 1 шт\nЦепь нержавейка  – 3,5 см\nТросик – 36 см\nКримп – 2 шт\nКаллот – 2 шт\nЗамочек карабин – 1 шт\nСоединительные кольца – 2 шт", "cost": 363.48, "complexity": 0, "createdAt": "2026-07-10"}, {"id": 7, "name": "Браслет р.кварц с серд.", "photo": null, "status": "В ремонте", "composition": "Бусины стекло 4мм – 21 шт\nСердечко камень – 3 шт\nРозовый кварц 6мм – 13 шт\nЦепь нержавейка  – 1 см\nТросик – 15 см\nКримп – 2 шт\nКаллот – 2 шт\nЗамочек карабин – 1 шт\nСоединительные кольца – 2 шт", "cost": 192.91, "complexity": 0, "createdAt": "2026-07-10"}, {"id": 8, "name": "Двойное р.кварц с гематит", "photo": null, "status": "В ремонте", "composition": "Бусины стекло 4мм – 68 шт\nБисер прозрачный с серебром (внутри) – 33 шт\nРозовый кварц 6мм – 37 шт\nГематит крошка – 4,7 см\nСердечко перламутр (мал.) – 3 шт\nСердечко перламутр (бол.) – 1 шт\nЦепь нержавейка  – 3,5 см\nТросик – 68 см\nКримп – 4 шт\nКаллот – 4 шт\nЗамочек карабин – 2 шт\nБусины разделители – 11 шт\nСоединительные кольца – 2 шт", "cost": 610.57, "complexity": 0, "createdAt": "2026-07-10"}, {"id": 9, "name": "Тройное аквамарин жемчуг", "photo": null, "status": "Продан", "composition": "Бисер прозрачный с серебром (внутри) – 33,5 см\nБусины сердце метал – 3 шт\nАквамарин крошка – 10 см\nГематит шайбы (мал) – 39 шт\nЖемчуг акрил – 40 шт\nПерламутр рис  – 27 шт\nСердце (плохое) – 1 шт\nЦепь нержавейка  – 42 см\nТросик – 102 см\nКримп – 6 шт\nКаллот – 6 шт\nЗамочек карабин – 1 шт\nСоединительные кольца – 3 шт", "cost": 951.49, "complexity": 0, "createdAt": "2026-07-10"}, {"id": 10, "name": "Браслет аквамарин жемчуг", "photo": null, "status": "Продан", "composition": "Бисер прозрачный с серебром (внутри) – 15,5 см\nАквамарин крошка – 5,5 см\nЖемчуг акрил – 3 шт\nПерламутр рис  – 9 шт\nЦепь нержавейка  – 1,5 см\nТросик – 16 см\nКримп – 4 шт\nКаллот – 4 шт\nЗамочек карабин – 1 шт\nСоединительные кольца – 3 шт", "cost": 248.87, "complexity": 0, "createdAt": "2026-07-10"}, {"id": 11, "name": "Хрусталь гематит", "photo": null, "status": "В ремонте", "composition": "Гематит круглый (сред.) – 14 шт\nГематит круглый (бол.) – 12 шт\nГорный хрусталь необраб. – 18 шт\nСтолбик металл (тонк) – 3 шт\nГорный хрусталь – 1 шт\nЦепь нержавейка  – 55,4 шт\nТросик – 35,5 шт\nКримп – 2 шт\nКаллот – 2 шт\nЗамочек карабин – 1 шт\nСоединительные кольца – 5 шт", "cost": 861.95, "complexity": 0, "createdAt": "2026-07-10"}, {"id": 12, "name": "Браслет двойной гематит", "photo": null, "status": "В ремонте", "composition": "Бисер прозрачный с серебром (внутри) – 18 шт\nГематит крошка – 7,5 см\nГематит круглый (сред.) – 15 шт\nЖемчуг акрил – 5 шт\nЗвездочка акрил – 1 шт\nКулон Звезда (мал) – 1 шт\nЦепь нержавейка  – 3 см\nТросик – 30 см\nКримп – 4 шт\nКаллот – 4 шт\nЗамочек карабин – 1 шт\nБусины разделители – 5 шт", "cost": 271.3, "complexity": 0, "createdAt": "2026-07-10"}, {"id": 13, "name": "Тройной гематит", "photo": null, "status": "В ремонте", "composition": "Гематит крошка – 22 см\nГематит круглый (мал.) – 39 см\nЖемчуг акрил – 5 шт\nПерламутр рис  – 17 шт\nЗвездочка акрил – 1 шт\nКулон Звезда (мал) – 3 шт\nКулон шип (мал) – 2 шт\nКрест – 1 шт\nЦепь нержавейка  – 26 см\nТросик – 75 см\nКримп – 6 шт\nКаллот – 6 шт\nЗамочек карабин – 1 шт\nБусины разделители – 20 шт\nСоединительные кольца – 2 шт", "cost": 872.17, "complexity": 0, "createdAt": "2026-07-10"}, {"id": 14, "name": "Тройное розовое", "photo": null, "status": "В наличии", "composition": "Бусины акрил (гран.) – 20 шт\nБусины кошачий глаз 8мм – 25 шт\nАдуляр(лун.камень) 1,8мм – 38 см\nРозовый кварц сердце – 3 шт\nРозовый кварц 6мм – 34 шт\nГематит шайбы (мал) – 23 шт\nПерламутр капли 1,2см – 13 шт\nКулон камень сердце – 1 шт\nЦепь нержавейка  – 5 см\nТросик – 111 см\nСоединительные кольца(нерж) – 4 шт\nКримп – 6 шт\nКаллот – 6 шт\nЗамочек карабин – 1 шт\nБусины разделители – 6 шт", "cost": 1563.78, "complexity": 0, "createdAt": "2026-07-10"}, {"id": 15, "name": "Серьги с кварцем сердечки", "photo": null, "status": "Нет данных", "composition": "Адуляр(лун.камень) 1,8мм – 1 шт\nРозовый кварц сердце – 1 шт\nРозовый кварц тонир. 8мм – 1 шт\nРозовый кварц 6мм – 1 шт\nСердце (плохое) – 1 шт\nЦепь нержавейка  – 3,5 см\nСоединительные кольца(нерж) – 2 шт\nБусины разделители – 1 шт\nСерьги конго 18мм – 1 шт\nПин с шариком – 3 шт\nСоединительные кольца – 1 шт", "cost": 228.11, "complexity": 0, "createdAt": "2026-07-10"}, {"id": 16, "name": "Гематит кремний хрусталь", "photo": null, "status": "Продан", "composition": "Бусины стекло 4мм – 131 шт\nКремний моно.Гран.(ЗЕЛ) – 97,5 шт\nГематит круглый (сред.) – 62 шт\nГематит сердечко(мал) – 5 шт\nГорный хрусталь необраб. – 2 шт\nКулон шип (мал) – 1 шт\nКулон камень сердце – 1 шт\nЦепь нержавейка  – 81,4 см\nТросик – 111 см\nСоединительные кольца(нерж) – 13 шт\nКримп – 6 шт\nКаллот – 6 шт\nЗамочек карабин – 1 шт", "cost": 1591.11, "complexity": 0, "createdAt": "2026-07-10"}, {"id": 17, "name": "Тройное аквамарин жемчуг (ПОВТОР)", "photo": null, "status": "Продан", "composition": "", "cost": 951.49, "complexity": 0, "createdAt": "2026-07-10"}, {"id": 18, "name": "Конфетка", "photo": null, "status": "Продан", "composition": "Халцедон плюшка(конфета) – 73 шт\nТросик – 37 см\nСоединительные кольца(нерж) – 2 шт\nКримп – 2 шт\nКаллот – 2 шт\nЗамочек карабин – 1 шт\nУдлинитель с сердечком – 1 шт", "cost": 414.28, "complexity": 0, "createdAt": "2026-07-10"}, {"id": 19, "name": "Перламутр с бантиком", "photo": null, "status": "Продан", "composition": "Перламутр трубочка – 22 шт\nБантик (тонк) – 1 шт\nТросик – 35 см\nСоединительные кольца(нерж) – 3 шт\nКримп – 2 шт\nКаллот – 2 шт\nЗамочек карабин – 1 шт\nУдлинитель с сердечком – 1 шт\nБусины разделители – 20 шт", "cost": 384.86, "complexity": 0, "createdAt": "2026-07-10"}, {"id": 20, "name": "Тюльпаны с перламутром", "photo": null, "status": "Продан", "composition": "Перламутр рис  – 34 шт\nТюльпанчики – 6 шт\nТросик – 35 см\nСоединительные кольца(нерж) – 2 шт\nКримп – 2 шт\nКаллот – 2 шт\nЗамочек карабин – 1 шт\nУдлинитель с сердечком – 1 шт", "cost": 360.15, "complexity": 0, "createdAt": "2026-07-10"}, {"id": 21, "name": "Цепь с солнцем", "photo": null, "status": "Продан", "composition": "Солнце (бол) – 1 шт\nСоединительные кольца(нерж) – 3 шт\nЗамочек карабин – 1 шт\nУдлинитель с сердечком – 1 шт\nЦепь овал – 48 см", "cost": 278.2, "complexity": 0, "createdAt": "2026-07-10"}, {"id": 22, "name": "Серьги с солнышками", "photo": null, "status": "Продан", "composition": "Солнце (сред) – 2 шт\nСоединительные кольца(нерж) – 2 шт\nСерьги конго 18мм – 1 шт", "cost": 349.0, "complexity": 0, "createdAt": "2026-07-10"}, {"id": 23, "name": "Хрусталь с тюльпанчиками", "photo": null, "status": "В наличии", "composition": "Горный хрусталь плюшка – 39 см\nТюльпанчики – 5 шт\nТросик – 38,5 см\nСоединительные кольца(нерж) – 2 шт\nКримп – 2 шт\nКаллот – 2 шт\nЗамочек карабин – 1 шт\nУдлинитель с сердечком – 1 шт\nПин гвоздик – 5 шт", "cost": 611.1, "complexity": 0, "createdAt": "2026-07-10"}, {"id": 24, "name": "Майорка красная", "photo": null, "status": "В наличии", "composition": "Майорка плюшка(красн) – 39,4 см\nТросик – 36 см\nСоединительные кольца(нерж) – 2 шт\nКримп – 2 шт\nКаллот – 2 шт\nЗамочек карабин – 1 шт\nУдлинитель с сердечком – 1 шт", "cost": 257.8, "complexity": 0, "createdAt": "2026-07-10"}, {"id": 25, "name": "Разноцветный тон. Кварц", "photo": null, "status": "Продан", "composition": "Биконусы стекло – 13 шт\nКварц тон. разноцвет. 7мм – 36 шт\nТросик – 35 см\nСоединительные кольца(нерж) – 2 шт\nКримп – 2 шт\nКаллот – 2 шт\nЗамочек карабин – 1 шт\nУдлинитель с сердечком – 1 шт", "cost": 392.08, "complexity": 0, "createdAt": "2026-07-10"}, {"id": 26, "name": "Разноцветный тон. Кварц (ПОВТОР)", "photo": null, "status": "Продан", "composition": "Биконусы стекло – 13 шт\nКварц тон. разноцвет. 7мм – 36 шт\nТросик – 35 см\nСоединительные кольца(нерж) – 2 шт\nКримп – 2 шт\nКаллот – 2 шт\nЗамочек карабин – 1 шт\nУдлинитель с сердечком – 1 шт", "cost": 392.08, "complexity": 0, "createdAt": "2026-07-10"}, {"id": 27, "name": "Цепь с сердечком", "photo": null, "status": "Продан", "composition": "Кулон камень сердце – 1 шт\nСоединительные кольца(нерж) – 2 шт\nЗамочек карабин – 1 шт\nУдлинитель с сердечком – 1 шт\nЦепь овал – 50 см", "cost": 244.0, "complexity": 0, "createdAt": "2026-07-10"}, {"id": 28, "name": "Цепь с сердечком (ПОВТОР)", "photo": null, "status": "Продан", "composition": "Кулон камень сердце – 1 шт\nСоединительные кольца(нерж) – 2 шт\nЗамочек карабин – 1 шт\nУдлинитель с сердечком – 1 шт\nЦепь овал – 50 см", "cost": 244.0, "complexity": 0, "createdAt": "2026-07-10"}, {"id": 29, "name": "Сердце керамика", "photo": null, "status": "Продан", "composition": "Кварц тиффани – 20 шт\nСердечко керамика (бол) – 19 шт\nТросик – 39 см\nСоединительные кольца(нерж) – 2 шт\nКримп – 2 шт\nКаллот – 2 шт\nЗамочек карабин – 1 шт\nУдлинитель с сердечком – 1 шт", "cost": 438.46, "complexity": 0, "createdAt": "2026-07-10"}, {"id": 30, "name": "Сердце керамика (роз)", "photo": null, "status": "В наличии", "composition": "Розовый кварц 6мм – 20 шт\nСердечко керамика (бол) – 19 шт\nТросик – 36 см\nСоединительные кольца(нерж) – 2 шт\nКримп – 2 шт\nКаллот – 2 шт\nЗамочек карабин – 1 шт\nУдлинитель с сердечком – 1 шт", "cost": 395.49, "complexity": 0, "createdAt": "2026-07-10"}, {"id": 31, "name": "Яшма с сердечками", "photo": null, "status": "В наличии", "composition": "Амазонит 4мм – 1 шт\nЯшма далматин 6мм – 50 шт\nСердечко керамика (мал) – 2 шт\nТросик – 36 шт\nСоединительные кольца(нерж) – 2 шт\nКримп – 2 шт\nКаллот – 2 шт\nЗамочек карабин – 1 шт\nУдлинитель с сердечком – 1 шт", "cost": 410.59, "complexity": 0, "createdAt": "2026-07-10"}, {"id": 32, "name": "Хрусталь цветочек", "photo": null, "status": "В наличии", "composition": "Бусины стекло 10мм – 20 см\nКерамика цветочек (бол) – 1 шт\nГорный хрусталь крошка – 38 см\nТросик – 76 см\nСоединительные кольца(нерж) – 2 шт\nКримп – 2 шт\nКаллот – 2 шт\nЗамочек карабин – 1 шт\nУдлинитель с сердечком – 1 шт\nБусины разделители – 2 шт", "cost": 349.25, "complexity": 0, "createdAt": "2026-07-10"}, {"id": 33, "name": "Нефрит хрусталь сердце", "photo": null, "status": "В наличии", "composition": "Нефрит 8мм – 19 шт\nСердечко керамика (бол) – 1 шт\nГорный хрусталь крошка – 15,5 см\nТросик – 37 шт\nСоединительные кольца(нерж) – 2 шт\nКримп – 2 шт\nКаллот – 2 шт\nЗамочек карабин – 1 шт\nУдлинитель с сердечком – 1 шт\nБусины разделители – 18 шт", "cost": 336.18, "complexity": 0, "createdAt": "2026-07-10"}, {"id": 34, "name": "Голубой оникс с сердечками", "photo": null, "status": "В наличии", "composition": "Оникс тонированный – 36 шт\nСердечко керамика (мал) – 5 шт\nТросик – 37 см\nСоединительные кольца(нерж) – 2 шт\nКримп – 2 шт\nКаллот – 2 шт\nЗамочек карабин – 1 шт\nУдлинитель с сердечком – 1 шт\nБусины разделители – 10 шт", "cost": 522.05, "complexity": 0, "createdAt": "2026-07-10"}, {"id": 35, "name": "Браслет из оникса с сердечком", "photo": null, "status": "Нет данных", "composition": "Оникс тонированный – 16 шт\nСердечко керамика (мал) – 1 шт\nТросик – 18 см\nСоединительные кольца(нерж) – 2 шт\nКримп – 2 шт\nКаллот – 2 шт\nЗамочек карабин – 1 шт\nУдлинитель с сердечком – 1 шт\nБусины разделители – 2 шт", "cost": 253.82, "complexity": 0, "createdAt": "2026-07-10"}]};﻿const DEFAULT_DATA={jewelry:[],materials:[],categories:['Бусины','Камни','Кварц','Гематит','Керамика','Перламутр','Жемчуг','Акрил','Хрусталь','Стекло','Подвески','Фурнитура'],sales:[],receipts:[],settings:{markupCoefficient:2,alenaMarkup:300,additionalCosts:0,defaultDiscount:0}};
 let DATA=JSON.parse(localStorage.getItem('businki_data'));
 if(!DATA||!DATA.jewelry||DATA.jewelry.length===0){DATA=JSON.parse(JSON.stringify(PRELOADED));localStorage.setItem('businki_data',JSON.stringify(DATA))}
@@ -451,7 +645,8 @@ function renderSales(){const totalRevenue=DATA.sales.reduce((s,i)=>s+(i.actualPr
 function openAddSale(){const available=DATA.jewelry.filter(i=>i.status!=='\u041F\u0440\u043E\u0434\u0430\u043D\u043E'&&i.status!=='\u041F\u0440\u043E\u0434\u0430\u043D');if(!available.length){alert('\u041D\u0435\u0442 \u0443\u043A\u0440\u0430\u0448\u0435\u043D\u0438\u0439 \u0432 \u043D\u0430\u043B\u0438\u0447\u0438\u0438 \u0434\u043B\u044F \u043F\u0440\u043E\u0434\u0430\u0436\u0438');return}openModal(`<div class="modal-header"><h2>\u041D\u043E\u0432\u0430\u044F \u043F\u0440\u043E\u0434\u0430\u0436\u0430</h2><button class="modal-close" onclick="closeModal()">&times;</button></div><div class="form-group"><label>\u0423\u043A\u0440\u0430\u0448\u0435\u043D\u0438\u0435</label><select id="saleItem" onchange="updateSaleInfo()">${available.map(j=>`<option value="${j.id}">\u2116${j.id} ${esc(j.name)} (${fmt(calcJewelryPrices(j).price)})</option>`).join('')}</select></div><div id="saleInfo" style="font-size:13px;color:#888;margin-bottom:12px"></div><div class="form-group"><label>\u0414\u0430\u0442\u0430</label><input type="date" id="saleDate2" value="${new Date().toISOString().split('T')[0]}"></div><div class="form-group"><label>\u0424\u0430\u043A\u0442. \u0446\u0435\u043D\u0430</label><input type="number" id="salePrice2" step="1"></div><div class="form-group"><label>\u041F\u043E\u043A\u0443\u043F\u0430\u0442\u0435\u043B\u044C</label><input type="text" id="saleBuyer2" placeholder="\u0418\u043C\u044F \u043F\u043E\u043A\u0443\u043F\u0430\u0442\u0435\u043B\u044F"></div><button class="btn btn-success" onclick="confirmNewSale()">\u041E\u0444\u043E\u0440\u043C\u0438\u0442\u044C \u043F\u0440\u043E\u0434\u0430\u0436\u0443</button>`);updateSaleInfo()}
 function updateSaleInfo(){const id=parseInt(document.getElementById('saleItem').value);const j=DATA.jewelry.find(x=>x.id===id);if(!j)return;const p=calcJewelryPrices(j);document.getElementById('salePrice2').value=Math.round(p.price);document.getElementById('saleInfo').innerHTML=`\u0421\u0435\u0431\u0435\u0441\u0442\u043E\u0438\u043C\u043E\u0441\u0442\u044C: ${fmt(p.cost)} | \u0426\u0435\u043D\u0430 \u0410\u043B\u0451\u043D\u044B: ${fmt(p.price)}`}
 function confirmNewSale(){const id=parseInt(document.getElementById('saleItem').value);const j=DATA.jewelry.find(x=>x.id===id);if(!j)return;j.status='\u041F\u0440\u043E\u0434\u0430\u043D\u043E';DATA.sales.push({id:genId(DATA.sales),date:document.getElementById('saleDate2').value,jewelryId:id,actualPrice:parseFloat(document.getElementById('salePrice2').value)||0,cost:j.cost||0,buyer:document.getElementById('saleBuyer2').value});save();closeModal();renderSales()}
-function loadSettings(){document.getElementById('setMarkup').value=DATA.settings.markupCoefficient;document.getElementById('setAlena').value=DATA.settings.alenaMarkup;document.getElementById('setExtra').value=DATA.settings.additionalCosts;document.getElementById('setDiscount').value=DATA.settings.defaultDiscount;loadGitHubSettings()}
+function loadSettings(){document.getElementById('setMarkup').value=DATA.settings.markupCoefficient;document.getElementById('setAlena').value=DATA.settings.alenaMarkup;document.getElementById('setExtra').value=DATA.settings.additionalCosts;document.getElementById('setDiscount').value=DATA.settings.defaultDiscount;var savedTheme=localStorage.getItem('bawi_theme')||'classic';document.getElementById('setTheme').value=savedTheme;loadGitHubSettings()}
+function switchTheme(theme){document.body.className='';if(theme!=='classic')document.body.classList.add('theme-'+theme);localStorage.setItem('bawi_theme',theme);var mc=document.getElementById('metaThemeColor');if(theme==='liquid-glass')mc.content='#5B7FFF';else if(theme==='liquid-dark')mc.content='#1A1A2E';else mc.content='#7B68AE'}
 function saveSettings(){openModal(`<div class="confirm-dialog"><div class="icon">\u26A0\uFE0F</div><div class="text">\u0421\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u044C \u043D\u043E\u0432\u044B\u0435 \u043D\u0430\u0441\u0442\u0440\u043E\u0439\u043A\u0438?</div><div class="buttons"><button class="btn btn-primary" onclick="confirmSaveSettings()">\u0421\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u044C</button><button class="btn btn-outline" onclick="closeModal()">\u041E\u0442\u043C\u0435\u043D\u0430</button></div></div>`)}
 function confirmSaveSettings(){DATA.settings.markupCoefficient=parseFloat(document.getElementById('setMarkup').value)||2;DATA.settings.alenaMarkup=parseFloat(document.getElementById('setAlena').value)||300;DATA.settings.additionalCosts=parseFloat(document.getElementById('setExtra').value)||0;DATA.settings.defaultDiscount=parseFloat(document.getElementById('setDiscount').value)||0;save();closeModal();alert('\u041D\u0430\u0441\u0442\u0440\u043E\u0439\u043A\u0438 \u0441\u043E\u0445\u0440\u0430\u043D\u0435\u043D\u044B!')}
 function exportData(){const blob=new Blob([JSON.stringify(DATA,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='businki_data_'+new Date().toISOString().split('T')[0]+'.json';a.click()}
