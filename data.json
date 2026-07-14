@@ -1633,6 +1633,16 @@
       "pricePerPiece": 0.7066666666666667
     },
     {
+      "id": 111,
+      "category": "Фурнитура",
+      "name": "Соед. кольцо (золото)",
+      "purchasePrice": 2,
+      "length": 0,
+      "diameter": 0,
+      "pricePerCm": 0,
+      "pricePerPiece": 2
+    },
+    {
       "id": 95,
       "category": "Фурнитура",
       "name": "Цепь сердечки",
@@ -1761,16 +1771,6 @@
       "diameter": 0,
       "pricePerCm": 15,
       "pricePerPiece": 15
-    },
-    {
-      "id": 111,
-      "category": "Фурнитура",
-      "name": "Соед. кольцо (золото)",
-      "purchasePrice": 2,
-      "length": 0,
-      "diameter": 0,
-      "pricePerCm": 0,
-      "pricePerPiece": 2
     },
     {
       "id": 112,
