@@ -73,7 +73,7 @@ label{display:block;font-size:13px;font-weight:500;color:#555;margin-bottom:6px}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .modal-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(45,27,78,0.5);backdrop-filter:blur(4px);z-index:2000;display:none;align-items:center;justify-content:center}
 .modal-overlay.active{display:flex}
-.modal{background:#fff;border-radius:var(--radius);padding:28px;max-width:600px;width:90%;max-height:calc(var(--vh,85vh)*0.92);overflow-y:auto;box-shadow:0 20px 60px rgba(45,27,78,0.3);animation:slideUp 0.3s ease}
+.modal{background:#fff;border-radius:var(--radius);padding:28px;max-width:600px;width:90%;max-height:85vh;overflow-y:auto;box-shadow:0 20px 60px rgba(45,27,78,0.3);animation:slideUp 0.3s ease}
 @keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 .modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
 .modal-header h2{font-size:18px;color:var(--dark)}
@@ -196,7 +196,7 @@ input,select,textarea{font-size:16px;padding:12px 14px;min-height:44px}
 .form-group{margin-bottom:12px}
 /* Modals — fullscreen on mobile */
 .modal-overlay{align-items:flex-end}
-.modal{width:100%;max-width:100%;max-height:calc(var(--vh,92vh)*0.95);border-radius:16px 16px 0 0;padding:20px 16px}
+.modal{width:100%;max-width:100%;max-height:90vh;border-radius:16px 16px 0 0;padding:20px 16px;padding-bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 .modal-header{flex-wrap:wrap;gap:8px}
 .modal-header h2{font-size:16px}
 /* Assembly */
@@ -219,7 +219,6 @@ input,select,textarea{font-size:16px;padding:12px 14px;min-height:44px}
 /* Prevent text selection on UI elements */
 .bottom-nav,.sidebar,.tabs{user-select:none;-webkit-user-select:none}
 /* Modal safe area */
-.modal{padding-bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 /* Tabs — horizontal scroll */
 .tabs{overflow-x:auto;flex-wrap:nowrap;-webkit-overflow-scrolling:touch;padding-bottom:12px}
 .tab{white-space:nowrap;flex-shrink:0;padding:8px 14px}
@@ -601,8 +600,8 @@ function navigateTo(page){document.querySelectorAll('.sidebar nav a, .bottom-nav
 document.querySelectorAll('.sidebar nav a').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();navigateTo(a.dataset.page)})});
 document.querySelectorAll('.bottom-nav a').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();navigateTo(a.dataset.page)})});
 window.addEventListener('scroll',function(){var maxScroll=document.body.scrollHeight-window.innerHeight;var atTop=window.scrollY>400;var atBottom=window.scrollY<maxScroll-400;document.getElementById('scrollTop').classList.toggle('visible',atTop);document.getElementById('scrollBottom').classList.toggle('visible',atBottom)});
-function openModal(html){document.getElementById('modalContent').innerHTML=html;document.getElementById('modalOverlay').classList.add('active')}
-function closeModal(e){if(!e||e.target===document.getElementById('modalOverlay'))document.getElementById('modalOverlay').classList.remove('active')}
+function openModal(html){document.getElementById('modalContent').innerHTML=html;document.getElementById('modalOverlay').classList.add('active');document.body.style.overflow='hidden'}
+function closeModal(e){if(!e||e.target===document.getElementById('modalOverlay')||!e.target.closest||!e.target.closest('.modal')){document.getElementById('modalOverlay').classList.remove('active');document.body.style.overflow='';if(e&&e.target)e.stopPropagation()}}
 function calcJewelryPrices(item){var s=DATA.settings;var cost=(item.cost||0)+(item.complexity||0)+(s.additionalCosts||0);var markup=cost*s.markupCoefficient;var price=markup+s.alenaMarkup;if(s.defaultDiscount>0)price=price*(1-s.defaultDiscount/100);return{cost:item.cost||0,effectiveCost:cost,markup:markup,price:Math.round(price)}}
 function getStatusClass(st){if(st==='\u041F\u0440\u043E\u0434\u0430\u043D\u043E'||st==='\u041F\u0440\u043E\u0434\u0430\u043D')return'status-sold';if(st==='\u0412 \u043D\u0430\u043B\u0438\u0447\u0438\u0438')return'status-stock';if(st==='\u0412 \u0440\u0435\u043C\u043E\u043D\u0442\u0435')return'status-repair';if(st==='\u0417\u0430\u0440\u0435\u0437\u0435\u0440\u0432\u0438\u0440\u043E\u0432\u0430\u043D')return'status-reserved';return''}
 function openLightbox(src,name){document.getElementById('lightboxImg').src=src;document.getElementById('lightboxName').textContent=name||'';document.getElementById('photoLightbox').classList.add('active');document.body.style.overflow='hidden'}
@@ -746,10 +745,8 @@ if('serviceWorker' in navigator){
 }
 
 // Fix mobile viewport height (Yandex Browser address bar hide/show)
-function setVH(){var vh=window.innerHeight*0.01;document.documentElement.style.setProperty('--vh',vh+'px')}
-setVH();window.addEventListener('resize',setVH);
-// Also handle orientation change
-window.addEventListener('orientationchange',function(){setTimeout(setVH,100)});
+function setVH(){document.documentElement.style.setProperty('--vh',window.innerHeight*0.01+'px')}
+if(/android|iphone|ipad|iPod|yandex/i.test(navigator.userAgent)){setVH();window.addEventListener('resize',setVH);window.addEventListener('orientationchange',function(){setTimeout(setVH,200)})}
 
 </script>
 </body>
