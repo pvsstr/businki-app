@@ -15,6 +15,12 @@
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%237B68AE' width='100' height='100' rx='20'/><text x='50' y='65' font-size='50' text-anchor='middle' fill='white'>💎</text></svg>">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700" rel="stylesheet">
+<script type="module">
+import{initializeApp}from'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
+import{getAuth,signInWithPopup,GoogleAuthProvider,onAuthStateChanged,signOut}from'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
+import{getFirestore,doc,getDoc,setDoc,onSnapshot}from'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
+window.firebaseModules={initializeApp,getAuth,signInWithPopup,GoogleAuthProvider,onAuthStateChanged,signOut,getFirestore,doc,getDoc,setDoc,onSnapshot};
+</script>
 <style>
 @font-face{font-family:'Comba Test Bold Ultra Wide';font-style:normal;font-weight:normal;src:url('combatest-boldultrawide.woff') format('woff')}
 </style>
@@ -564,16 +570,27 @@ body.theme-liquid-dark .bottom-nav a.active{background:rgba(255,255,255,0.1);col
     </div>
   </div>
   <div class="table-container" style="max-width:500px;margin-top:24px">
-    <h3 style="margin-bottom:16px;font-size:16px;color:var(--dark)">&#9729;&#65039; Синхронизация с GitHub</h3>
-    <p style="font-size:13px;color:#888;margin-bottom:16px">Синхронизация данных между устройствами через GitHub. Токен хранится только в браузере.</p>
-    <div class="form-group"><label>GitHub токен (Fine-Grained PAT)</label><input type="password" id="ghToken" placeholder="github_pat_..."></div>
-    <div class="form-group"><label>Репозиторий</label><input type="text" id="ghRepo" placeholder="username/repo-name"></div>
-    <div class="form-group"><label>Файл данных</label><input type="text" id="ghFile" value="data.json"></div>
-    <div id="ghSyncStatus" style="font-size:13px;padding:8px 12px;border-radius:8px;margin-bottom:12px;display:none"></div>
-    <div style="display:flex;gap:8px;flex-wrap:wrap">
-      <button class="btn btn-primary" onclick="saveGitHubSettings()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg> Сохранить настройки</button>
-      <button class="btn btn-success" onclick="syncFromGitHub()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg> Загрузить с GitHub</button>
-      <button class="btn btn-outline" onclick="confirmSyncToGitHub()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 16 12 12 8 16"/><line x1="12" y1="12" x2="12" y2="21"/><path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"/></svg> Отправить в GitHub</button>
+    <h3 style="margin-bottom:16px;font-size:16px;color:var(--dark)">☁️ Синхронизация (Firebase)</h3>
+    <p style="font-size:13px;color:#888;margin-bottom:16px">Войдите через Google для синхронизации данных между устройствами.</p>
+    <div style="margin-bottom:16px;padding:12px;background:rgba(123,104,174,0.04);border-radius:12px;border:1px solid rgba(123,104,174,0.1)">
+      <div style="font-size:13px;font-weight:600;color:var(--dark);margin-bottom:8px">Конфигурация Firebase</div>
+      <div class="form-group"><label>API Key</label><input type="text" id="fbApiKey" placeholder="AIza..."></div>
+      <div class="form-group"><label>Auth Domain</label><input type="text" id="fbAuthDomain" placeholder="project.firebaseapp.com"></div>
+      <div class="form-group"><label>Project ID</label><input type="text" id="fbProjectId" placeholder="my-project"></div>
+      <button class="btn btn-sm btn-outline" onclick="saveFirebaseConfig()">Сохранить конфиг</button>
+    </div>
+    <div id="fbAuthSection">
+      <div id="fbNotAuth">
+        <button class="btn btn-primary" onclick="signInWithGoogle()" style="width:100%">Войти через Google</button>
+      </div>
+      <div id="fbIsAuth" style="display:none">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+          <img id="fbAvatar" src="" style="width:36px;height:36px;border-radius:50%">
+          <div><div id="fbName" style="font-weight:600;font-size:14px"></div><div id="fbEmail" style="font-size:12px;color:#888"></div></div>
+        </div>
+        <div id="fbSyncStatus" style="font-size:13px;padding:8px 12px;border-radius:8px;margin-bottom:12px;display:none"></div>
+        <button class="btn btn-outline" onclick="signOutGoogle()" style="width:100%">Выйти</button>
+      </div>
     </div>
   </div>
 </div>
@@ -618,7 +635,7 @@ function escTextarea(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,
 function getMatPricePerPiece(m){if(!m)return 0;if(m.pricePerPiece>0)return m.pricePerPiece;if(m.pricePerCm>0&&m.diameter>0)return m.pricePerCm*m.diameter;if(m.diameter>0&&m.purchasePrice>0)return m.purchasePrice/m.diameter;if(m.purchasePrice>0&&(m.length||0)===0&&(m.diameter||0)===0)return m.purchasePrice;return 0}
 function save(){idbPut('businki_data',DATA).catch(function(e){})}
 var _syncTimer=null;var _hasPendingSync=false;
-function saveWithSync(){idbPut('businki_data',DATA).catch(function(e){});if(!ghSyncing&&localStorage.getItem('gh_token')&&localStorage.getItem('gh_repo')){clearTimeout(_syncTimer);_hasPendingSync=true;var ds=document.getElementById('syncStatus');if(ds){ds.style.display='inline-block';ds.style.background='#FFF3E0';ds.style.color='#E65100';ds.textContent='\u041E\u0436\u0438\u0434\u0430\u0435\u0442 \u043E\u0442\u043f\u0440\u0430\u0432\u043a\u0438...'}_syncTimer=setTimeout(function(){_hasPendingSync=false;syncToGitHub().catch(function(e){showAchievement(svgX,'\u041E\u0448\u0438\u0431\u043A\u0430 \u0441\u0438\u043d\u0445\u0440\u043e\u043d\u0438\u0437\u0430\u0446\u0438\u0438','\u0418\u0437\u043c\u0435\u043d\u0435\u043d\u0438\u044f \u0441\u043e\u0445\u0440\u0430\u043d\u0435\u043d\u044b \u0442\u043e\u043b\u044c\u043a\u043e \u043d\u0430 \u044d\u0442\u043e\u043c \u0443\u0441\u0442\u0440\u043e\u0439\u0441\u0442\u0432\u0435. \u041d\u0430\u0436\u043c\u0438\u0442\u0435 \u0421\u0438\u043d\u0445\u0440\u043e\u043d\u0438\u0437\u0438\u0440\u043e\u0432\u0430\u0442\u044c \u0432\u0440\u0443\u0447\u043d\u0443\u044e','linear-gradient(135deg,#C62828,#b71c1c)')})},2000)}}
+function saveWithSync(){idbPut('businki_data',DATA).catch(function(e){});if(fbUser&&fbDb){clearTimeout(_syncTimer);_hasPendingSync=true;var ds=document.getElementById('syncStatus');if(ds){ds.style.display='inline-block';ds.style.background='#FFF3E0';ds.style.color='#E65100';ds.textContent='\u041E\u0436\u0438\u0434\u0430\u0435\u0442 \u043E\u0442\u043f\u0440\u0430\u0432\u043a\u0438...'}_syncTimer=setTimeout(function(){_hasPendingSync=false;syncToFirebase().catch(function(e){showAchievement(svgX,'\u041E\u0448\u0438\u0431\u043A\u0430 \u0441\u0438\u043d\u0445\u0440\u043e\u043d\u0438\u0437\u0430\u0446\u0438\u0438','\u0418\u0437\u043c\u0435\u043d\u0435\u043d\u0438\u044f \u0441\u043e\u0445\u0440\u0430\u043d\u0435\u043d\u044b \u0442\u043e\u043b\u044c\u043a\u043e \u043d\u0430 \u044d\u0442\u043e\u043c \u0443\u0441\u0442\u0440\u043e\u0439\u0441\u0442\u0432\u0435. \u041d\u0430\u0436\u043c\u0438\u0442\u0435 \u0421\u0438\u043d\u0445\u0440\u043e\u043d\u0438\u0437\u0438\u0440\u043e\u0432\u0430\u0442\u044c \u0432\u0440\u0443\u0447\u043d\u0443\u044e','linear-gradient(135deg,#C62828,#b71c1c)')})},2000)}}
 function genId(arr){return arr.length?Math.max(...arr.map(x=>x.id||0))+1:1}
 function fmt(n){return n?Math.round(n).toLocaleString('ru-RU')+' \u20BD':'0 \u20BD'}
 function fmtDate(d){if(!d)return'';const p=d.split('-');return p[2]+'.'+p[1]+'.'+p[0]}
@@ -736,7 +753,7 @@ function openAddUnknownSale(){openModal(`<div class="modal-header"><h2>Неиз�
 function confirmUnknownSale(){const name=document.getElementById('unkSaleName').value.trim()||'Неизвестное украшение';const cost=parseFloat(document.getElementById('unkSaleCost').value)||0;const price=parseFloat(document.getElementById('unkSalePrice').value)||0;const date=document.getElementById('unkSaleDate').value;const buyer=document.getElementById('unkSaleBuyer').value;DATA.sales.push({id:genId(DATA.sales),date:date,jewelryId:null,name:name,actualPrice:price,cost:cost,buyer:buyer,unknown:true});save();closeModal();renderSales()}
 function showSaleDetail(id){const s=DATA.sales.find(x=>x.id===id);if(!s)return;const j=DATA.jewelry.find(x=>x.id===s.jewelryId);const isUnknown=s.jewelryId===null;const profit=(s.actualPrice||0)-(s.cost||0);const name=j?j.name:(s.name||'Неизвестное украшение');let photoHtml='';if(j&&j.photo){photoHtml=`<img src="${j.photo}" style="width:100%;max-height:300px;object-fit:cover;border-radius:12px;margin-bottom:16px;cursor:pointer" onclick="openLightbox('${j.photo.replace(/'/g,"\\'")}','${esc(j.name).replace(/'/g,"\\'")}')">`}let compositionHtml='';if(j&&j.composition){compositionHtml=`<div style="background:rgba(123,104,174,0.04);border-radius:12px;padding:12px;margin-bottom:16px"><div style="font-size:13px;font-weight:600;color:var(--dark);margin-bottom:8px">\u041A\u043E\u043C\u043F\u043E\u0437\u0438\u0446\u0438\u044F:</div><div style="font-size:13px;color:#555;white-space:pre-line;line-height:1.6">${esc(j.composition)}</div></div>`}openModal(`<div class="modal-header"><h2>${esc(name)}</h2><button class="modal-close" onclick="closeModal()">&times;</button></div>${photoHtml}${s.jewelryId!==null?`<div style="font-size:13px;color:#888;margin-bottom:12px">\u2116${s.jewelryId}</div>`:''}<div class="form-group"><label>\u0423\u043A\u0440\u0430\u0448\u0435\u043D\u0438\u0435</label>${isUnknown?`<input type="text" id="detailSaleName" value="${esc(s.name||'')}">`:`<input type="text" value="${esc(name)}" disabled>`}</div><div class="form-row"><div class="form-group"><label>\u0421\u0435\u0431\u0435\u0441\u0442\u043E\u0438\u043C\u043E\u0441\u0442\u044C</label><input type="number" id="detailSaleCost" step="1" value="${s.cost||0}" ${isUnknown?'':'disabled'}></div><div class="form-group"><label>\u0424\u0430\u043A\u0442. \u0446\u0435\u043D\u0430</label><input type="number" id="detailSalePrice" step="1" value="${s.actualPrice||0}"></div></div><div class="form-group"><label>\u0414\u0430\u0442\u0430</label><input type="date" id="detailSaleDate" value="${s.date||''}"></div><div class="form-group"><label>\u041F\u043E\u043A\u0443\u043F\u0430\u0442\u0435\u043B\u044C</label><input type="text" id="detailSaleBuyer" value="${esc(s.buyer||'')}"></div><div id="detailSaleProfit" style="margin:12px 0;font-size:14px">\u041F\u0440\u0438\u0431\u044B\u043B\u044C: <b>${fmt(profit)}</b></div>${compositionHtml}<button class="btn btn-primary" onclick="saveSaleDetail(${id})"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg> \u0421\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u044C</button>`);const priceEl=document.getElementById('detailSalePrice');const costEl=document.getElementById('detailSaleCost');function updateProfit(){const pr=parseFloat(priceEl.value)||0;const c=parseFloat(costEl.value)||0;const p=pr-c;document.getElementById('detailSaleProfit').innerHTML='\u041F\u0440\u0438\u0431\u044B\u043B\u044C: <b>'+fmt(p)+'</b>';document.getElementById('detailSaleProfit').style.color=p>=0?'var(--green)':'var(--pink)'}priceEl.addEventListener('input',updateProfit);if(costEl&&!costEl.disabled)costEl.addEventListener('input',updateProfit)}
 function saveSaleDetail(id){const s=DATA.sales.find(x=>x.id===id);if(!s)return;s.date=document.getElementById('detailSaleDate').value;s.actualPrice=parseFloat(document.getElementById('detailSalePrice').value)||0;s.buyer=document.getElementById('detailSaleBuyer').value;if(s.jewelryId===null){const nameEl=document.getElementById('detailSaleName');if(nameEl)s.name=nameEl.value;const costEl=document.getElementById('detailSaleCost');if(costEl)s.cost=parseFloat(costEl.value)||0}save();closeModal();renderSales()}
-function loadSettings(){document.getElementById('setMarkup').value=DATA.settings.markupCoefficient;document.getElementById('setAlena').value=DATA.settings.alenaMarkup;document.getElementById('setExtra').value=DATA.settings.additionalCosts;document.getElementById('setDiscount').value=DATA.settings.defaultDiscount;var savedTheme=localStorage.getItem('bawi_theme')||'classic';document.getElementById('setTheme').value=savedTheme;loadGitHubSettings()}
+function loadSettings(){var cfg=JSON.parse(localStorage.getItem('fb_config')||'null');if(cfg){var el;el=document.getElementById('fbApiKey');if(el)el.value=cfg.apiKey||'';el=document.getElementById('fbAuthDomain');if(el)el.value=cfg.authDomain||'';el=document.getElementById('fbProjectId');if(el)el.value=cfg.projectId||''}document.getElementById('setMarkup').value=DATA.settings.markupCoefficient;document.getElementById('setAlena').value=DATA.settings.alenaMarkup;document.getElementById('setExtra').value=DATA.settings.additionalCosts;document.getElementById('setDiscount').value=DATA.settings.defaultDiscount;var savedTheme=localStorage.getItem('bawi_theme')||'classic';document.getElementById('setTheme').value=savedTheme;loadGitHubSettings()}
 function switchTheme(theme){document.body.className='';if(theme!=='classic')document.body.classList.add('theme-'+theme);localStorage.setItem('bawi_theme',theme);var mc=document.getElementById('metaThemeColor');if(theme==='liquid-glass')mc.content='#5B7FFF';else if(theme==='liquid-dark')mc.content='#1A1A2E';else mc.content='#7B68AE'}
 function saveSettings(){openModal(`<div class="confirm-dialog"><div class="icon"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--orange)"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div><div class="text">\u0421\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u044C \u043D\u043E\u0432\u044B\u0435 \u043D\u0430\u0441\u0442\u0440\u043E\u0439\u043A\u0438?</div><div class="buttons"><button class="btn btn-primary" onclick="confirmSaveSettings()">\u0421\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u044C</button><button class="btn btn-outline" onclick="closeModal()">\u041E\u0442\u043C\u0435\u043D\u0430</button></div></div>`)}
 function confirmSaveSettings(){DATA.settings.markupCoefficient=parseFloat(document.getElementById('setMarkup').value)||2;DATA.settings.alenaMarkup=parseFloat(document.getElementById('setAlena').value)||300;DATA.settings.additionalCosts=parseFloat(document.getElementById('setExtra').value)||0;DATA.settings.defaultDiscount=parseFloat(document.getElementById('setDiscount').value)||0;save();closeModal();alert('\u041D\u0430\u0441\u0442\u0440\u043E\u0439\u043A\u0438 \u0441\u043E\u0445\u0440\u0430\u043D\u0435\u043D\u044B!')}
@@ -748,24 +765,64 @@ function confirmClearAll(){openModal(`<div class="confirm-dialog"><div class="ic
 function clearAll(){DATA={jewelry:[],materials:[],categories:JSON.parse(JSON.stringify(DEFAULT_CATEGORIES)),sales:[],receipts:[],settings:JSON.parse(JSON.stringify(DEFAULT_SETTINGS))};save();closeModal();currentMaterialTab=DATA.categories[0]||'';renderDashboard();renderJewelry();renderMaterials();renderReceipts();renderSales();loadSettings()}
 function refreshApp(){if('caches' in window){caches.keys().then(function(names){return Promise.all(names.map(function(n){return caches.delete(n)}))}).then(function(){window.location.reload(true)})}else{window.location.reload(true)}}
 
-// ===== GitHub Sync =====
-let ghSyncing=false;let ghFileSha=null;
-function loadGitHubSettings(){var t=localStorage.getItem('gh_token')||'';var r=localStorage.getItem('gh_repo')||'';var f=localStorage.getItem('gh_file')||'data.json';document.getElementById('ghToken').value=t;document.getElementById('ghRepo').value=r;document.getElementById('ghFile').value=f}
-function saveGitHubSettings(){localStorage.setItem('gh_token',document.getElementById('ghToken').value.trim());localStorage.setItem('gh_repo',document.getElementById('ghRepo').value.trim());localStorage.setItem('gh_file',document.getElementById('ghFile').value.trim()||'data.json');showGhStatus('Настройки сохранены!','green')}
-function getGhConfig(){return{token:localStorage.getItem('gh_token')||'',repo:localStorage.getItem('gh_repo')||'',file:localStorage.getItem('gh_file')||'data.json'}}
-function showGhStatus(msg,color){var el=document.getElementById('ghSyncStatus');if(el){el.style.display='block';el.style.background=color==='green'?'#E8F5E9':color==='red'?'#FFEBEE':'#FFF3E0';el.style.color=color==='green'?'#2E7D32':color==='red'?'#C62828':'#E65100';el.textContent=msg}var dash=document.getElementById('syncStatus');if(dash){dash.style.display='inline-block';dash.style.background=color==='green'?'#E8F5E9':color==='red'?'#FFEBEE':'#FFF3E0';dash.style.color=color==='green'?'#2E7D32':color==='red'?'#C62828':'#E65100';dash.textContent=msg;if(color!=='orange')setTimeout(function(){dash.style.display='none'},3000)}if(color==='green')showAchievement(svgCheck,'Достижение','Данные синхронизированы!','linear-gradient(135deg,#107C10,#0e6b0e)');if(color==='red')showAchievement(svgX,'Ошибка','Синхронизируйте вручную на главной','linear-gradient(135deg,#C62828,#b71c1c)')}
-function showAchievement(icon,title,msg,bgColor){var el=document.createElement('div');el.className='achievement-toast';el.style.background=bgColor||'linear-gradient(135deg,#107C10,#0e6b0e)';el.style.color='#fff';el.innerHTML='<div class="ach-icon" style="background:rgba(255,255,255,0.2)">'+icon+'</div><div class="ach-text"><div class="ach-title">'+title+'</div><div class="ach-msg">'+msg+'</div></div>';document.body.appendChild(el);setTimeout(function(){el.remove()},3200)}
-function confirmSync(){var cfg=getGhConfig();if(!cfg.token||!cfg.repo){openModal('<div class="confirm-dialog"><div class="icon">'+svgWarn+'</div><div class="text">GitHub не настроен. Перейдите в Настройки и введите токен и репозиторий.</div><div class="buttons"><button class="btn btn-primary" onclick="closeModal();navigateTo(\'settings\')">Настройки</button><button class="btn btn-outline" onclick="closeModal()">Отмена</button></div></div>');return}openModal('<div class="confirm-dialog"><div class="icon">'+svgSync+'</div><div class="text">Отправить данные в GitHub?</div><div class="buttons"><button class="btn btn-success" onclick="closeModal();syncToGitHub()">Да, отправить</button><button class="btn btn-outline" onclick="closeModal()">Отмена</button></div></div>')}
-function confirmRefresh(){openModal('<div class="confirm-dialog"><div class="icon">'+svgRefresh+'</div><div class="text">Обновить приложение?<br><small style="color:#888">Данные будут загружены из GitHub</small></div><div class="buttons"><button class="btn btn-primary" onclick="closeModal();refreshApp()">Обновить</button><button class="btn btn-outline" onclick="closeModal()">Отмена</button></div></div>')}
-async function syncFromGitHub(){var cfg=getGhConfig();if(!cfg.token||!cfg.repo){showGhStatus('Введите токен и репозиторий!','red');return}showGhStatus('Загрузка...','orange');ghSyncing=true;try{var resp=await fetch('https://api.github.com/repos/'+cfg.repo+'/contents/'+cfg.file,{headers:{'Authorization':'Bearer '+cfg.token,'Accept':'application/vnd.github.v3+json'}});if(!resp.ok){var errText='';try{errText=await resp.text()}catch(e){}throw new Error('HTTP '+resp.status+(errText?': '+errText:''))}var apiData;try{apiData=await resp.json()}catch(e){throw new Error('Ответ не является JSON')}if(apiData.message)throw new Error(apiData.message);ghFileSha=apiData.sha;var remote;if(apiData.encoding==='base64'&&apiData.content){var content=decodeURIComponent(escape(atob(apiData.content)));remote=JSON.parse(content)}else{var rawResp=await fetch('https://raw.githubusercontent.com/'+cfg.repo+'/main/'+cfg.file);if(!rawResp.ok)throw new Error('Не удалось скачать файл: HTTP '+rawResp.status);var rawText=await rawResp.text();if(!rawText)throw new Error('Файл пустой');remote=JSON.parse(rawText)}if(!remote.jewelry||!remote.materials)throw new Error('Неверный формат данных');DATA={jewelry:remote.jewelry,materials:remote.materials,categories:remote.categories||DEFAULT_CATEGORIES,sales:remote.sales||[],receipts:remote.receipts||[],settings:remote.settings||DEFAULT_SETTINGS};DATA.materials.forEach(function(m){var len=m.length||0;var diam=m.diameter||0;var price=m.purchasePrice||0;if(len>0)m.pricePerCm=price/len;if(len>0&&diam>0)m.pricePerPiece=m.pricePerCm*diam;else if(diam>0)m.pricePerPiece=price/diam;else if(len===0&&diam===0)m.pricePerPiece=price});save();currentMaterialTab=DATA.categories[0]||'';renderDashboard();renderJewelry();renderMaterials();renderReceipts();renderSales();loadSettings();showGhStatus('Загружено! '+new Date().toLocaleTimeString('ru-RU'),'green')}catch(e){showGhStatus('Ошибка: '+e.message,'red')}ghSyncing=false}
-async function syncToGitHub(){var cfg=getGhConfig();if(!cfg.token||!cfg.repo){showGhStatus('Введите токен и репозиторий!','red');return}showGhStatus('Отправка...','orange');ghSyncing=true;try{if(!ghFileSha){var check=await fetch('https://api.github.com/repos/'+cfg.repo+'/contents/'+cfg.file,{headers:{'Authorization':'Bearer '+cfg.token,'Accept':'application/vnd.github.v3+json'}});if(check.ok){var cjText=await check.text();var cj=JSON.parse(cjText);ghFileSha=cj.sha}else if(check.status!==404)throw new Error('HTTP '+check.status)}var content=JSON.stringify(DATA,null,2);var encoded=btoa(unescape(encodeURIComponent(content)));var body={message:'Обновление данных Бусинки',content:encoded};if(ghFileSha)body.sha=ghFileSha;var resp=await fetch('https://api.github.com/repos/'+cfg.repo+'/contents/'+cfg.file,{method:'PUT',headers:{'Authorization':'Bearer '+cfg.token,'Content-Type':'application/json','Accept':'application/vnd.github.v3+json'},body:JSON.stringify(body)});var respText=await resp.text();if(!resp.ok){if(resp.status===403||resp.status===401)throw new Error('Нет прав на запись! Токен должен иметь доступ Contents: Read and Write. Создайте новый токен в GitHub Settings > Developer settings > Personal access tokens');throw new Error('HTTP '+resp.status+(respText?': '+respText:''))}var result;try{result=JSON.parse(respText)}catch(e){throw new Error('Ответ не является JSON')}if(result.message)throw new Error(result.message);ghFileSha=result.content.sha;showGhStatus('Отправлено! '+new Date().toLocaleTimeString('ru-RU'),'green')}catch(e){showGhStatus('Ошибка: '+e.message,'red')}ghSyncing=false}
-var _origSave=save;
-save=saveWithSync;
-function confirmSyncToGitHub(){openModal('<div class="confirm-dialog"><div class="icon">⚠️</div><div class="text" style="font-size:15px;line-height:1.6">Ты точно хочешь это отправить в GitHub?<br><br>Смотри мне, если сломаешь, я тебе задницу надеру!</div><div class="buttons"><button class="btn btn-success" onclick="closeModal();syncToGitHub()">Да</button><button class="btn btn-outline" onclick="closeModal()">Нет</button></div></div>')}
-function initGitHubSync(){var cfg=getGhConfig();if(cfg.token&&cfg.repo){showGhStatus('Синхронизация...','orange');syncFromGitHub()}}
-
-(async function(){await loadData();currentMaterialTab=(DATA.categories&&DATA.categories[0])||'';renderDashboard();initGitHubSync()})();
-
+// ===== Firebase Sync =====
+let fbApp=null,fbAuth=null,fbDb=null,fbUser=null;
+function saveFirebaseConfig(){
+  var k=document.getElementById('fbApiKey').value.trim();
+  var d=document.getElementById('fbAuthDomain').value.trim();
+  var p=document.getElementById('fbProjectId').value.trim();
+  if(!k||!p){alert('Заполните API Key и Project ID');return}
+  localStorage.setItem('fb_config',JSON.stringify({apiKey:k,authDomain:d,projectId:p,storageBucket:p+'.firebasestorage.app',messagingSenderId:'0',appId:'1:0:web:0'}));
+  alert('Конфиг сохранён! Перезагрузите страницу.');
+}
+function initFirebase(){
+  try{
+    var cfg=JSON.parse(localStorage.getItem('fb_config')||'null');
+    if(!cfg||!cfg.apiKey){console.log('No Firebase config');return}
+    var fm=window.firebaseModules;
+    if(!fm){console.log('Firebase SDK not loaded');return}
+    fbApp=fm.initializeApp(cfg);
+    fbAuth=fm.getAuth(fbApp);
+    fbDb=fm.getFirestore(fbApp);
+    fm.onAuthStateChanged(fbAuth,function(user){
+      fbUser=user;updateAuthUI(user);
+      if(user){listenFirebase();showAchievement(svgCheck,'Авторизация','Вы вошли как '+user.displayName,'linear-gradient(135deg,#107C10,#0e6b0e)')}
+    });
+  }catch(e){console.error('Firebase init error:',e)}
+}
+function updateAuthUI(user){
+  var na=document.getElementById('fbNotAuth'),ia=document.getElementById('fbIsAuth');
+  if(!na||!ia)return;
+  if(user){na.style.display='none';ia.style.display='block';var a=document.getElementById('fbAvatar');if(a)a.src=user.photoURL||'';var n=document.getElementById('fbName');if(n)n.textContent=user.displayName||'';var e=document.getElementById('fbEmail');if(e)e.textContent=user.email||''}
+  else{na.style.display='block';ia.style.display='none'}
+}
+async function signInWithGoogle(){
+  try{var fm=window.firebaseModules;if(!fm||!fbAuth){alert('Firebase не настроен. Введите конфиг в Настройках.');return}await fm.signInWithPopup(fbAuth,new fm.GoogleAuthProvider())}catch(e){if(e.code!=='auth/popup-closed-by-user')alert('Ошибка входа: '+e.message)}
+}
+async function signOutGoogle(){try{if(fbAuth)await window.firebaseModules.signOut(fbAuth)}catch(e){}}
+async function syncToFirebase(){
+  if(!fbDb||!fbUser)return;
+  try{var fm=window.firebaseModules;await fm.setDoc(fm.doc(fbDb,'users',fbUser.uid),DATA);showFbStatus('Синхронизировано','green')}catch(e){showFbStatus('Ошибка: '+e.message,'red')}
+}
+function listenFirebase(){
+  if(!fbDb||!fbUser)return;var fm=window.firebaseModules;
+  fm.onSnapshot(fm.doc(fbDb,'users',fbUser.uid),function(snap){
+    if(snap.exists()){var r=snap.data();if(r&&r.jewelry){DATA=r;normalizeData(DATA);idbPut('businki_data',DATA);renderDashboard();renderJewelry();renderMaterials();renderReceipts();renderSales();loadSettings();showFbStatus('Данные обновлены','green')}}
+  },function(e){showFbStatus('Ошибка: '+e.message,'red')});
+}
+function showFbStatus(msg,color){
+  var el=document.getElementById('fbSyncStatus');if(!el)return;el.style.display='block';
+  el.style.background=color==='green'?'#E8F5E9':color==='red'?'#FFEBEE':'#FFF3E0';
+  el.style.color=color==='green'?'#2E7D32':color==='red'?'#C62828':'#E65100';el.textContent=msg;
+  if(color!=='orange')setTimeout(function(){el.style.display='none'},3000);
+}
+function loadGitHubSettings(){}
+function saveGitHubSettings(){}
+function showGhStatus(){}
+function getGhConfig(){return{}}
+function confirmSyncToGitHub(){}
+function syncFromGitHub(){return Promise.resolve()}
+function syncToGitHub(){return Promise.resolve()}
 // PWA: Register service worker
 if('serviceWorker' in navigator){
   var swCode='self.addEventListener("install",function(e){e.waitUntil(caches.open("businki-v11").then(function(cache){return cache.addAll(["./","./index.html"]).catch(function(){})}))});self.addEventListener("activate",function(e){e.waitUntil(caches.keys().then(function(names){return Promise.all(names.filter(function(n){return n.indexOf("businki-")===0&&n!=="businki-v11"}).map(function(n){return caches.delete(n)}))})});self.addEventListener("fetch",function(e){e.respondWith(caches.match(e.request).then(function(r){return r||fetch(e.request).then(function(resp){return caches.open("businki-v11").then(function(cache){cache.put(e.request,resp.clone());return resp})})}).catch(function(){return caches.match("./index.html")})})});';
