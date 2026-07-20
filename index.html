@@ -563,9 +563,9 @@ body.theme-liquid-dark .bottom-nav a.active{background:rgba(255,255,255,0.1);col
     </div>
     <div style="display:flex;gap:8px;margin-top:20px;flex-wrap:wrap">
       <button class="btn btn-primary" onclick="saveSettings()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg> Сохранить</button>
-      <button class="btn btn-success" onclick="exportData()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Экспорт данных</button>
-      <button class="btn btn-outline" onclick="document.getElementById('importInput').click()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg> Импорт данных</button>
-      <input type="file" id="importInput" accept=".json,application/json" onchange="importData(event)" style="position:absolute;width:1px;height:1px;opacity:0;overflow:hidden">
+      
+      
+      
       <button class="btn btn-danger" onclick="confirmClearAll()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg> Очистить всё</button>
     </div>
     <div style="margin-top:16px">
@@ -573,7 +573,7 @@ body.theme-liquid-dark .bottom-nav a.active{background:rgba(255,255,255,0.1);col
     </div>
   </div>
   <div class="table-container" style="max-width:500px;margin-top:24px">
-    <h3 style="margin-bottom:16px;font-size:16px;color:var(--dark)">☁️ Синхронизация (Firebase)</h3>
+    <h3 style="margin-bottom:16px;font-size:16px;color:var(--dark)">Синхронизация</h3>
     <p style="font-size:13px;color:#888;margin-bottom:16px">Войдите через Google для синхронизации данных между устройствами.</p>
     <div style="margin-bottom:16px;padding:12px;background:rgba(123,104,174,0.04);border-radius:12px;border:1px solid rgba(123,104,174,0.1)">
       <div style="font-size:13px;font-weight:600;color:var(--dark);margin-bottom:8px">Конфигурация Firebase</div>
