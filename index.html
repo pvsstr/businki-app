@@ -778,7 +778,7 @@ function saveFirebaseConfig(){
 function initFirebase(){
   try{
     var cfg=JSON.parse(localStorage.getItem('fb_config')||'null');
-    if(!cfg||!cfg.apiKey){console.log('No Firebase config');return}
+    if(!cfg||!cfg.apiKey)cfg={apiKey:'AIzaSyBf3fj8xp8KAOD6PfHvijktMmGupWOS6bs',authDomain:'bawi-100423.firebaseapp.com',projectId:'bawi-100423',storageBucket:'bawi-100423.firebasestorage.app',messagingSenderId:'643328515779',appId:'1:643328515779:web:70a1cec52e63bd88b5cc76'};if(!cfg||!cfg.apiKey){console.log('No Firebase config');return}
     var fm=window.firebaseModules;
     if(!fm){console.log('Firebase SDK not loaded');return}
     fbApp=fm.initializeApp(cfg);
@@ -834,6 +834,9 @@ if('serviceWorker' in navigator){
 // Fix mobile viewport height (Yandex Browser address bar hide/show)
 function setVH(){document.documentElement.style.setProperty('--vh',window.innerHeight*0.01+'px')}
 if(/android|iphone|ipad|iPod|yandex/i.test(navigator.userAgent)){setVH();window.addEventListener('resize',setVH);window.addEventListener('orientationchange',function(){setTimeout(setVH,200)})}
+
+// ===== Init =====
+(async function(){await loadData();currentMaterialTab=(DATA.categories&&DATA.categories[0])||'';renderDashboard();initFirebase();loadSettings()})();
 
 </script>
 </body>
