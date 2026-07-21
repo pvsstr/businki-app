@@ -930,20 +930,32 @@ async function downloadPhotoFromUrl(url,path){
 }
 async function downloadAllPhotos(){
   if(!fbStorage||!fbUser)return;
-  var count=0;
+  var toDownload=[];
   for(var i=0;i<DATA.jewelry.length;i++){
     var j=DATA.jewelry[i];
-    if(j.photo&&j.photo.startsWith('http')&&!j.photo.startsWith('data:')){
-      count++
-    }
+    if(j.photo&&j.photo.startsWith('http')&&!j.photo.startsWith('data:')){toDownload.push({item:j,url:j.photo})}
   }
   for(var i=0;i<DATA.receipts.length;i++){
     var r=DATA.receipts[i];
-    if(r.photo&&r.photo.startsWith('http')&&!r.photo.startsWith('data:')){
-      count++
-    }
+    if(r.photo&&r.photo.startsWith('http')&&!r.photo.startsWith('data:')){toDownload.push({item:r,url:r.photo})}
   }
-  if(count>0)showFbStatus('Загрузка '+count+' фото...','orange')
+  if(toDownload.length===0)return;
+  showFbStatus('Загрузка '+toDownload.length+' фото...','orange');
+  for(var i=0;i<toDownload.length;i++){
+    try{
+      var resp=await fetch(toDownload[i].url);
+      var blob=await resp.blob();
+      var base64=await new Promise(function(resolve){
+        var reader=new FileReader();
+        reader.onload=function(){resolve(reader.result)};
+        reader.readAsDataURL(blob);
+      });
+      toDownload[i].item.photo=base64;
+    }catch(e){console.error('Photo download failed:',e)}
+  }
+  idbPut('businki_data',DATA);
+  showFbStatus('Фото загружено','green');
+  renderJewelry();renderReceipts();
 }
 
 function stripPhotos(data){var copy=JSON.parse(JSON.stringify(data));if(copy.jewelry){copy.jewelry.forEach(function(j){j.photo=null})}if(copy.receipts){copy.receipts.forEach(function(r){r.photo=null})}return copy}
