@@ -1016,10 +1016,23 @@ function showAchievement(title, msg, iconKey) {
 // ===== Init =====
 (async function(){await loadData();currentMaterialTab=(DATA.categories&&DATA.categories[0])||'';renderDashboard();initFirebase();loadSettings();setTimeout(function(){if(fbUser&&fbDb)syncToFirebase()},5000)})();
 
-async function forcePushToFirebase(){
+async function backupData(){
+  var blob=new Blob([JSON.stringify(DATA,null,2)],{type:'application/json'});
+  var a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='bawi_backup_'+new Date().toISOString().split('T')[0]+'.json';
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+function forcePushToFirebase(){
   if(!fbDb||!fbUser){alert('Сначала войдите через Google');return}
-  if(!confirm('Отправить ВСЕ локальные данные в Firebase? Это перезапишет данные на всех устройствах.'))return
-  await syncToFirebase();showAchievement('Данные отправлены','save')
+  openModal('<div class="confirm-dialog"><div class="icon"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--blue)"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></div><div class="text">Принудительная отправка данных</div><div style="font-size:13px;color:#888;margin-bottom:16px">Перед отправкой будет создана резервная копия на пк.</div><div class="buttons"><button class="btn btn-success" onclick="closeModal();doForcePush()">Сохранить копию и отправить</button><button class="btn btn-outline" onclick="closeModal()">Отмена</button></div></div>')
+}
+async function doForcePush(){
+  backupData();
+  showFbStatus('Отправка...','orange');
+  await syncToFirebase();
   showAchievement('Firebase','Данные отправлены','save')
 }
 
