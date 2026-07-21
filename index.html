@@ -907,22 +907,22 @@ async function uploadPhotoToStorage(base64Data,path){
 }
 async function uploadAllPhotos(){
   if(!fbStorage||!fbUser)return;
-  var count=0;
+  var toUpload=[];
   for(var i=0;i<DATA.jewelry.length;i++){
     var j=DATA.jewelry[i];
-    if(j.photo&&j.photo.startsWith('data:')){
-      var url=await uploadPhotoToStorage(j.photo,'jewelry/'+j.id+'.jpg');
-      if(url!==j.photo){j.photo=url;count++}
-    }
+    if(j.photo&&j.photo.startsWith('data:')){toUpload.push({item:j,path:'jewelry/'+j.id+'.jpg'})}
   }
   for(var i=0;i<DATA.receipts.length;i++){
     var r=DATA.receipts[i];
-    if(r.photo&&r.photo.startsWith('data:')){
-      var url=await uploadPhotoToStorage(r.photo,'receipts/'+r.id+'.jpg');
-      if(url!==r.photo){r.photo=url;count++}
-    }
+    if(r.photo&&r.photo.startsWith('data:')){toUpload.push({item:r,path:'receipts/'+r.id+'.jpg'})}
   }
-  if(count>0){save();showFbStatus(count+' фото загружено','green')}
+  if(toUpload.length===0)return;
+  var uploaded=0;
+  for(var i=0;i<toUpload.length;i++){
+    showFbStatus('Выгрузка: '+(i+1)+'/'+toUpload.length+' фото','orange');
+    try{var url=await uploadPhotoToStorage(toUpload[i].item.photo,toUpload[i].path);if(url!==toUpload[i].item.photo){toUpload[i].item.photo=url;uploaded++}}catch(e){console.error('Upload error:',e)}
+  }
+  if(uploaded>0){save();showFbStatus('Выгружено '+uploaded+' фото','green')}
 }
 
 async function downloadPhotoFromUrl(url,path){
@@ -940,8 +940,9 @@ async function downloadAllPhotos(){
     if(r.photo&&r.photo.startsWith('http')&&!r.photo.startsWith('data:')){toDownload.push({item:r,url:r.photo})}
   }
   if(toDownload.length===0)return;
-  showFbStatus('Загрузка '+toDownload.length+' фото...','orange');
+  var downloaded=0;
   for(var i=0;i<toDownload.length;i++){
+    showFbStatus('Скачивание: '+(i+1)+'/'+toDownload.length+' фото','orange');
     try{
       var resp=await fetch(toDownload[i].url);
       var blob=await resp.blob();
@@ -951,11 +952,14 @@ async function downloadAllPhotos(){
         reader.readAsDataURL(blob);
       });
       toDownload[i].item.photo=base64;
+      downloaded++;
     }catch(e){console.error('Photo download failed:',e)}
   }
-  idbPut('businki_data',DATA);
-  showFbStatus('Фото загружено','green');
-  renderJewelry();renderReceipts();
+  if(downloaded>0){
+    idbPut('businki_data',DATA);
+    showFbStatus('Скачано '+downloaded+' фото','green');
+    renderJewelry();renderReceipts();
+  }
 }
 
 function stripPhotos(data){var copy=JSON.parse(JSON.stringify(data));if(copy.jewelry){copy.jewelry.forEach(function(j){j.photo=null})}if(copy.receipts){copy.receipts.forEach(function(r){r.photo=null})}return copy}
