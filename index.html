@@ -917,10 +917,14 @@ async function uploadAllPhotos(){
     if(r.photo&&r.photo.startsWith('data:')){toUpload.push({item:r,path:'receipts/'+r.id+'.jpg'})}
   }
   if(toUpload.length===0)return;
-  var uploaded=0;
-  for(var i=0;i<toUpload.length;i++){
-    showFbStatus('Выгрузка: '+(i+1)+'/'+toUpload.length+' фото','orange');
-    try{var url=await uploadPhotoToStorage(toUpload[i].item.photo,toUpload[i].path);if(url!==toUpload[i].item.photo){toUpload[i].item.photo=url;uploaded++}}catch(e){console.error('Upload error:',e)}
+  var CONCURRENCY=5;var uploaded=0;var total=toUpload.length;
+  async function uploadOne(entry){
+    try{var url=await uploadPhotoToStorage(entry.item.photo,entry.path);if(url!==entry.item.photo){entry.item.photo=url;uploaded++}}catch(e){console.error('Upload error:',e)}
+  }
+  for(var i=0;i<total;i+=CONCURRENCY){
+    var batch=toUpload.slice(i,i+CONCURRENCY);
+    showFbStatus('Выгрузка: '+Math.min(i+CONCURRENCY,total)+'/'+total+' фото','orange');
+    await Promise.all(batch.map(uploadOne));
   }
   if(uploaded>0){save();showFbStatus('Выгружено '+uploaded+' фото','green')}
 }
@@ -940,20 +944,14 @@ async function downloadAllPhotos(){
     if(r.photo&&r.photo.startsWith('http')&&!r.photo.startsWith('data:')){toDownload.push({item:r,url:r.photo})}
   }
   if(toDownload.length===0)return;
-  var downloaded=0;
-  for(var i=0;i<toDownload.length;i++){
-    showFbStatus('Скачивание: '+(i+1)+'/'+toDownload.length+' фото','orange');
-    try{
-      var resp=await fetch(toDownload[i].url);
-      var blob=await resp.blob();
-      var base64=await new Promise(function(resolve){
-        var reader=new FileReader();
-        reader.onload=function(){resolve(reader.result)};
-        reader.readAsDataURL(blob);
-      });
-      toDownload[i].item.photo=base64;
-      downloaded++;
-    }catch(e){console.error('Photo download failed:',e)}
+  var CONCURRENCY=5;var downloaded=0;var total=toDownload.length;
+  async function downloadOne(entry){
+    try{var resp=await fetch(entry.url);var blob=await resp.blob();var base64=await new Promise(function(resolve){var reader=new FileReader();reader.onload=function(){resolve(reader.result)};reader.readAsDataURL(blob)});entry.item.photo=base64;downloaded++}catch(e){console.error('Download error:',e)}
+  }
+  for(var i=0;i<total;i+=CONCURRENCY){
+    var batch=toDownload.slice(i,i+CONCURRENCY);
+    showFbStatus('Скачивание: '+Math.min(i+CONCURRENCY,total)+'/'+total+' фото','orange');
+    await Promise.all(batch.map(downloadOne));
   }
   if(downloaded>0){
     idbPut('businki_data',DATA);
