@@ -918,7 +918,7 @@ async function syncPhotosToFirestore(){
   for(var i=0;i<DATA.receipts.length;i++){
     var r=DATA.receipts[i];
     if(r.photo&&r.photo.startsWith('data:')){
-      batch.set(doc(photosRef,'receipt_'+r.id),{data:r.photo,type:'receipt',itemId:r.id});
+      batch.set(fm.doc(photosRef,'receipt_'+r.id),{data:r.photo,type:'receipt',itemId:r.id});
       count++;
     }
   }
