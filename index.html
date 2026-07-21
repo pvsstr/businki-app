@@ -18,8 +18,8 @@
 <script type="module">
 import{initializeApp}from'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
 import{getAuth,signInWithPopup,GoogleAuthProvider,onAuthStateChanged,signOut}from'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
-import{getFirestore,doc,getDoc,setDoc,onSnapshot}from'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';import{getStorage,ref,uploadString,getDownloadURL}from'https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js';
-window.firebaseModules={initializeApp,getAuth,signInWithPopup,GoogleAuthProvider,onAuthStateChanged,signOut,getFirestore,doc,getDoc,setDoc,onSnapshot,getStorage,ref,uploadString,getDownloadURL};
+import{getFirestore,doc,getDoc,setDoc,onSnapshot}from'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';import{getStorage,ref,uploadBytes,getDownloadURL}from'https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js';
+window.firebaseModules={initializeApp,getAuth,signInWithPopup,GoogleAuthProvider,onAuthStateChanged,signOut,getFirestore,doc,getDoc,setDoc,onSnapshot,getStorage,ref,uploadBytes,getDownloadURL};
 </script>
 <style>
 @font-face{font-family:'Comba Test Bold Ultra Wide';font-style:normal;font-weight:normal;src:url('combatest-boldultrawide.woff') format('woff')}
@@ -903,7 +903,7 @@ async function signInWithGoogle(){
 async function signOutGoogle(){try{if(fbAuth){await window.firebaseModules.signOut(fbAuth);showAchievement('\u0410\u0432\u0442\u043E\u0440\u0438\u0437\u0430\u0446\u0438\u044F','\u0412\u044B\u0445\u043E\u0434 \u0432\u044B\u043F\u043E\u043B\u043D\u0435\u043D','logout')}}catch(e){}}
 async function uploadPhotoToStorage(base64Data,path){
   if(!fbStorage||!fbUser||!base64Data||!base64Data.startsWith('data:'))return base64Data;
-  try{var fm=window.firebaseModules;var storageRef=fm.ref(fbStorage,'users/'+fbUser.uid+'/'+path);await fm.uploadString(storageRef,base64Data,'data_url');var url=await fm.getDownloadURL(storageRef);return url}catch(e){console.error('Photo upload error:',e);return base64Data}
+  try{var fm=window.firebaseModules;var storageRef=fm.ref(fbStorage,'users/'+fbUser.uid+'/'+path);var resp=await fetch(base64Data);var blob=await resp.blob();await fm.uploadBytes(storageRef,blob);var url=await fm.getDownloadURL(storageRef);return url}catch(e){console.error('Photo upload error:',e);return base64Data}
 }
 async function uploadAllPhotos(){
   if(!fbStorage||!fbUser)return;
@@ -917,7 +917,7 @@ async function uploadAllPhotos(){
     if(r.photo&&r.photo.startsWith('data:')){toUpload.push({item:r,path:'receipts/'+r.id+'.jpg'})}
   }
   if(toUpload.length===0)return;
-  var CONCURRENCY=5;var uploaded=0;var total=toUpload.length;
+  var CONCURRENCY=10;var uploaded=0;var total=toUpload.length;
   async function uploadOne(entry){
     try{var url=await uploadPhotoToStorage(entry.item.photo,entry.path);if(url!==entry.item.photo){entry.item.photo=url;uploaded++}}catch(e){console.error('Upload error:',e)}
   }
@@ -944,7 +944,7 @@ async function downloadAllPhotos(){
     if(r.photo&&r.photo.startsWith('http')&&!r.photo.startsWith('data:')){toDownload.push({item:r,url:r.photo})}
   }
   if(toDownload.length===0)return;
-  var CONCURRENCY=5;var downloaded=0;var total=toDownload.length;
+  var CONCURRENCY=10;var downloaded=0;var total=toDownload.length;
   async function downloadOne(entry){
     try{var resp=await fetch(entry.url);var blob=await resp.blob();var base64=await new Promise(function(resolve){var reader=new FileReader();reader.onload=function(){resolve(reader.result)};reader.readAsDataURL(blob)});entry.item.photo=base64;downloaded++}catch(e){console.error('Download error:',e)}
   }
