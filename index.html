@@ -887,7 +887,7 @@ function initFirebase(){
     fbDb=fm.getFirestore(fbApp);
     fm.onAuthStateChanged(fbAuth,function(user){
       fbUser=user;updateAuthUI(user);
-      if(user){listenFirebase();showAchievement('\u0410\u0432\u0442\u043e\u0440\u0438\u0437\u0430\u0446\u0438\u044f','\u0412\u044b \u0432\u043e\u0448\u043b\u0438 \u043a\u0430\u043a '+user.displayName,'login')}
+      if(user){listenFirebase();setTimeout(function(){syncToFirebase()},2000);showAchievement('\u0410\u0432\u0442\u043e\u0440\u0438\u0437\u0430\u0446\u0438\u044f','\u0412\u044b \u0432\u043e\u0448\u043b\u0438 \u043a\u0430\u043a '+user.displayName,'login')}
     });
   }catch(e){console.error('Firebase init error:',e)}
 }
@@ -961,7 +961,7 @@ function showAchievement(title, msg, iconKey) {
 }
 
 // ===== Init =====
-(async function(){await loadData();currentMaterialTab=(DATA.categories&&DATA.categories[0])||'';renderDashboard();initFirebase();loadSettings()})();
+(async function(){await loadData();currentMaterialTab=(DATA.categories&&DATA.categories[0])||'';renderDashboard();initFirebase();loadSettings();setTimeout(function(){if(fbUser&&fbDb)syncToFirebase()},5000)})();
 
 </script>
 </body>
