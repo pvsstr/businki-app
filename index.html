@@ -18,8 +18,8 @@
 <script type="module">
 import{initializeApp}from'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
 import{getAuth,signInWithPopup,GoogleAuthProvider,onAuthStateChanged,signOut}from'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
-import{getFirestore,doc,getDoc,setDoc,onSnapshot}from'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';import{getStorage,ref,uploadBytes,getDownloadURL}from'https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js';
-window.firebaseModules={initializeApp,getAuth,signInWithPopup,GoogleAuthProvider,onAuthStateChanged,signOut,getFirestore,doc,getDoc,setDoc,onSnapshot,getStorage,ref,uploadBytes,getDownloadURL};
+import{getFirestore,doc,getDoc,setDoc,onSnapshot}from'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
+window.firebaseModules={initializeApp,getAuth,signInWithPopup,GoogleAuthProvider,onAuthStateChanged,signOut,getFirestore,doc,getDoc,setDoc,onSnapshot};
 </script>
 <style>
 @font-face{font-family:'Comba Test Bold Ultra Wide';font-style:normal;font-weight:normal;src:url('combatest-boldultrawide.woff') format('woff')}
@@ -867,7 +867,7 @@ function clearAll(){DATA={jewelry:[],materials:[],categories:JSON.parse(JSON.str
 function confirmRefresh(){if('caches' in window){caches.keys().then(function(names){return Promise.all(names.map(function(n){return caches.delete(n)}))}).then(function(){showAchievement('\u041a\u044d\u0448','\u041e\u0447\u0438\u0449\u0435\u043d \u0438 \u043e\u0431\u043d\u043e\u0432\u043b\u0451\u043d','refresh');setTimeout(function(){window.location.reload(true)},1800)})}else{showAchievement('\u041a\u044d\u0448','\u041e\u0431\u043d\u043e\u0432\u043b\u0451\u043d','refresh');setTimeout(function(){window.location.reload(true)},1800)}}
 
 // ===== Firebase Sync =====
-let fbApp=null,fbAuth=null,fbDb=null,fbUser=null,fbStorage=null;var _receivingFromFirebase=false;var _lastPushTime=0;var _pendingSync=false;
+let fbApp=null,fbAuth=null,fbDb=null,fbUser=null;var _receivingFromFirebase=false;var _lastPushTime=0;var _pendingSync=false;
 function saveFirebaseConfig(){
   var k=document.getElementById('fbApiKey').value.trim();
   var d=document.getElementById('fbAuthDomain').value.trim();
@@ -884,7 +884,7 @@ function initFirebase(){
     if(!fm){console.log('Firebase SDK not loaded');return}
     fbApp=fm.initializeApp(cfg);
     fbAuth=fm.getAuth(fbApp);
-    fbDb=fm.getFirestore(fbApp);fbStorage=fm.getStorage(fbApp);
+    fbDb=fm.getFirestore(fbApp);
     fm.onAuthStateChanged(fbAuth,function(user){
       fbUser=user;updateAuthUI(user);
       if(user){listenFirebase();setTimeout(function(){syncToFirebase()},2000);showAchievement('\u0410\u0432\u0442\u043e\u0440\u0438\u0437\u0430\u0446\u0438\u044f','\u0412\u044b \u0432\u043e\u0448\u043b\u0438 \u043a\u0430\u043a '+user.displayName,'login')}
@@ -965,14 +965,14 @@ function mergePhotos(local,remote){if(remote&&remote.jewelry&&local&&local.jewel
 
 async function syncToFirebase(){
   if(!fbDb||!fbUser||_receivingFromFirebase)return;
-  try{await uploadAllPhotos();_lastPushTime=Date.now();var fm=window.firebaseModules;await fm.setDoc(fbDoc,stripPhotos(DATA));showFbStatus('Синхронизировано','green')}catch(e){showFbStatus('Ошибка: '+e.message,'red')}
+  try{_lastPushTime=Date.now();var fm=window.firebaseModules;await fm.setDoc(fbDoc,stripPhotos(DATA));showFbStatus('Синхронизировано','green')}catch(e){showFbStatus('Ошибка: '+e.message,'red')}
 }
 var fbDoc=null;
 function listenFirebase(){
   if(!fbDb||!fbUser)return;var fm=window.firebaseModules;fbDoc=fm.doc(fbDb,'users',fbUser.uid);
   fm.onSnapshot(fbDoc,function(snap){
     if(Date.now()-_lastPushTime<5000)return;
-    if(snap.exists()){var r=snap.data();if(r&&r.jewelry){_receivingFromFirebase=true;DATA=mergePhotos(DATA,r);normalizeData(DATA);idbPut('businki_data',DATA);renderDashboard();renderJewelry();renderMaterials();renderReceipts();renderSales();loadSettings();showFbStatus('Данные обновлены','green');downloadAllPhotos();setTimeout(function(){_receivingFromFirebase=false},500)}}
+    if(snap.exists()){var r=snap.data();if(r&&r.jewelry){_receivingFromFirebase=true;DATA=mergePhotos(DATA,r);normalizeData(DATA);idbPut('businki_data',DATA);renderDashboard();renderJewelry();renderMaterials();renderReceipts();renderSales();loadSettings();showFbStatus('Данные обновлены','green');setTimeout(function(){_receivingFromFirebase=false},500)}}
   },function(e){showFbStatus('Ошибка: '+e.message,'red')});
 }
 function showFbStatus(msg,color){
@@ -1030,7 +1030,7 @@ function showAchievement(title, msg, iconKey) {
 async function forcePushToFirebase(){
   if(!fbDb||!fbUser){alert('Сначала войдите через Google');return}
   if(!confirm('Отправить ВСЕ локальные данные в Firebase? Это перезапишет данные на всех устройствах.'))return
-  showFbStatus('Загрузка фото...','orange');await syncToFirebase()
+  await syncToFirebase()
   showAchievement('Firebase','Данные отправлены','save')
 }
 

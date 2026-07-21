@@ -1,8 +1,0 @@
-[
-  {
-    "origin": ["https://pvsstr.github.io", "http://localhost:5000"],
-    "method": ["GET", "PUT", "POST", "DELETE"],
-    "responseHeader": ["Content-Type", "Authorization"],
-    "maxAgeSeconds": 3600
-  }
-]
