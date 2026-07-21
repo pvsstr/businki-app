@@ -18,8 +18,8 @@
 <script type="module">
 import{initializeApp}from'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
 import{getAuth,signInWithPopup,GoogleAuthProvider,onAuthStateChanged,signOut}from'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
-import{getFirestore,doc,getDoc,setDoc,onSnapshot}from'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
-window.firebaseModules={initializeApp,getAuth,signInWithPopup,GoogleAuthProvider,onAuthStateChanged,signOut,getFirestore,doc,getDoc,setDoc,onSnapshot};
+import{getFirestore,doc,getDoc,setDoc,onSnapshot}from'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';import{getStorage,ref,uploadString,getDownloadURL}from'https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js';
+window.firebaseModules={initializeApp,getAuth,signInWithPopup,GoogleAuthProvider,onAuthStateChanged,signOut,getFirestore,doc,getDoc,setDoc,onSnapshot,getStorage,ref,uploadString,getDownloadURL};
 </script>
 <style>
 @font-face{font-family:'Comba Test Bold Ultra Wide';font-style:normal;font-weight:normal;src:url('combatest-boldultrawide.woff') format('woff')}
@@ -867,7 +867,7 @@ function clearAll(){DATA={jewelry:[],materials:[],categories:JSON.parse(JSON.str
 function confirmRefresh(){if('caches' in window){caches.keys().then(function(names){return Promise.all(names.map(function(n){return caches.delete(n)}))}).then(function(){showAchievement('\u041a\u044d\u0448','\u041e\u0447\u0438\u0449\u0435\u043d \u0438 \u043e\u0431\u043d\u043e\u0432\u043b\u0451\u043d','refresh');setTimeout(function(){window.location.reload(true)},1800)})}else{showAchievement('\u041a\u044d\u0448','\u041e\u0431\u043d\u043e\u0432\u043b\u0451\u043d','refresh');setTimeout(function(){window.location.reload(true)},1800)}}
 
 // ===== Firebase Sync =====
-let fbApp=null,fbAuth=null,fbDb=null,fbUser=null;var _receivingFromFirebase=false;var _lastPushTime=0;var _pendingSync=false;
+let fbApp=null,fbAuth=null,fbDb=null,fbUser=null,fbStorage=null;var _receivingFromFirebase=false;var _lastPushTime=0;var _pendingSync=false;
 function saveFirebaseConfig(){
   var k=document.getElementById('fbApiKey').value.trim();
   var d=document.getElementById('fbAuthDomain').value.trim();
@@ -884,7 +884,7 @@ function initFirebase(){
     if(!fm){console.log('Firebase SDK not loaded');return}
     fbApp=fm.initializeApp(cfg);
     fbAuth=fm.getAuth(fbApp);
-    fbDb=fm.getFirestore(fbApp);
+    fbDb=fm.getFirestore(fbApp);fbStorage=fm.getStorage(fbApp);
     fm.onAuthStateChanged(fbAuth,function(user){
       fbUser=user;updateAuthUI(user);
       if(user){listenFirebase();setTimeout(function(){syncToFirebase()},2000);showAchievement('\u0410\u0432\u0442\u043e\u0440\u0438\u0437\u0430\u0446\u0438\u044f','\u0412\u044b \u0432\u043e\u0448\u043b\u0438 \u043a\u0430\u043a '+user.displayName,'login')}
@@ -901,12 +901,36 @@ async function signInWithGoogle(){
   try{var fm=window.firebaseModules;if(!fm||!fbAuth){alert('Firebase не настроен. Введите конфиг в Настройках.');return}await fm.signInWithPopup(fbAuth,new fm.GoogleAuthProvider());showAchievement('\u0410\u0432\u0442\u043e\u0440\u0438\u0437\u0430\u0446\u0438\u044f','\u0412\u0445\u043e\u0434 \u0432\u044b\u043f\u043e\u043b\u043d\u0435\u043d','login')}catch(e){if(e.code!=='auth/popup-closed-by-user')alert('Ошибка входа: '+e.message)}
 }
 async function signOutGoogle(){try{if(fbAuth){await window.firebaseModules.signOut(fbAuth);showAchievement('\u0410\u0432\u0442\u043E\u0440\u0438\u0437\u0430\u0446\u0438\u044F','\u0412\u044B\u0445\u043E\u0434 \u0432\u044B\u043F\u043E\u043B\u043D\u0435\u043D','logout')}}catch(e){}}
+async function uploadPhotoToStorage(base64Data,path){
+  if(!fbStorage||!fbUser||!base64Data||!base64Data.startsWith('data:'))return base64Data;
+  try{var fm=window.firebaseModules;var storageRef=fm.ref(fbStorage,'users/'+fbUser.uid+'/'+path);await fm.uploadString(storageRef,base64Data,'data_url');var url=await fm.getDownloadURL(storageRef);return url}catch(e){console.error('Photo upload error:',e);return base64Data}
+}
+async function uploadAllPhotos(){
+  if(!fbStorage||!fbUser)return;
+  var count=0;
+  for(var i=0;i<DATA.jewelry.length;i++){
+    var j=DATA.jewelry[i];
+    if(j.photo&&j.photo.startsWith('data:')){
+      var url=await uploadPhotoToStorage(j.photo,'jewelry/'+j.id+'.jpg');
+      if(url!==j.photo){j.photo=url;count++}
+    }
+  }
+  for(var i=0;i<DATA.receipts.length;i++){
+    var r=DATA.receipts[i];
+    if(r.photo&&r.photo.startsWith('data:')){
+      var url=await uploadPhotoToStorage(r.photo,'receipts/'+r.id+'.jpg');
+      if(url!==r.photo){r.photo=url;count++}
+    }
+  }
+  if(count>0){save();showFbStatus(count+' фото загружено','green')}
+}
+
 function stripPhotos(data){var copy=JSON.parse(JSON.stringify(data));if(copy.jewelry){copy.jewelry.forEach(function(j){j.photo=null})}if(copy.receipts){copy.receipts.forEach(function(r){r.photo=null})}return copy}
 function mergePhotos(local,remote){if(remote&&remote.jewelry&&local&&local.jewelry){remote.jewelry.forEach(function(rj){var lj=local.jewelry.find(function(l){return l.id===rj.id});if(lj&&lj.photo&&!rj.photo)rj.photo=lj.photo})}if(remote&&remote.receipts&&local&&local.receipts){remote.receipts.forEach(function(rr){var lr=local.receipts.find(function(l){return l.id===rr.id});if(lr&&lr.photo&&!rr.photo)rr.photo=lr.photo})}return remote}
 
 async function syncToFirebase(){
   if(!fbDb||!fbUser||_receivingFromFirebase)return;
-  try{_lastPushTime=Date.now();var fm=window.firebaseModules;await fm.setDoc(fbDoc,stripPhotos(DATA));showFbStatus('Синхронизировано','green')}catch(e){showFbStatus('Ошибка: '+e.message,'red')}
+  try{await uploadAllPhotos();_lastPushTime=Date.now();var fm=window.firebaseModules;await fm.setDoc(fbDoc,stripPhotos(DATA));showFbStatus('Синхронизировано','green')}catch(e){showFbStatus('Ошибка: '+e.message,'red')}
 }
 var fbDoc=null;
 function listenFirebase(){
@@ -968,10 +992,10 @@ function showAchievement(title, msg, iconKey) {
 // ===== Init =====
 (async function(){await loadData();currentMaterialTab=(DATA.categories&&DATA.categories[0])||'';renderDashboard();initFirebase();loadSettings();setTimeout(function(){if(fbUser&&fbDb)syncToFirebase()},5000)})();
 
-function forcePushToFirebase(){
+async function forcePushToFirebase(){
   if(!fbDb||!fbUser){alert('Сначала войдите через Google');return}
   if(!confirm('Отправить ВСЕ локальные данные в Firebase? Это перезапишет данные на всех устройствах.'))return
-  syncToFirebase()
+  showFbStatus('Загрузка фото...','orange');await syncToFirebase()
   showAchievement('Firebase','Данные отправлены','save')
 }
 
