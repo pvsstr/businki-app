@@ -657,9 +657,9 @@ let assemblyPhoto=null;
 function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;')}
 function escTextarea(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
 function getMatPricePerPiece(m){if(!m)return 0;if(m.pricePerPiece>0)return m.pricePerPiece;if(m.pricePerCm>0&&m.diameter>0)return m.pricePerCm*m.diameter;if(m.diameter>0&&m.purchasePrice>0)return m.purchasePrice/m.diameter;if(m.purchasePrice>0&&(m.length||0)===0&&(m.diameter||0)===0)return m.purchasePrice;return 0}
-function save(){idbPut('businki_data',DATA).catch(function(e){})}
+function save(){idbPut('businki_data',DATA).catch(function(e){});if(fbUser&&fbDb&&!_receivingFromFirebase){clearTimeout(_syncTimer);_syncTimer=setTimeout(function(){syncToFirebase()},1500)}}
 var _syncTimer=null;var _hasPendingSync=false;
-function saveWithSync(){idbPut('businki_data',DATA).catch(function(e){});if(fbUser&&fbDb){syncToFirebase()}}
+function saveWithSync(){save()}
 function genId(arr){return arr.length?Math.max(...arr.map(x=>x.id||0))+1:1}
 function fmt(n){return n?Math.round(n).toLocaleString('ru-RU')+' \u20BD':'0 \u20BD'}
 function fmtDate(d){if(!d)return'';const p=d.split('-');return p[2]+'.'+p[1]+'.'+p[0]}
@@ -867,7 +867,7 @@ function clearAll(){DATA={jewelry:[],materials:[],categories:JSON.parse(JSON.str
 function confirmRefresh(){if('caches' in window){caches.keys().then(function(names){return Promise.all(names.map(function(n){return caches.delete(n)}))}).then(function(){showAchievement('\u041a\u044d\u0448','\u041e\u0447\u0438\u0449\u0435\u043d \u0438 \u043e\u0431\u043d\u043e\u0432\u043b\u0451\u043d','refresh');setTimeout(function(){window.location.reload(true)},1800)})}else{showAchievement('\u041a\u044d\u0448','\u041e\u0431\u043d\u043e\u0432\u043b\u0451\u043d','refresh');setTimeout(function(){window.location.reload(true)},1800)}}
 
 // ===== Firebase Sync =====
-let fbApp=null,fbAuth=null,fbDb=null,fbUser=null;
+let fbApp=null,fbAuth=null,fbDb=null,fbUser=null;var _receivingFromFirebase=false;
 function saveFirebaseConfig(){
   var k=document.getElementById('fbApiKey').value.trim();
   var d=document.getElementById('fbAuthDomain').value.trim();
@@ -908,7 +908,7 @@ async function syncToFirebase(){
 function listenFirebase(){
   if(!fbDb||!fbUser)return;var fm=window.firebaseModules;
   fm.onSnapshot(fm.doc(fbDb,'users',fbUser.uid),function(snap){
-    if(snap.exists()){var r=snap.data();if(r&&r.jewelry){DATA=r;normalizeData(DATA);idbPut('businki_data',DATA);renderDashboard();renderJewelry();renderMaterials();renderReceipts();renderSales();loadSettings();showFbStatus('Данные обновлены','green')}}
+    if(snap.exists()){var r=snap.data();if(r&&r.jewelry){_receivingFromFirebase=true;DATA=r;normalizeData(DATA);idbPut('businki_data',DATA);renderDashboard();renderJewelry();renderMaterials();renderReceipts();renderSales();loadSettings();showFbStatus('Данные обновлены','green');setTimeout(function(){_receivingFromFirebase=false},500)}}
   },function(e){showFbStatus('Ошибка: '+e.message,'red')});
 }
 function showFbStatus(msg,color){
