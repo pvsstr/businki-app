@@ -905,13 +905,13 @@ async function signOutGoogle(){try{if(fbAuth){await window.firebaseModules.signO
 async function syncPhotosToFirestore(){
   if(!fbDb||!fbUser)return;
   var fm=window.firebaseModules;
-  var photosRef=collection(fbDb,'users',fbUser.uid,'photos');
-  var batch=writeBatch(fm);
+  var photosRef=fm.collection(fbDb,'users',fbUser.uid,'photos');
+  var batch=fm.writeBatch(fbDb);
   var count=0;
   for(var i=0;i<DATA.jewelry.length;i++){
     var j=DATA.jewelry[i];
     if(j.photo&&j.photo.startsWith('data:')){
-      batch.set(doc(photosRef,'jewelry_'+j.id),{data:j.photo,type:'jewelry',itemId:j.id});
+      batch.set(fm.doc(photosRef,'jewelry_'+j.id),{data:j.photo,type:'jewelry',itemId:j.id});
       count++;
     }
   }
@@ -931,8 +931,8 @@ async function syncPhotosToFirestore(){
 async function loadPhotosFromFirestore(){
   if(!fbDb||!fbUser)return 0;
   var fm=window.firebaseModules;
-  var photosRef=collection(fbDb,'users',fbUser.uid,'photos');
-  var snapshot=await getDocs(photosRef);
+  var photosRef=fm.collection(fbDb,'users',fbUser.uid,'photos');
+  var snapshot=await fm.getDocs(photosRef);
   var count=0;
   snapshot.forEach(function(doc){
     var d=doc.data();
