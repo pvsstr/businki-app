@@ -81,12 +81,30 @@ label{display:block;font-size:13px;font-weight:500;color:#555;margin-bottom:6px}
 .modal-overlay.active{display:flex}
 .modal{background:#fff;border-radius:var(--radius);padding:28px;max-width:600px;width:100%;max-height:85vh;overflow-y:auto;box-shadow:0 20px 60px rgba(45,27,78,0.3);animation:slideUp 0.3s ease;position:relative}
 @keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-@keyframes achievementIn{0%{transform:translateX(-120%);opacity:0}15%{transform:translateX(0);opacity:1}85%{transform:translateX(0);opacity:1}100%{transform:translateX(-120%);opacity:0}}
-.achievement-toast{position:fixed;top:16px;left:16px;z-index:5000;display:flex;align-items:center;gap:12px;padding:12px 20px;border-radius:12px;box-shadow:0 8px 32px rgba(0,0,0,0.25);font-family:'Segoe UI',system-ui,sans-serif;animation:achievementIn 3s ease forwards;pointer-events:none}
-.achievement-toast .ach-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
-.achievement-toast .ach-text{display:flex;flex-direction:column}
-.achievement-toast .ach-title{font-size:11px;text-transform:uppercase;letter-spacing:1px;opacity:0.7}
-.achievement-toast .ach-msg{font-size:14px;font-weight:600}
+/* Achievement Toast - Xbox Style */
+@keyframes achSlideIn{0%{transform:translateX(-110%) scale(0.8);opacity:0}12%{transform:translateX(0) scale(1);opacity:1}88%{transform:translateX(0) scale(1);opacity:1}100%{transform:translateX(-110%) scale(0.8);opacity:0}}
+@keyframes achPulse{0%,100%{box-shadow:0 0 0 0 rgba(255,255,255,0.4)}50%{box-shadow:0 0 20px 8px rgba(255,255,255,0.1)}}
+@keyframes achIconPop{0%{transform:scale(0) rotate(-180deg)}60%{transform:scale(1.2) rotate(10deg)}100%{transform:scale(1) rotate(0deg)}}
+.achievement-toast{position:fixed;top:20px;left:20px;z-index:5000;display:flex;align-items:center;gap:14px;padding:14px 22px 14px 16px;border-radius:8px;font-family:'Segoe UI',system-ui,sans-serif;animation:achSlideIn 3.2s cubic-bezier(0.22,1,0.36,1) forwards;pointer-events:none;overflow:hidden;max-width:360px}
+.achievement-toast::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.5),transparent)}
+.achievement-toast .ach-icon{width:42px;height:42px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;animation:achIconPop 0.5s cubic-bezier(0.34,1.56,0.64,1) 0.15s both;position:relative}
+.achievement-toast .ach-icon::after{content:'';position:absolute;inset:0;border-radius:8px;animation:achPulse 1.5s ease-in-out 0.3s 2}
+.achievement-toast .ach-icon svg{width:22px;height:22px;filter:drop-shadow(0 1px 2px rgba(0,0,0,0.3))}
+.achievement-toast .ach-text{display:flex;flex-direction:column;gap:2px}
+.achievement-toast .ach-title{font-size:10px;text-transform:uppercase;letter-spacing:1.5px;font-weight:600}
+.achievement-toast .ach-msg{font-size:14px;font-weight:700;line-height:1.3}
+/* Classic theme */
+.achievement-toast.ach-classic{background:linear-gradient(135deg,#6A5ACD,#7B68AE);color:#fff;box-shadow:0 8px 40px rgba(106,90,205,0.5),inset 0 1px 0 rgba(255,255,255,0.2)}
+.achievement-toast.ach-classic .ach-icon{background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.25)}
+.achievement-toast.ach-classic .ach-title{color:rgba(255,255,255,0.7)}
+/* Liquid Glass Light */
+.achievement-toast.ach-liquid-glass{background:linear-gradient(135deg,rgba(91,127,255,0.85),rgba(123,95,255,0.85));color:#fff;box-shadow:0 8px 40px rgba(91,127,255,0.4),inset 0 1px 0 rgba(255,255,255,0.3);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.3)}
+.achievement-toast.ach-liquid-glass .ach-icon{background:rgba(255,255,255,0.2);border:1px solid rgba(255,255,255,0.35)}
+.achievement-toast.ach-liquid-glass .ach-title{color:rgba(255,255,255,0.75)}
+/* Liquid Glass Dark */
+.achievement-toast.ach-liquid-dark{background:linear-gradient(135deg,rgba(91,127,255,0.7),rgba(123,159,255,0.7));color:#E8EAED;box-shadow:0 8px 40px rgba(0,0,0,0.5),inset 0 1px 0 rgba(255,255,255,0.08);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.1)}
+.achievement-toast.ach-liquid-dark .ach-icon{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12)}
+.achievement-toast.ach-liquid-dark .ach-title{color:rgba(255,255,255,0.5)}
 .modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
 .modal-header h2{font-size:18px;color:var(--dark)}
 .modal-close{background:none;border:none;font-size:24px;cursor:pointer;color:#999;padding:4px}
@@ -838,14 +856,14 @@ function saveSaleDetail(id){const s=DATA.sales.find(x=>x.id===id);if(!s)return;s
 function loadSettings(){var cfg=JSON.parse(localStorage.getItem('fb_config')||'null');if(!cfg||!cfg.apiKey)cfg={apiKey:'AIzaSyBf3fj8xp8KAOD6PfHvijktMmGupWOS6bs',authDomain:'bawi-100423.firebaseapp.com',projectId:'bawi-100423',storageBucket:'bawi-100423.firebasestorage.app',messagingSenderId:'643328515779',appId:'1:643328515779:web:70a1cec52e63bd88b5cc76'};if(cfg){var el;el=document.getElementById('fbApiKey');if(el)el.value=cfg.apiKey||'';el=document.getElementById('fbAuthDomain');if(el)el.value=cfg.authDomain||'';el=document.getElementById('fbProjectId');if(el)el.value=cfg.projectId||''}document.getElementById('setMarkup').value=DATA.settings.markupCoefficient;document.getElementById('setAlena').value=DATA.settings.alenaMarkup;document.getElementById('setExtra').value=DATA.settings.additionalCosts;document.getElementById('setDiscount').value=DATA.settings.defaultDiscount;var savedTheme=localStorage.getItem('bawi_theme')||'classic';document.getElementById('setTheme').value=savedTheme;loadGitHubSettings()}
 function switchTheme(theme){document.body.className='';if(theme!=='classic')document.body.classList.add('theme-'+theme);localStorage.setItem('bawi_theme',theme);var mc=document.getElementById('metaThemeColor');if(theme==='liquid-glass')mc.content='#5B7FFF';else if(theme==='liquid-dark')mc.content='#1A1A2E';else mc.content='#7B68AE'}
 function saveSettings(){openModal(`<div class="confirm-dialog"><div class="icon"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--orange)"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div><div class="text">\u0421\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u044C \u043D\u043E\u0432\u044B\u0435 \u043D\u0430\u0441\u0442\u0440\u043E\u0439\u043A\u0438?</div><div class="buttons"><button class="btn btn-primary" onclick="confirmSaveSettings()">\u0421\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u044C</button><button class="btn btn-outline" onclick="closeModal()">\u041E\u0442\u043C\u0435\u043D\u0430</button></div></div>`)}
-function confirmSaveSettings(){DATA.settings.markupCoefficient=parseFloat(document.getElementById('setMarkup').value)||2;DATA.settings.alenaMarkup=parseFloat(document.getElementById('setAlena').value)||300;DATA.settings.additionalCosts=parseFloat(document.getElementById('setExtra').value)||0;DATA.settings.defaultDiscount=parseFloat(document.getElementById('setDiscount').value)||0;save();closeModal();alert('\u041D\u0430\u0441\u0442\u0440\u043E\u0439\u043A\u0438 \u0441\u043E\u0445\u0440\u0430\u043D\u0435\u043D\u044B!')}
+function confirmSaveSettings(){DATA.settings.markupCoefficient=parseFloat(document.getElementById('setMarkup').value)||2;DATA.settings.alenaMarkup=parseFloat(document.getElementById('setAlena').value)||300;DATA.settings.additionalCosts=parseFloat(document.getElementById('setExtra').value)||0;DATA.settings.defaultDiscount=parseFloat(document.getElementById('setDiscount').value)||0;save();closeModal();showAchievement('\u041D\u0430\u0441\u0442\u0440\u043E\u0439\u043A\u0438','\u0423\u0441\u043F\u0435\u0448\u043D\u043E \u0441\u043E\u0445\u0440\u0430\u043D\u0435\u043D\u044B','save')}
 function exportData(){const blob=new Blob([JSON.stringify(DATA,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='businki_data_'+new Date().toISOString().split('T')[0]+'.json';a.click()}
 var DEFAULT_CATEGORIES=['Бусины','Камни','Кварц','Гематит','Керамика','Перламутр','Жемчуг','Акрил','Хрусталь','Стекло','Подвески','Фурнитура'];
 var DEFAULT_SETTINGS={markupCoefficient:2,alenaMarkup:300,additionalCosts:0,defaultDiscount:0};
 function importData(e){var file=e.target.files[0];if(!file)return;var reader=new FileReader();reader.onload=ev=>{try{var imported=JSON.parse(ev.target.result);if(!imported.jewelry||!imported.materials){alert('\u041d\u0435\u0432\u0435\u0440\u043d\u044b\u0439 \u0444\u043e\u0440\u043c\u0430\u0442 \u0444\u0430\u0439\u043b\u0430');return}if(!Array.isArray(imported.jewelry)||!Array.isArray(imported.materials)){alert('\u041d\u0435\u0432\u0435\u0440\u043d\u044b\u0439 \u0444\u043e\u0440\u043c\u0430\u0442 \u0434\u0430\u043d\u043d\u044b\u0445');return}DATA={jewelry:imported.jewelry,materials:imported.materials,categories:imported.categories||DEFAULT_CATEGORIES,sales:imported.sales||[],receipts:imported.receipts||[],settings:{...DEFAULT_SETTINGS,...(imported.settings||{})}};DATA.materials.forEach(function(m){var len=m.length||0;var diam=m.diameter||0;var price=m.purchasePrice||0;if(len>0)m.pricePerCm=price/len;if(len>0&&diam>0)m.pricePerPiece=m.pricePerCm*diam;else if(diam>0)m.pricePerPiece=price/diam;else if(len===0&&diam===0)m.pricePerPiece=price});save();alert('\u0414\u0430\u043d\u043d\u044b\u0435 \u0438\u043c\u043f\u043e\u0440\u0442\u0438\u0440\u043e\u0432\u0430\u043d\u044b!');renderDashboard();currentMaterialTab=DATA.categories[0]||'';renderMaterials();renderJewelry();renderReceipts();renderSales();loadSettings()}catch(err){alert('\u041e\u0448\u0438\u0431\u043a\u0430: '+err.message)}};reader.readAsText(file);e.target.value=''}
 function confirmClearAll(){openModal(`<div class="confirm-dialog"><div class="icon"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--orange)"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div><div class="text">\u0412\u044B \u0443\u0432\u0435\u0440\u0435\u043D\u044B? \u0412\u0441\u0435 \u0434\u0430\u043D\u043D\u044B\u0435 \u0431\u0443\u0434\u0443\u0442 \u0443\u0434\u0430\u043B\u0435\u043D\u044B \u0431\u0435\u0437\u0432\u043E\u0437\u0432\u0440\u0430\u0442\u043D\u043E!</div><div class="buttons"><button class="btn btn-danger" onclick="clearAll()">\u0414\u0430, \u043E\u0447\u0438\u0441\u0442\u0438\u0442\u044C</button><button class="btn btn-outline" onclick="closeModal()">\u041E\u0442\u043C\u0435\u043D\u0430</button></div></div>`)}
-function clearAll(){DATA={jewelry:[],materials:[],categories:JSON.parse(JSON.stringify(DEFAULT_CATEGORIES)),sales:[],receipts:[],settings:JSON.parse(JSON.stringify(DEFAULT_SETTINGS))};save();closeModal();currentMaterialTab=DATA.categories[0]||'';renderDashboard();renderJewelry();renderMaterials();renderReceipts();renderSales();loadSettings()}
-function refreshApp(){if('caches' in window){caches.keys().then(function(names){return Promise.all(names.map(function(n){return caches.delete(n)}))}).then(function(){window.location.reload(true)})}else{window.location.reload(true)}}
+function clearAll(){DATA={jewelry:[],materials:[],categories:JSON.parse(JSON.stringify(DEFAULT_CATEGORIES)),sales:[],receipts:[],settings:JSON.parse(JSON.stringify(DEFAULT_SETTINGS))};save();closeModal();currentMaterialTab=DATA.categories[0]||'';renderDashboard();renderJewelry();renderMaterials();renderReceipts();renderSales();loadSettings()showAchievement('\u0414\u0430\u043D\u043D\u044B\u0435','\u0412\u0441\u0435 \u043E\u0447\u0438\u0449\u0435\u043D\u043E','trash')}
+function confirmRefresh(){if('caches' in window){caches.keys().then(function(names){return Promise.all(names.map(function(n){return caches.delete(n)}))}).then(function(){showAchievement('\u041a\u044d\u0448','\u041e\u0447\u0438\u0449\u0435\u043d \u0438 \u043e\u0431\u043d\u043e\u0432\u043b\u0451\u043d','refresh');window.location.reload(true)})}else{showAchievement('\u041a\u044d\u0448','\u041e\u0431\u043d\u043e\u0432\u043b\u0451\u043d','refresh');window.location.reload(true)}}
 
 // ===== Firebase Sync =====
 let fbApp=null,fbAuth=null,fbDb=null,fbUser=null;
@@ -855,7 +873,7 @@ function saveFirebaseConfig(){
   var p=document.getElementById('fbProjectId').value.trim();
   if(!k||!p){alert('Заполните API Key и Project ID');return}
   localStorage.setItem('fb_config',JSON.stringify({apiKey:k,authDomain:d,projectId:p,storageBucket:p+'.firebasestorage.app',messagingSenderId:'0',appId:'1:0:web:0'}));
-  alert('Конфиг сохранён! Перезагрузите страницу.');
+  showAchievement('Firebase','\xd0\x9a\xd0\xbe\xd0\xbd\xd1\x84\xd0\xb8\xd0\xb3 \xd1\x81\xd0\xbe\xd1\x85\xd1\x80\xd0\xb0\xd0\xbd\xd1\x91\xd0\xbd','config')
 }
 function initFirebase(){
   try{
@@ -868,7 +886,7 @@ function initFirebase(){
     fbDb=fm.getFirestore(fbApp);
     fm.onAuthStateChanged(fbAuth,function(user){
       fbUser=user;updateAuthUI(user);
-      if(user){listenFirebase();showAchievement(svgCheck,'Авторизация','Вы вошли как '+user.displayName,'linear-gradient(135deg,#107C10,#0e6b0e)')}
+      if(user){listenFirebase();showAchievement('\u0410\u0432\u0442\u043e\u0440\u0438\u0437\u0430\u0446\u0438\u044f','\u0412\u044b\u0432\u043e \u0432\u043e\u0448\u043b\u0438 \u043a\u0430\u043a '+user.displayName,'login')}
     });
   }catch(e){console.error('Firebase init error:',e)}
 }
@@ -879,9 +897,9 @@ function updateAuthUI(user){
   else{na.style.display='block';ia.style.display='none'}
 }
 async function signInWithGoogle(){
-  try{var fm=window.firebaseModules;if(!fm||!fbAuth){alert('Firebase не настроен. Введите конфиг в Настройках.');return}await fm.signInWithPopup(fbAuth,new fm.GoogleAuthProvider())}catch(e){if(e.code!=='auth/popup-closed-by-user')alert('Ошибка входа: '+e.message)}
+  try{var fm=window.firebaseModules;if(!fm||!fbAuth){alert('Firebase не настроен. Введите конфиг в Настройках.');return}await fm.signInWithPopup(fbAuth,new fm.GoogleAuthProvider());showAchievement('\u0410\u0432\u0442\u043e\u0440\u0438\u0437\u0430\u0446\u0438\u044f','\u0412\u0445\u043e\u0434 \u0432\u044b\u043f\u043e\u043b\u043d\u0435\u043d','login')}catch(e){if(e.code!=='auth/popup-closed-by-user')alert('Ошибка входа: '+e.message)}
 }
-async function signOutGoogle(){try{if(fbAuth)await window.firebaseModules.signOut(fbAuth)}catch(e){}}
+async function signOutGoogle(){try{if(fbAuth){await window.firebaseModules.signOut(fbAuth);showAchievement('\u0410\u0432\u0442\u043E\u0440\u0438\u0437\u0430\u0446\u0438\u044F','\u0412\u044B\u0445\u043E\u0434 \u0432\u044B\u043F\u043E\u043B\u043D\u0435\u043D','logout')}}catch(e){}}
 async function syncToFirebase(){
   if(!fbDb||!fbUser)return;
   try{var fm=window.firebaseModules;await fm.setDoc(fm.doc(fbDb,'users',fbUser.uid),DATA);showFbStatus('Синхронизировано','green')}catch(e){showFbStatus('Ошибка: '+e.message,'red')}
@@ -918,7 +936,32 @@ function setVH(){document.documentElement.style.setProperty('--vh',window.innerH
 if(/android|iphone|ipad|iPod|yandex/i.test(navigator.userAgent)){setVH();window.addEventListener('resize',setVH);window.addEventListener('orientationchange',function(){setTimeout(setVH,200)})}
 
 // ===== Init =====
-(async function(){await loadData();currentMaterialTab=(DATA.categories&&DATA.categories[0])||'';renderDashboard();initFirebase();loadSettings()})();
+(async function(){await loadData();currentMaterialTab=(DATA.categories&&DATA.categories[0])||'';renderDashboard();initFirebase();loadSettings()
+// Achievement Toast System - Xbox Style
+var ACH_SVG = {
+  save: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>',
+  trash: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>',
+  refresh: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>',
+  config: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>',
+  login: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>',
+  logout: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>',
+  check: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>',
+  warning: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>'
+};
+function showAchievement(title, msg, iconKey) {
+  var old = document.querySelector('.achievement-toast');
+  if (old) old.remove();
+  var theme = localStorage.getItem('bawi_theme') || 'classic';
+  var themeClass = 'ach-' + theme;
+  var svg = ACH_SVG[iconKey] || ACH_SVG.check;
+  var toast = document.createElement('div');
+  toast.className = 'achievement-toast ' + themeClass;
+  toast.innerHTML = '<div class="ach-icon">' + svg + '</div><div class="ach-text"><div class="ach-title">' + title + '</div><div class="ach-msg">' + msg + '</div></div>';
+  document.body.appendChild(toast);
+  setTimeout(function() { toast.remove(); }, 3300);
+}
+
+})();
 
 </script>
 </body>
