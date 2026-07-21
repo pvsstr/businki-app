@@ -613,7 +613,7 @@ body.theme-liquid-dark .bottom-nav a.active{background:rgba(255,255,255,0.1);col
           <div><div id="fbName" style="font-weight:600;font-size:14px"></div><div id="fbEmail" style="font-size:12px;color:#888"></div></div>
         </div>
         <div id="fbSyncStatus" style="font-size:13px;padding:8px 12px;border-radius:8px;margin-bottom:12px;display:none"></div>
-        <button class="btn btn-outline" onclick="signOutGoogle()" style="width:100%">Выйти</button>
+        <button class="btn btn-outline" onclick="signOutGoogle()" style="width:100%">Выйти</button></div><div style="margin-top:16px"><button class="btn btn-primary" onclick="forcePushToFirebase()" style="width:100%">Принудительно отправить данные</button>
       </div>
     </div>
   </div>
@@ -962,6 +962,13 @@ function showAchievement(title, msg, iconKey) {
 
 // ===== Init =====
 (async function(){await loadData();currentMaterialTab=(DATA.categories&&DATA.categories[0])||'';renderDashboard();initFirebase();loadSettings();setTimeout(function(){if(fbUser&&fbDb)syncToFirebase()},5000)})();
+
+function forcePushToFirebase(){
+  if(!fbDb||!fbUser){alert('Сначала войдите через Google');return}
+  if(!confirm('Отправить ВСЕ локальные данные в Firebase? Это перезапишет данные на всех устройствах.'))return
+  syncToFirebase()
+  showAchievement('Firebase','Данные отправлены','save')
+}
 
 </script>
 </body>
