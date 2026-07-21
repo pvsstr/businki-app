@@ -925,8 +925,29 @@ async function uploadAllPhotos(){
   if(count>0){save();showFbStatus(count+' фото загружено','green')}
 }
 
+async function downloadPhotoFromUrl(url,path){
+  try{var fm=window.firebaseModules;var storageRef=fm.ref(fbStorage,path);var downloadUrl=await fm.getDownloadURL(storageRef);return downloadUrl}catch(e){return url}
+}
+async function downloadAllPhotos(){
+  if(!fbStorage||!fbUser)return;
+  var count=0;
+  for(var i=0;i<DATA.jewelry.length;i++){
+    var j=DATA.jewelry[i];
+    if(j.photo&&j.photo.startsWith('http')&&!j.photo.startsWith('data:')){
+      count++
+    }
+  }
+  for(var i=0;i<DATA.receipts.length;i++){
+    var r=DATA.receipts[i];
+    if(r.photo&&r.photo.startsWith('http')&&!r.photo.startsWith('data:')){
+      count++
+    }
+  }
+  if(count>0)showFbStatus('Загрузка '+count+' фото...','orange')
+}
+
 function stripPhotos(data){var copy=JSON.parse(JSON.stringify(data));if(copy.jewelry){copy.jewelry.forEach(function(j){j.photo=null})}if(copy.receipts){copy.receipts.forEach(function(r){r.photo=null})}return copy}
-function mergePhotos(local,remote){if(remote&&remote.jewelry&&local&&local.jewelry){remote.jewelry.forEach(function(rj){var lj=local.jewelry.find(function(l){return l.id===rj.id});if(lj&&lj.photo&&!rj.photo)rj.photo=lj.photo})}if(remote&&remote.receipts&&local&&local.receipts){remote.receipts.forEach(function(rr){var lr=local.receipts.find(function(l){return l.id===rr.id});if(lr&&lr.photo&&!rr.photo)rr.photo=lr.photo})}return remote}
+function mergePhotos(local,remote){if(remote&&remote.jewelry&&local&&local.jewelry){remote.jewelry.forEach(function(rj){var lj=local.jewelry.find(function(l){return l.id===rj.id});if(lj&&lj.photo){if(!rj.photo||rj.photo==='')rj.photo=lj.photo}else if(rj.photo&&rj.photo.startsWith('http')){}})}if(remote&&remote.receipts&&local&&local.receipts){remote.receipts.forEach(function(rr){var lr=local.receipts.find(function(l){return l.id===rr.id});if(lr&&lr.photo){if(!rr.photo||rr.photo==='')rr.photo=lr.photo}else if(rr.photo&&rr.photo.startsWith('http')){}})}return remote}
 
 async function syncToFirebase(){
   if(!fbDb||!fbUser||_receivingFromFirebase)return;
@@ -937,7 +958,7 @@ function listenFirebase(){
   if(!fbDb||!fbUser)return;var fm=window.firebaseModules;fbDoc=fm.doc(fbDb,'users',fbUser.uid);
   fm.onSnapshot(fbDoc,function(snap){
     if(Date.now()-_lastPushTime<5000)return;
-    if(snap.exists()){var r=snap.data();if(r&&r.jewelry){_receivingFromFirebase=true;DATA=mergePhotos(DATA,r);normalizeData(DATA);idbPut('businki_data',DATA);renderDashboard();renderJewelry();renderMaterials();renderReceipts();renderSales();loadSettings();showFbStatus('Данные обновлены','green');setTimeout(function(){_receivingFromFirebase=false},500)}}
+    if(snap.exists()){var r=snap.data();if(r&&r.jewelry){_receivingFromFirebase=true;DATA=mergePhotos(DATA,r);normalizeData(DATA);idbPut('businki_data',DATA);renderDashboard();renderJewelry();renderMaterials();renderReceipts();renderSales();loadSettings();showFbStatus('Данные обновлены','green');downloadAllPhotos();setTimeout(function(){_receivingFromFirebase=false},500)}}
   },function(e){showFbStatus('Ошибка: '+e.message,'red')});
 }
 function showFbStatus(msg,color){
