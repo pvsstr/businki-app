@@ -902,8 +902,8 @@ async function signInWithGoogle(){
 }
 async function signOutGoogle(){try{if(fbAuth){await window.firebaseModules.signOut(fbAuth);showAchievement('\u0410\u0432\u0442\u043E\u0440\u0438\u0437\u0430\u0446\u0438\u044F','\u0412\u044B\u0445\u043E\u0434 \u0432\u044B\u043F\u043E\u043B\u043D\u0435\u043D','logout')}}catch(e){}}
 async function uploadPhotoToStorage(base64Data,path){
-  if(!fbStorage||!fbUser||!base64Data||!base64Data.startsWith('data:')){console.log('Upload skip: no storage/user or not base64');return base64Data}
-  try{var fm=window.firebaseModules;var storageRef=fm.ref(fbStorage,'users/'+fbUser.uid+'/'+path);console.log('Uploading:',path,'size:',base64Data.length);var resp=await fetch(base64Data);var blob=await resp.blob();console.log('Blob size:',blob.size);await fm.uploadBytes(storageRef,blob);console.log('Upload OK:',path);var url=await fm.getDownloadURL(storageRef);return url}catch(e){console.error('Upload FAILED:',path,e.message,e);showFbStatus('Ошибка: '+e.message,'red');return base64Data}
+  if(!fbStorage||!fbUser||!base64Data||!base64Data.startsWith('data:')){return base64Data}
+  try{var fm=window.firebaseModules;var storageRef=fm.ref(fbStorage,'users/'+fbUser.uid+'/'+path);var resp=await fetch(base64Data);var blob=await resp.blob();await fm.uploadBytes(storageRef,blob,{contentType:'image/jpeg'});var url=await fm.getDownloadURL(storageRef);return url}catch(e){console.error('Upload error:',e.message);return base64Data}
 }
 async function uploadAllPhotos(){
   if(!fbStorage||!fbUser)return;
