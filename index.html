@@ -509,6 +509,13 @@ body.theme-liquid-dark .bottom-nav a.active{background:rgba(255,255,255,0.1);col
   <div class="metrics" id="dashboardMetrics"></div>
   <div class="top-blocks" id="dashboardTops"></div>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px" id="dashboardCharts"></div>
+  <div class="table-container" style="margin-bottom:24px">
+    <h3 style="margin-bottom:12px;font-size:15px">Калькулятор наценки</h3>
+    <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+      <div class="form-group" style="margin:0;flex:1;min-width:150px"><label>Себестоимость (₽)</label><input type="number" id="markupCalcCost" step="1" min="0" value="0" oninput="updateMarkupCalc()"></div>
+      <div id="markupCalcResults" style="flex:2;min-width:300px"></div>
+    </div>
+  </div>
   <div class="table-container">
     <h3 style="margin-bottom:12px;font-size:15px">Последние продажи</h3>
     <table><thead><tr><th>Дата</th><th>Украшение</th><th>Цена</th><th>Прибыль</th></tr></thead><tbody id="recentSales"></tbody></table>
@@ -768,7 +775,7 @@ function renderDashboard(){
   document.getElementById('dashboardCharts').innerHTML='<div class="chart-container"><h3 style="font-size:14px;margin-bottom:12px">Распределение по статусам</h3><div class="pie-chart" style="background:'+pieGrad+'"></div><div class="pie-legend">'+statusData.map(function(d){return '<div class="pie-legend-item"><div class="dot" style="background:'+d.color+'"></div>'+d.label+': '+d.count+'</div>'}).join('')+'</div></div><div class="chart-container"><h3 style="font-size:14px;margin-bottom:12px">Продажи по месяцам</h3><div class="bar-chart">'+(months.length?months.map(function(m){return '<div class="bar" style="height:'+(monthly[m]/maxMonth*100)+'%"><div class="bar-value">'+fmt(monthly[m])+'</div><div class="bar-label">'+m+'</div></div>'}).join(''):'<div style="color:#999;font-size:13px">Нет продаж</div>')+'</div></div>';
   
   var recent=DATA.sales.slice().sort(function(a,b){return(b.date||'').localeCompare(a.date||'')}).slice(0,5);
-  document.getElementById('recentSales').innerHTML=recent.length?recent.map(function(s){var j=items.find(function(x){return x.id==s.jewelryId});var pnm=s.noMarkup===true?(s.actualPrice||0):(s.priceWithoutMarkup!==undefined?s.priceWithoutMarkup:(s.actualPrice||0)-(DATA.settings.alenaMarkup||0));var profit=pnm-(s.cost||0);return '<tr><td>'+fmtDate(s.date)+'</td><td>'+(j?esc(j.name):(s.name?esc(s.name):'—'))+'</td><td>'+fmt(s.actualPrice)+'</td><td>'+fmt(s.priceWithoutMarkup!==undefined?s.priceWithoutMarkup:(s.actualPrice||0)-(DATA.settings.alenaMarkup||0))+'</td><td style="color:'+(profit>=0?'var(--green)':'var(--pink)')+'">'+fmt(profit)+'</td></tr>'}).join(''):'<tr><td colspan="4" style="color:#999;text-align:center">Нет продаж</td></tr>'
+  document.getElementById('recentSales').innerHTML=recent.length?recent.map(function(s){var j=items.find(function(x){return x.id==s.jewelryId});var pnm=s.noMarkup===true?(s.actualPrice||0):(s.priceWithoutMarkup!==undefined?s.priceWithoutMarkup:(s.actualPrice||0)-(DATA.settings.alenaMarkup||0));var profit=pnm-(s.cost||0);return '<tr><td>'+fmtDate(s.date)+'</td><td>'+(j?esc(j.name):(s.name?esc(s.name):'—'))+'</td><td>'+fmt(s.actualPrice)+'</td><td>'+fmt(s.priceWithoutMarkup!==undefined?s.priceWithoutMarkup:(s.actualPrice||0)-(DATA.settings.alenaMarkup||0))+'</td><td style="color:'+(profit>=0?'var(--green)':'var(--pink)')+'">'+fmt(profit)+'</td></tr>'}).join(''):'<tr><td colspan="4" style="color:#999;text-align:center">Нет продаж</td></tr>';updateMarkupCalc()
 }
 ﻿function toggleJewelrySearch(){const inp=document.getElementById('jewelrySearch');inp.classList.toggle('open');if(inp.classList.contains('open'))inp.focus();else{inp.value='';renderJewelry()}}
 function getOldPriceHtml(j){if(!j.priceHistory||j.priceHistory.length<2)return'';return '<div style="font-size:11px;color:#999;text-decoration:line-through;cursor:pointer;margin-bottom:4px" onclick="event.stopPropagation();showPriceHistory('+j.id+')">Старая цена: '+fmt(j.priceHistory[j.priceHistory.length-2].price)+'</div>'}
@@ -991,6 +998,18 @@ function syncClientsFromSales(){
 // ===== Expenses =====
 var EXPENSE_CATEGORIES=['Упаковка','Доставка','Ярмарки','Налоги','Маркетинг','Оборудование','Другое'];
 var currentExpenseTab='Все';
+function updateMarkupCalc(){
+  var cost=parseFloat(document.getElementById('markupCalcCost').value)||0;
+  var s=DATA.settings;
+  var markups=[1.5,2,2.5,3,3.5];
+  var html='<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px">';
+  markups.forEach(function(m){
+    var price=Math.round(cost*m+s.alenaMarkup);
+    html+='<div style="background:rgba(123,104,174,0.06);border-radius:8px;padding:10px;text-align:center"><div style="font-size:11px;color:#888">×'+m+'</div><div style="font-size:18px;font-weight:700;color:var(--dark)">'+fmt(price)+'</div></div>';
+  });
+  html+='</div>';
+  document.getElementById('markupCalcResults').innerHTML=html;
+}
 function renderExpenses(){
   if(!DATA.expenses)DATA.expenses=[];
   var expenses=DATA.expenses;
