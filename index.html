@@ -28,8 +28,8 @@ window.firebaseModules={initializeApp,getAuth,signInWithPopup,GoogleAuthProvider
 <style>
 ﻿*{margin:0;padding:0;box-sizing:border-box}
 :root{--accent:#7B68AE;--dark:#6A5ACD;--text:#2D1B4E;--card:rgba(255,255,255,0.88);--green:#4CAF50;--blue:#2196F3;--orange:#FF9800;--pink:#E91E63;--shadow:0 8px 32px rgba(45,27,78,0.12);--radius:16px;--transition:0.3s ease}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;-webkit-tap-highlight-color:transparent;overflow-x:hidden}
-body{font-family:'Segoe UI',system-ui,sans-serif;background:linear-gradient(135deg,rgba(200,162,200,0.7),rgba(221,160,221,0.7),rgba(216,191,216,0.7)),url("Бави.jpg") center/cover fixed;color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;overscroll-behavior:none;overflow-x:hidden;max-width:100vw}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;-webkit-tap-highlight-color:transparent}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:linear-gradient(135deg,rgba(200,162,200,0.7),rgba(221,160,221,0.7),rgba(216,191,216,0.7)),url("Бави.jpg") center/cover fixed;color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;overscroll-behavior:none}
 h1,h2,h3,h4{font-family:'Montserrat',sans-serif;font-weight:600}
 .sidebar{position:fixed;left:0;top:0;width:240px;height:100vh;background:linear-gradient(180deg,rgba(106,90,205,0.95),rgba(123,104,174,0.95));backdrop-filter:blur(20px);z-index:1000;padding:24px 0;box-shadow:4px 0 24px rgba(45,27,78,0.2)}
 .sidebar .logo{text-align:center;padding:0 20px 30px;border-bottom:1px solid rgba(255,255,255,0.15)}
@@ -188,8 +188,9 @@ label{display:block;font-size:13px;font-weight:500;color:#555;margin-bottom:6px}
 .bar .bar-value{position:absolute;top:-18px;left:50%;transform:translateX(-50%);font-size:10px;font-weight:600;color:var(--dark)}
 @media(max-width:900px){.sidebar{width:60px;overflow:hidden}.sidebar .logo h1,.sidebar .logo p,.sidebar nav a span{display:none}.sidebar nav a{justify-content:center;padding:12px}.sidebar nav a .icon{margin:0}.main{margin-left:60px;padding:16px}.top-blocks{grid-template-columns:1fr}.form-row{grid-template-columns:1fr}}
 @media(max-width:768px){
-/* Prevent horizontal overflow */
-html,body,.main,.page,.sidebar,.bottom-nav,.modal-overlay,.modal,.table-container{overflow-x:hidden;max-width:100vw}
+/* Prevent horizontal overflow without breaking vertical scroll */
+html{overflow-x:clip}
+body{overflow-x:clip}
 /* Bottom navigation - 8 items need smaller icons */
 .sidebar{display:none}
 .main{margin-left:0;padding:12px 10px;padding-bottom:calc(70px + env(safe-area-inset-bottom,0px))}
