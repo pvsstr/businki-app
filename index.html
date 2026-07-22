@@ -188,13 +188,14 @@ label{display:block;font-size:13px;font-weight:500;color:#555;margin-bottom:6px}
 .bar .bar-value{position:absolute;top:-18px;left:50%;transform:translateX(-50%);font-size:10px;font-weight:600;color:var(--dark)}
 @media(max-width:900px){.sidebar{width:60px;overflow:hidden}.sidebar .logo h1,.sidebar .logo p,.sidebar nav a span{display:none}.sidebar nav a{justify-content:center;padding:12px}.sidebar nav a .icon{margin:0}.main{margin-left:60px;padding:16px}.top-blocks{grid-template-columns:1fr}.form-row{grid-template-columns:1fr}}
 @media(max-width:768px){
-/* Bottom navigation - smaller for 8 items */
+/* Bottom navigation - smaller for 9 items */
 .sidebar{display:none}
-.main{margin-left:0;padding:16px 12px;padding-bottom:calc(80px + env(safe-area-inset-bottom,0px))}
-.bottom-nav{display:flex!important;position:fixed;bottom:0;left:0;right:0;height:calc(64px + env(safe-area-inset-bottom,0px));padding-bottom:env(safe-area-inset-bottom,0px);background:linear-gradient(180deg,rgba(106,90,205,0.98),rgba(90,75,180,0.98));backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);z-index:1000;box-shadow:0 -4px 20px rgba(45,27,78,0.2);padding:0 2px;align-items:center;justify-content:space-around}
-.bottom-nav a{display:flex;flex-direction:column;align-items:center;gap:1px;color:rgba(255,255,255,0.6);text-decoration:none;font-size:9px;padding:4px 2px;border-radius:6px;transition:var(--transition);-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+.main{margin-left:0;padding:16px 12px;padding-bottom:calc(70px + env(safe-area-inset-bottom,0px))}
+.bottom-nav{display:flex!important;position:fixed;bottom:0;left:0;right:0;height:calc(56px + env(safe-area-inset-bottom,0px));padding-bottom:env(safe-area-inset-bottom,0px);background:linear-gradient(180deg,rgba(106,90,205,0.98),rgba(90,75,180,0.98));backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);z-index:1000;box-shadow:0 -2px 12px rgba(45,27,78,0.15);padding:0;align-items:center;justify-content:space-around;overflow:hidden}
+.bottom-nav a{display:flex;flex-direction:column;align-items:center;gap:1px;color:rgba(255,255,255,0.6);text-decoration:none;font-size:8px;padding:4px 1px;border-radius:4px;transition:var(--transition);-webkit-tap-highlight-color:transparent;touch-action:manipulation;flex:1;min-width:0}
 .bottom-nav a .icon{display:flex;align-items:center;justify-content:center}
-.bottom-nav a .icon svg{width:20px;height:20px}
+.bottom-nav a .icon svg{width:18px;height:18px}
+.bottom-nav a span:last-child{font-size:8px;line-height:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
 .bottom-nav a.active{color:#fff;background:rgba(255,255,255,0.15)}
 /* Metrics */
 .metrics{grid-template-columns:repeat(2,1fr);gap:10px}
@@ -356,6 +357,8 @@ border-top:1px solid rgba(255,255,255,0.4);box-shadow:0 -4px 40px rgba(91,127,25
 }
 body.theme-liquid-glass .bottom-nav a{color:rgba(30,30,60,0.7)}
 body.theme-liquid-glass .bottom-nav a.active{background:rgba(255,255,255,0.3);color:#1A1A2E}
+body.theme-liquid-glass #profileLevelCard{background:linear-gradient(135deg,rgba(91,127,255,0.8),rgba(123,95,255,0.8));border:1px solid rgba(255,255,255,0.3)}
+body.theme-liquid-glass #profileAchievements>div{background:rgba(255,255,255,0.35);border:1px solid rgba(255,255,255,0.3)}
 }
 
 /* ===== LIQUID GLASS DARK THEME ===== */
@@ -467,6 +470,8 @@ border-top:1px solid rgba(255,255,255,0.1);box-shadow:0 -4px 40px rgba(0,0,0,0.3
 }
 body.theme-liquid-dark .bottom-nav a{color:rgba(255,255,255,0.55)}
 body.theme-liquid-dark .bottom-nav a.active{background:rgba(255,255,255,0.1);color:#fff}
+body.theme-liquid-dark #profileLevelCard{background:linear-gradient(135deg,rgba(91,127,255,0.7),rgba(123,159,255,0.7));border:1px solid rgba(255,255,255,0.1)}
+body.theme-liquid-dark #profileAchievements>div{background:rgba(25,25,40,0.4);border:1px solid rgba(255,255,255,0.08)}
 }
 
 
@@ -1178,10 +1183,9 @@ function getMedalLevel(achievementId){var p=getProfile();if(!p.achievements||!p.
 function renderProfile(){
   var p=getProfile();checkAchievements();updateStreak();
   var needed=xpForLevel(p.level);var pct=Math.min(100,Math.round(p.xp/needed*100));
-  var streak=p.streak||0;var flameSize=Math.min(40,10+streak*2);
-  var flameSvg='<svg width="'+flameSize+'" height="'+flameSize+'" viewBox="0 0 24 24" fill="none"><path d="M12 2c.5 2.5 2 4.5 2 7a4 4 0 1 1-8 0c0-2.5 2-5 2-7 1 1 2.5 1.5 4 0z" fill="'+(streak>0?'#FF6B35':'#ccc')+'" stroke="'+(streak>0?'#FF4500':'#999')+'" stroke-width="1.5"/></svg>';
-  document.getElementById('profileLevelCard').innerHTML='<div style="font-size:48px;margin-bottom:8px">'+flameSvg+'</div><div style="font-size:14px;opacity:0.8;margin-bottom:4px">\u0423\u0440\u043E\u0432\u0435\u043D\u044C '+p.level+'</div><div style="font-size:24px;font-weight:700;margin-bottom:12px">'+p.xp+' / '+needed+' XP</div><div style="background:rgba(255,255,255,0.2);border-radius:8px;height:12px;overflow:hidden"><div style="background:linear-gradient(90deg,#FFD700,#FFA500);height:100%;width:'+pct+'%;border-radius:8px;transition:width 0.5s"></div></div><div style="font-size:11px;opacity:0.7;margin-top:4px">'+(needed-p.xp)+' XP \u0434\u043E \u0441\u043B\u0435\u0434\u0443\u044E\u0449\u0435\u0433\u043E \u0443\u0440\u043E\u0432\u043D\u044F</div>';
-  document.getElementById('profileStreak').innerHTML='<div style="display:flex;align-items:center;justify-content:center;gap:8px;font-size:14px"><span style="font-size:24px">\uD83D\uDD25</span><span>\u0421\u0435\u0440\u0438\u044F: <b>'+streak+' \u0434\u043D.</b></span><span style="color:#888;font-size:12px">('+streak*10+' XP)</span></div>';
+  var streak=p.streak||0;
+  document.getElementById('profileLevelCard').innerHTML='<div style="margin-bottom:8px"><img src="mascot.svg" alt="\u041C\u0430\u0441\u043A\u043E\u0442" style="height:80px;width:auto"></div><div style="font-size:14px;opacity:0.8;margin-bottom:4px">\u0423\u0440\u043E\u0432\u0435\u043D\u044C '+p.level+'</div><div style="font-size:24px;font-weight:700;margin-bottom:12px">'+p.xp+' / '+needed+' XP</div><div style="background:rgba(255,255,255,0.2);border-radius:8px;height:12px;overflow:hidden"><div style="background:linear-gradient(90deg,#FFD700,#FFA500);height:100%;width:'+pct+'%;border-radius:8px;transition:width 0.5s"></div></div><div style="font-size:11px;opacity:0.7;margin-top:4px">'+(needed-p.xp)+' XP \u0434\u043E \u0441\u043B\u0435\u0434\u0443\u044E\u0449\u0435\u0433\u043E \u0443\u0440\u043E\u0432\u043D\u044F</div>';
+  document.getElementById('profileStreak').innerHTML='<div style="display:flex;align-items:center;justify-content:center;gap:8px;font-size:14px"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 2c.5 2.5 2 4.5 2 7a4 4 0 1 1-8 0c0-2.5 2-5 2-7 1 1 2.5 1.5 4 0z" fill="'+(streak>0?'#FF6B35':'#ccc')+'" stroke="'+(streak>0?'#FF4500':'#999')+'" stroke-width="1.5"/></svg><span>\u0421\u0435\u0440\u0438\u044F: <b>'+streak+' \u0434\u043D.</b></span><span style="color:#888;font-size:12px">('+streak*10+' XP)</span></div>';
   var medalsHtml='';ACHIEVEMENTS.forEach(function(a){var ml=getMedalLevel(a.id);if(ml){medalsHtml+='<div style="width:40px;height:40px;border-radius:50%;background:'+MEDAL_COLORS[ml]+';display:flex;align-items:center;justify-content:center;font-size:18px;box-shadow:0 2px 8px rgba(0,0,0,0.2)" title="'+a.name+' - '+MEDAL_NAMES[ml]+'">'+a.icon+'</div>'}});
   document.getElementById('profileMedals').innerHTML=medalsHtml||'<div style="color:#999;font-size:13px">\u041F\u043E\u043A\u0430 \u043D\u0435\u0442 \u043C\u0435\u0434\u0430\u043B\u0435\u0439</div>';
   var achHtml='';ACHIEVEMENTS.forEach(function(a){var pa=(p.achievements||{})[a.id]||{level:0,progress:0};var lvl=pa.level;var nextNeed=lvl<a.levels.length?a.levels[lvl].need:0;var prevNeed=lvl>0?a.levels[lvl-1].need:0;var progPct=nextNeed>0?Math.min(100,Math.round((pa.progress-prevNeed)/(nextNeed-prevNeed)*100)):100;var ml=getMedalLevel(a.id);var border=ml?'3px solid '+MEDAL_COLORS[ml]:'2px solid rgba(123,104,174,0.15)';achHtml+='<div style="background:var(--card);border-radius:12px;padding:12px;border:'+border+'"><div style="display:flex;align-items:center;gap:10px;margin-bottom:8px"><div style="font-size:24px">'+a.icon+'</div><div style="flex:1"><div style="font-weight:600;font-size:13px">'+a.name+(lvl>0?' \u0423\u0440.'+lvl:'')+'</div><div style="font-size:11px;color:#888">'+a.desc+'</div></div><div style="font-size:11px;color:var(--accent);font-weight:600">'+(a.levels[Math.min(lvl,a.levels.length-1)].xp)+' XP</div></div><div style="background:rgba(123,104,174,0.1);border-radius:6px;height:6px;overflow:hidden"><div style="background:var(--accent);height:100%;width:'+progPct+'%;border-radius:6px;transition:width 0.3s"></div></div><div style="display:flex;justify-content:space-between;font-size:10px;color:#888;margin-top:4px"><span>'+pa.progress+'/'+nextNeed+'</span><span>\u0423\u0440.'+lvl+'/'+a.levels.length+'</span></div></div>'});
@@ -1396,17 +1400,25 @@ var ACH_SVG = {
   check: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>',
   warning: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>'
 };
+var _achQueue=[];var _achShowing=false;
 function showAchievement(title, msg, iconKey) {
-  var old = document.querySelector('.achievement-toast');
-  if (old) old.remove();
-  var theme = localStorage.getItem('bawi_theme') || 'classic';
-  var themeClass = 'ach-' + theme;
-  var svg = ACH_SVG[iconKey] || ACH_SVG.check;
-  var toast = document.createElement('div');
-  toast.className = 'achievement-toast ' + themeClass;
-  toast.innerHTML = '<div class="ach-icon">' + svg + '</div><div class="ach-text"><div class="ach-title">' + title + '</div><div class="ach-msg">' + msg + '</div></div>';
+  _achQueue.push({title:title,msg:msg,iconKey:iconKey});
+  if(!_achShowing)_showNextAch();
+}
+function _showNextAch(){
+  if(_achQueue.length===0){_achShowing=false;return}
+  _achShowing=true;
+  var item=_achQueue.shift();
+  var old=document.querySelector('.achievement-toast');
+  if(old)old.remove();
+  var theme=localStorage.getItem('bawi_theme')||'classic';
+  var themeClass='ach-'+theme;
+  var svg=ACH_SVG[item.iconKey]||ACH_SVG.check;
+  var toast=document.createElement('div');
+  toast.className='achievement-toast '+themeClass;
+  toast.innerHTML='<div class="ach-icon">'+svg+'</div><div class="ach-text"><div class="ach-title">'+item.title+'</div><div class="ach-msg">'+item.msg+'</div></div>';
   document.body.appendChild(toast);
-  setTimeout(function() { toast.remove(); }, 3300);
+  setTimeout(function(){toast.remove();_showNextAch()},3300);
 }
 
 // ===== Init =====
