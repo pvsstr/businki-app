@@ -1104,7 +1104,7 @@ function listenFirebase(){
   if(!fbDb||!fbUser)return;var fm=window.firebaseModules;fbDoc=fm.doc(fbDb,'users',fbUser.uid);
   fm.onSnapshot(fbDoc,function(snap){
     if(Date.now()-_lastPushTime<5000)return;
-    if(snap.exists()){var r=snap.data();if(r&&r.jewelry){_receivingFromFirebase=true;DATA=mergePhotos(DATA,r);normalizeData(DATA);idbPut('businki_data',DATA);renderDashboard();renderJewelry();renderMaterials();renderReceipts();renderSales();renderClients();loadSettings();showFbStatus('Данные обновлены','green');loadPhotosFromFirestore().then(function(n){if(n>0){idbPut('businki_data',DATA);renderJewelry();renderReceipts();showFbStatus(n+' фото загружено','green')}});setTimeout(function(){_receivingFromFirebase=false},500)}}
+    if(snap.exists()){var r=snap.data();if(r&&r.jewelry){_receivingFromFirebase=true;var savedClients=DATA.clients||[];DATA=mergePhotos(DATA,r);normalizeData(DATA);DATA.clients=savedClients;syncClientsFromSales();idbPut('businki_data',DATA);renderDashboard();renderJewelry();renderMaterials();renderReceipts();renderSales();renderClients();loadSettings();showFbStatus('Данные обновлены','green');loadPhotosFromFirestore().then(function(n){if(n>0){idbPut('businki_data',DATA);renderJewelry();renderReceipts();showFbStatus(n+' фото загружено','green')}});setTimeout(function(){_receivingFromFirebase=false},500)}}
   },function(e){showFbStatus('Ошибка: '+e.message,'red')});
 }
 function showFbStatus(msg,color){
