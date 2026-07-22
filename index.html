@@ -724,10 +724,10 @@ function renderTopROI(){
     salesByType[name].cost+=(s.cost||0);
     salesByType[name].count++;
   });
-  var roiList=Object.values(salesByType).filter(function(t){return t.cost>0}).map(function(t){
+  var roiList=Object.values(salesByType).filter(function(t){return t.cost>0&&t.count===1}).map(function(t){
     var profit=t.revenue-t.cost;
     var roi=Math.round(profit/t.cost*100);
-    return{name:t.name,detail:roi+'% ('+t.count+' шт)',price:profit}
+    return{name:t.name,detail:roi+'%',price:profit}
   }).sort(function(a,b){return b.price-a.price}).slice(0,5);
   var svgROI='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:4px"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>';
   return '<div class="top-block"><h3>'+svgROI+' ROI по типам</h3>'+(roiList.length?roiList.map(function(i){return '<div class="item"><span class="name">'+esc(i.name)+'</span><span class="price" style="color:'+(i.price>=0?'var(--green)':'var(--pink)')+'">'+fmt(i.price)+' ('+esc(i.detail)+')</span></div>'}).join(''):'<div style="color:#999;font-size:13px">Нет данных</div>')+'</div>';
@@ -740,9 +740,10 @@ function renderTopMaterials(){
       var match=line.match(/^(.+?)\s*[–—-]\s*(\d+)/);
       if(match){
         var name=match[1].trim();
-        var qty=parseInt(match[2])||0;
+        var mat=DATA.materials.find(function(m){return m.name&&name.toLowerCase().includes(m.name.toLowerCase())});
+        if(mat&&mat.category==='\u0424\u0443\u0440\u043D\u0438\u0442\u0443\u0440\u0430')return;
         if(!matUsage[name])matUsage[name]={name:name,total:0,count:0};
-        matUsage[name].total+=qty;
+        matUsage[name].total+=parseInt(match[2])||0;
         matUsage[name].count++;
       }
     });
