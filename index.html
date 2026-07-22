@@ -227,18 +227,24 @@ input,select,textarea{font-size:16px;padding:12px 14px;min-height:44px}
 .form-row{grid-template-columns:1fr;gap:8px}
 .form-group{margin-bottom:12px}
 /* Modals - all modals optimized for mobile */
-.modal-overlay{padding:8px;padding-bottom:calc(8px + env(safe-area-inset-bottom,0px))}
-.modal{max-height:calc(100vh - 16px);width:100%;max-width:100%;border-radius:12px;padding:20px 16px;font-size:14px;box-sizing:border-box;overflow-y:auto}
+.modal-overlay{padding:8px;padding-bottom:calc(8px + env(safe-area-inset-bottom,0px));display:flex!important;align-items:center;justify-content:center}
+.modal{max-height:calc(100vh - 16px);width:100%;max-width:420px;border-radius:12px;padding:20px 16px;font-size:14px;box-sizing:border-box;overflow-y:auto;margin:0 auto}
 .modal *{box-sizing:border-box}
-.modal-header{flex-wrap:wrap;gap:8px}
-.modal-header h2{font-size:16px;word-break:break-word}
-.modal label{font-size:12px}
+.modal-header{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.modal-header h2{font-size:16px;word-break:break-word;flex:1}
+.modal-close{flex-shrink:0}
+.modal label{font-size:12px;display:block;margin-bottom:4px}
 .modal input,.modal select,.modal textarea{font-size:16px;width:100%}
-.modal .form-row{grid-template-columns:1fr;gap:8px}
-.modal .form-group{margin-bottom:10px}
+.modal .form-row{display:grid;grid-template-columns:1fr;gap:8px}
+.modal .form-group{margin-bottom:12px}
+.modal .btn{width:100%}
 /* All assembly/creation modals */
 #assemblyForm .modal,#page-assembly .modal{max-width:100%}
 #assemblyForm .form-row{grid-template-columns:1fr}
+/* Confirm dialogs */
+.confirm-dialog{text-align:center;padding:16px 0}
+.confirm-dialog .buttons{display:flex;gap:12px;justify-content:center;margin-top:16px}
+.confirm-dialog .buttons .btn{min-width:100px}
 .assembly-material-item{flex-direction:column;align-items:flex-start;gap:4px}
 .assembly-total .row{font-size:13px}
 /* Receipt items */
