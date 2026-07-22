@@ -1091,7 +1091,6 @@ async function loadPhotosFromFirestore(){
   return count;
 }
 function stripPhotos(data){var copy=JSON.parse(JSON.stringify(data));if(copy.jewelry){copy.jewelry.forEach(function(j){j.photo=null})}if(copy.receipts){copy.receipts.forEach(function(r){r.photo=null})}return copy}
-function stripPhotos(data){var copy=JSON.parse(JSON.stringify(data));if(copy.jewelry){copy.jewelry.forEach(function(j){j.photo=null})}if(copy.receipts){copy.receipts.forEach(function(r){r.photo=null})}return copy}
 function mergePhotos(local,remote){if(remote&&remote.jewelry&&local&&local.jewelry){remote.jewelry.forEach(function(rj){var lj=local.jewelry.find(function(l){return l.id===rj.id});if(lj&&lj.photo){if(!rj.photo||rj.photo==='')rj.photo=lj.photo}else if(rj.photo&&rj.photo.startsWith('http')){}})}if(remote&&remote.receipts&&local&&local.receipts){remote.receipts.forEach(function(rr){var lr=local.receipts.find(function(l){return l.id===rr.id});if(lr&&lr.photo){if(!rr.photo||rr.photo==='')rr.photo=lr.photo}else if(rr.photo&&rr.photo.startsWith('http')){}})}return remote}
 
 async function syncToFirebase(){
@@ -1158,7 +1157,7 @@ function showAchievement(title, msg, iconKey) {
 }
 
 // ===== Init =====
-(async function(){await loadData();currentMaterialTab=(DATA.categories&&DATA.categories[0])||'';syncClientsFromSales();renderDashboard();renderClients();initFirebase();loadSettings();setTimeout(function(){if(fbUser&&fbDb)syncToFirebase()},5000)})();
+(async function(){await loadData();currentMaterialTab=(DATA.categories&&DATA.categories[0])||'';syncClientsFromSales();save();renderDashboard();renderClients();initFirebase();loadSettings();setTimeout(function(){if(fbUser&&fbDb)syncToFirebase()},5000)})();
 
 async function backupData(){
   var blob=new Blob([JSON.stringify(DATA,null,2)],{type:'application/json'});
