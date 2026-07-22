@@ -226,12 +226,17 @@ input,select,textarea{font-size:16px;padding:12px 14px;min-height:44px}
 .form-row{grid-template-columns:1fr;gap:8px}
 .form-group{margin-bottom:12px}
 /* Modals — fullscreen on mobile */
-.modal-overlay{padding:8px;padding-bottom:calc(8px + env(safe-area-inset-bottom,0px))}
-.modal{max-height:calc(100vh - 16px);border-radius:12px;padding:20px 16px;font-size:14px}
-.modal-header{flex-wrap:wrap;gap:8px}
-.modal-header h2{font-size:16px}
+.modal-overlay.active{padding:8px;padding-bottom:calc(8px + env(safe-area-inset-bottom,0px))}
+.modal{max-height:calc(100vh - 16px);width:100%;max-width:420px;border-radius:12px;padding:20px 16px;font-size:14px;box-sizing:border-box;margin:0 auto}
+.modal *{box-sizing:border-box}
+.modal-header{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.modal-header h2{font-size:16px;flex:1}
 .modal label{font-size:12px}
-.modal input,.modal select,.modal textarea{font-size:16px}
+.modal input,.modal select,.modal textarea{font-size:16px;width:100%}
+.modal .form-row{grid-template-columns:1fr}
+.modal .form-group{margin-bottom:12px}
+.confirm-dialog{text-align:center}
+.confirm-dialog .buttons{display:flex;gap:12px;justify-content:center;margin-top:16px}
 /* Assembly */
 #assemblyForm .modal{max-width:100%}
 .assembly-material-item{flex-direction:column;align-items:flex-start;gap:4px}
