@@ -188,93 +188,76 @@ label{display:block;font-size:13px;font-weight:500;color:#555;margin-bottom:6px}
 .bar .bar-value{position:absolute;top:-18px;left:50%;transform:translateX(-50%);font-size:10px;font-weight:600;color:var(--dark)}
 @media(max-width:900px){.sidebar{width:60px;overflow:hidden}.sidebar .logo h1,.sidebar .logo p,.sidebar nav a span{display:none}.sidebar nav a{justify-content:center;padding:12px}.sidebar nav a .icon{margin:0}.main{margin-left:60px;padding:16px}.top-blocks{grid-template-columns:1fr}.form-row{grid-template-columns:1fr}}
 @media(max-width:768px){
-/* Prevent horizontal overflow without breaking vertical scroll */
-html{overflow-x:clip}
-body{overflow-x:clip}
-/* Bottom navigation - 8 items need smaller icons */
+/* Bottom navigation */
 .sidebar{display:none}
-.main{margin-left:0;padding:12px 10px;padding-bottom:calc(70px + env(safe-area-inset-bottom,0px))}
-.bottom-nav{display:flex!important;position:fixed;bottom:0;left:0;right:0;height:calc(56px + env(safe-area-inset-bottom,0px));padding-bottom:env(safe-area-inset-bottom,0px);background:linear-gradient(180deg,rgba(106,90,205,0.98),rgba(90,75,180,0.98));backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);z-index:1000;box-shadow:0 -2px 12px rgba(45,27,78,0.15);padding:0 2px;align-items:center;justify-content:space-around}
-.bottom-nav a{display:flex;flex-direction:column;align-items:center;gap:1px;color:rgba(255,255,255,0.6);text-decoration:none;font-size:8px;padding:4px 2px;border-radius:6px;transition:var(--transition);-webkit-tap-highlight-color:transparent;touch-action:manipulation;min-width:0;flex:1}
+.main{margin-left:0;padding:16px 12px;padding-bottom:calc(80px + env(safe-area-inset-bottom,0px))}
+.bottom-nav{display:flex!important;position:fixed;bottom:0;left:0;right:0;height:calc(64px + env(safe-area-inset-bottom,0px));padding-bottom:env(safe-area-inset-bottom,0px);background:linear-gradient(180deg,rgba(106,90,205,0.98),rgba(90,75,180,0.98));backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);z-index:1000;box-shadow:0 -4px 20px rgba(45,27,78,0.2);padding:0 4px;align-items:center;justify-content:space-around}
+.bottom-nav a{display:flex;flex-direction:column;align-items:center;gap:2px;color:rgba(255,255,255,0.6);text-decoration:none;font-size:10px;padding:6px 8px;border-radius:8px;transition:var(--transition);-webkit-tap-highlight-color:transparent;touch-action:manipulation}
 .bottom-nav a .icon{display:flex;align-items:center;justify-content:center}
-.bottom-nav a .icon svg{width:18px;height:18px}
-.bottom-nav a span:last-child{font-size:8px;line-height:1}
 .bottom-nav a.active{color:#fff;background:rgba(255,255,255,0.15)}
-/* Metrics - 3 columns on narrow screens */
-.metrics{grid-template-columns:repeat(3,1fr);gap:6px}
-.metric-card{padding:10px 6px;border-radius:10px}
-.metric-card .value{font-size:16px}
-.metric-card .label{font-size:9px}
+/* Metrics */
+.metrics{grid-template-columns:repeat(2,1fr);gap:10px}
+.metric-card{padding:14px 10px}
+.metric-card .value{font-size:22px}
+.metric-card .label{font-size:11px}
 /* Dashboard */
-.top-blocks{grid-template-columns:1fr;gap:10px}
-.top-block{padding:12px}
-.top-block h3{font-size:13px;margin-bottom:8px}
+.top-blocks{grid-template-columns:1fr;gap:12px}
 #dashboardCharts{grid-template-columns:1fr!important}
 /* Jewelry feed */
 .jewelry-feed{max-width:100%}
 .jewelry-photo{aspect-ratio:16/9}
-.jewelry-body{padding:10px 12px}
-.jewelry-title{font-size:14px}
-.jewelry-composition{font-size:12px}
-.jewelry-prices .cost{font-size:11px}
-.jewelry-prices .price{font-size:14px}
-.jewelry-actions{flex-wrap:wrap;gap:4px;padding-top:8px}
-.jewelry-actions .btn{flex:1;min-width:calc(50% - 2px);justify-content:center;font-size:11px;padding:6px 8px;min-height:32px}
-/* Tables - horizontal scroll */
-.table-container{padding:8px;border-radius:10px;overflow-x:auto;-webkit-overflow-scrolling:touch}
-.table-container table{min-width:500px}
-table{font-size:11px}
-th,td{padding:6px 4px;white-space:nowrap}
+.jewelry-body{padding:14px 16px}
+.jewelry-actions{flex-wrap:wrap}
+.jewelry-actions .btn{flex:1;min-width:calc(50% - 4px);justify-content:center}
+/* Tables */
+.table-container{padding:12px;border-radius:12px;overflow-x:auto}
+table{font-size:12px}
+th,td{padding:8px 6px}
 /* Filters */
-.filters-row{flex-direction:column;gap:6px;align-items:stretch}
-.filters-row select{width:100%;min-width:unset;font-size:13px}
+.filters-row{flex-direction:column;gap:8px;align-items:stretch}
+.filters-row select{width:100%;min-width:unset}
 .search-bar{width:100%}
 .search-input.open{width:100%}
 /* Buttons */
-.btn{min-height:40px;padding:10px 14px;font-size:13px}
-.btn-sm{min-height:32px;padding:6px 10px;font-size:11px}
+.btn{min-height:44px;padding:12px 16px;font-size:15px}
+.btn-sm{min-height:36px;padding:8px 14px;font-size:13px}
 /* Forms */
-input,select,textarea{font-size:16px;padding:10px 12px;min-height:40px}
-.form-row{grid-template-columns:1fr;gap:6px}
-.form-group{margin-bottom:10px}
+input,select,textarea{font-size:16px;padding:12px 14px;min-height:44px}
+.form-row{grid-template-columns:1fr;gap:8px}
+.form-group{margin-bottom:12px}
 /* Modals */
-.modal-overlay{padding:4px;padding-bottom:calc(4px + env(safe-area-inset-bottom,0px));display:flex;align-items:center;justify-content:center;backdrop-filter:none;-webkit-backdrop-filter:none}
-.modal{max-height:calc(100vh - 8px);width:calc(100vw - 8px);max-width:100%;border-radius:10px;padding:14px 12px;font-size:13px;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.modal-overlay{padding:8px;padding-bottom:calc(8px + env(safe-area-inset-bottom,0px))}
+.modal{max-height:calc(100vh - 16px);width:100%;max-width:100%;border-radius:12px;padding:20px 16px;font-size:14px;box-sizing:border-box}
 .modal *{max-width:100%;box-sizing:border-box}
-.modal input,.modal select,.modal textarea{width:100%}
-.modal .form-row{grid-template-columns:1fr;gap:6px}
-.modal-header{flex-wrap:wrap;gap:6px}
-.modal-header h2{font-size:15px;word-break:break-word}
-.modal label{font-size:11px}
-.modal input,.modal select,.modal textarea{font-size:16px}
-#assemblyForm .modal{max-width:100%;width:calc(100vw - 8px)}
-#assemblyForm .form-row{grid-template-columns:1fr}
-/* Markup calculator */
-#markupCalcResults{min-width:0}
+.modal-header{flex-wrap:wrap;gap:8px}
+.modal-header h2{font-size:16px}
+.modal label{font-size:12px}
+.modal input,.modal select,.modal textarea{font-size:16px;width:100%}
 /* Assembly */
 #assemblyForm .modal{max-width:100%}
+#assemblyForm .form-row{grid-template-columns:1fr}
 .assembly-material-item{flex-direction:column;align-items:flex-start;gap:4px}
-.assembly-total .row{font-size:12px}
+.assembly-total .row{font-size:13px}
 /* Receipt items */
-.receipt-item{grid-template-columns:1fr;gap:4px}
-.receipt-item input{min-height:36px;font-size:13px}
+.receipt-item{grid-template-columns:1fr;gap:6px}
+.receipt-item input{min-height:40px}
 /* Settings */
 .table-container[style*="max-width:500px"]{max-width:100%!important}
-#page-settings .table-container{padding:12px}
-#page-settings .form-group{margin-bottom:8px}
-#page-settings label{font-size:11px}
+#page-settings .table-container{padding:16px}
 /* Scroll-to-top */
-.scroll-top.top{bottom:calc(70px + env(safe-area-inset-bottom,0px))}
-.scroll-top.bottom{bottom:calc(130px + env(safe-area-inset-bottom,0px))}
+.scroll-top.top{bottom:calc(80px + env(safe-area-inset-bottom,0px))}
+.scroll-top.bottom{bottom:calc(140px + env(safe-area-inset-bottom,0px))}
+/* iOS smooth scroll */
+.jewelry-feed,.table-container,.modal{-webkit-overflow-scrolling:touch}
+/* Touch optimization */
+.btn,.tab,.scroll-top,.search-toggle,.jewelry-photo-replace{touch-action:manipulation}
+/* Prevent text selection on UI elements */
+.bottom-nav,.sidebar,.tabs{user-select:none;-webkit-user-select:none}
 /* Tabs */
-.tabs{overflow-x:auto;flex-wrap:nowrap;-webkit-overflow-scrolling:touch;padding-bottom:8px;gap:4px}
-.tab{white-space:nowrap;flex-shrink:0;padding:6px 12px;font-size:12px}
+.tabs{overflow-x:auto;flex-wrap:nowrap;-webkit-overflow-scrolling:touch;padding-bottom:12px}
+.tab{white-space:nowrap;flex-shrink:0;padding:8px 14px}
 /* Page headers */
-h2{font-size:18px}
-/* Toggle switch */
-.toggle{width:38px;height:20px}
-.toggle .slider:before{width:14px;height:14px;left:3px;bottom:3px}
-.toggle input:checked+.slider:before{transform:translateX(18px)}
+h2{font-size:20px}
 }
 
 /* ===== LIQUID GLASS THEME ===== */
