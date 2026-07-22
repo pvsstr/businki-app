@@ -994,7 +994,7 @@ function saveFirebaseConfig(){
   var p=document.getElementById('fbProjectId').value.trim();
   if(!k||!p){alert('Заполните API Key и Project ID');return}
   localStorage.setItem('fb_config',JSON.stringify({apiKey:k,authDomain:d,projectId:p,storageBucket:p+'.firebasestorage.app',messagingSenderId:'0',appId:'1:0:web:0'}));
-  showAchievement('Firebase','\xd0\x9a\xd0\xbe\xd0\xbd\xd1\x84\xd0\xb8\xd0\xb3 \xd1\x81\xd0\xbe\xd1\x85\xd1\x80\xd0\xb0\xd0\xbd\xd1\x91\xd0\xbd','config')
+  showAchievement('Firebase','\u041A\u043E\u043D\u0444\u0438\u0433 \u0441\u043E\u0445\u0440\u0430\u043D\u0451\u043D','config')
 }
 function initFirebase(){
   try{
