@@ -657,8 +657,8 @@ let assemblyPhoto=null;
 function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;')}
 function escTextarea(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
 function getMatPricePerPiece(m){if(!m)return 0;if(m.pricePerPiece>0)return m.pricePerPiece;if(m.pricePerCm>0&&m.diameter>0)return m.pricePerCm*m.diameter;if(m.diameter>0&&m.purchasePrice>0)return m.purchasePrice/m.diameter;if(m.purchasePrice>0&&(m.length||0)===0&&(m.diameter||0)===0)return m.purchasePrice;return 0}
-function save(){idbPut('businki_data',DATA).catch(function(e){});if(fbUser&&fbDb&&!_receivingFromFirebase){clearTimeout(_syncTimer);_syncTimer=setTimeout(function(){syncToFirebase()},1500)}}
-var _syncTimer=null;var _hasPendingSync=false;
+function save(){idbPut('businki_data',DATA).catch(function(e){});if(fbUser&&fbDb&&!_receivingFromFirebase&&!_syncing){clearTimeout(_syncTimer);_syncTimer=setTimeout(function(){syncToFirebase()},2000)}}
+var _syncTimer=null;var _hasPendingSync=false;var _syncing=false;
 function saveWithSync(){save()}
 function genId(arr){return arr.length?Math.max(...arr.map(x=>x.id||0))+1:1}
 function fmt(n){return n?Math.round(n).toLocaleString('ru-RU')+' \u20BD':'0 \u20BD'}
@@ -738,7 +738,7 @@ function renderDashboard(){
   document.getElementById('recentSales').innerHTML=recent.length?recent.map(function(s){var j=items.find(function(x){return x.id==s.jewelryId});var pnm=s.priceWithoutMarkup!==undefined?s.priceWithoutMarkup:(s.actualPrice||0)-(DATA.settings.alenaMarkup||0);var profit=pnm-(s.cost||0);return '<tr><td>'+fmtDate(s.date)+'</td><td>'+(j?esc(j.name):(s.name?esc(s.name):'—'))+'</td><td>'+fmt(s.actualPrice)+'</td><td>'+fmt(s.priceWithoutMarkup!==undefined?s.priceWithoutMarkup:(s.actualPrice||0)-(DATA.settings.alenaMarkup||0))+'</td><td style="color:'+(profit>=0?'var(--green)':'var(--pink)')+'">'+fmt(profit)+'</td></tr>'}).join(''):'<tr><td colspan="4" style="color:#999;text-align:center">Нет продаж</td></tr>'
 }
 ﻿function toggleJewelrySearch(){const inp=document.getElementById('jewelrySearch');inp.classList.toggle('open');if(inp.classList.contains('open'))inp.focus();else{inp.value='';renderJewelry()}}
-function getOldPriceHtml(j){if(!j.priceHistory||!j.priceHistory.length)return'';return '<div style="font-size:11px;color:#999;text-decoration:line-through;cursor:pointer;margin-bottom:4px" onclick="event.stopPropagation();showPriceHistory('+j.id+')">Старая цена: '+fmt(j.priceHistory[j.priceHistory.length-1].price)+'</div>'}
+function getOldPriceHtml(j){if(!j.priceHistory||j.priceHistory.length<2)return'';return '<div style="font-size:11px;color:#999;text-decoration:line-through;cursor:pointer;margin-bottom:4px" onclick="event.stopPropagation();showPriceHistory('+j.id+')">Старая цена: '+fmt(j.priceHistory[j.priceHistory.length-2].price)+'</div>'}
 function renderJewelry(){const sort=document.getElementById('jewelrySort').value;const statusF=document.getElementById('jewelryStatusFilter').value;const search=(document.getElementById('jewelrySearch').value||'').toLowerCase();let items=[...DATA.jewelry];if(statusF)items=items.filter(i=>i.status===statusF);if(search)items=items.filter(i=>(i.name||'').toLowerCase().includes(search));if(sort==='name_asc')items.sort((a,b)=>(a.name||'').localeCompare(b.name||'','ru'));else if(sort==='name_desc')items.sort((a,b)=>(b.name||'').localeCompare(a.name||'','ru'));else if(sort==='id_desc')items.sort((a,b)=>b.id-a.id);else items.sort((a,b)=>a.id-b.id);document.getElementById('jewelryFeed').innerHTML=items.length?items.map(j=>{const p=calcJewelryPrices(j);const photoHtml=j.photo?`<div class="jewelry-photo-wrap"><img class="jewelry-photo" src="${j.photo}" alt="${esc(j.name)}" onclick="event.stopPropagation();openLightbox(this.src,this.alt)" style="cursor:pointer"><button class="jewelry-photo-replace" onclick="event.stopPropagation();attachPhoto(${j.id})"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg> \u0417\u0430\u043C\u0435\u043D\u0438\u0442\u044C</button><button class="jewelry-photo-replace" style="bottom:44px;background:rgba(200,0,0,0.7)" onclick="event.stopPropagation();removePhoto(${j.id})"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> \u0423\u0434\u0430\u043B\u0438\u0442\u044C</button></div>`:`<div class="jewelry-photo-placeholder"><div><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--accent)"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></div><div>\u041D\u0435\u0442 \u0444\u043E\u0442\u043E</div><div class="attach" onclick="attachPhoto(${j.id})">\u041F\u0440\u0438\u043A\u0440\u0435\u043F\u0438\u0442\u044C \u0444\u043E\u0442\u043E\u0433\u0440\u0430\u0444\u0438\u044E</div></div>`;return`<div class="jewelry-card" style="cursor:pointer" onclick="showJewelryDetail(${j.id})">${photoHtml}<div class="jewelry-body"><div class="jewelry-title">${esc(j.name)||'\u0411\u0435\u0437 \u043D\u0430\u0437\u0432\u0430\u043D\u0438\u044F'} <span class="jewelry-number">\u2116${j.id}</span></div><div class="jewelry-composition">${esc(j.composition)||'\u0421\u043E\u0441\u0442\u0430\u0432 \u043D\u0435 \u0443\u043A\u0430\u0437\u0430\u043D'}</div><div class="jewelry-status ${getStatusClass(j.status)}">${esc(j.status)||'\u0411\u0435\u0437 \u0441\u0442\u0430\u0442\u0443\u0441\u0430'}</div><div class="jewelry-prices">${getOldPriceHtml(j)}<div class="cost">\u0421\u0435\u0431\u0435\u0441\u0442\u043E\u0438\u043C\u043E\u0441\u0442\u044C: ${fmt(p.cost)}${j.complexity?` + Коэфф.Сложности: ${fmt(j.complexity)}`:''}</div><div class="price">\u0426\u0435\u043D\u0430 \u0410\u043B\u0451\u043D\u044B: ${fmt(p.price)}</div></div><div class="jewelry-actions" onclick="event.stopPropagation()"><button class="btn btn-sm btn-outline" onclick="event.stopPropagation();editJewelry(${j.id})">\u270F\uFE0F \u0420\u0435\u0434\u0430\u043A\u0442\u0438\u0440\u043E\u0432\u0430\u0442\u044C</button><button class="btn btn-sm btn-danger" onclick="event.stopPropagation();confirmDeleteJewelry(${j.id})">\uD83D\uDDD1\uFE0F</button>${j.status!=='\u041F\u0440\u043E\u0434\u0430\u043D\u043E'&&j.status!=='\u041F\u0440\u043E\u0434\u0430\u043D'?`<button class="btn btn-sm btn-success" onclick="event.stopPropagation();sellJewelry(${j.id})">\uD83D\uDCB0 \u041F\u0440\u043E\u0434\u0430\u0442\u044C</button>`:''}</div></div></div>`}).join(''):'<div style="text-align:center;color:#999;padding:40px">\u041D\u0435\u0442 \u0443\u043A\u0440\u0430\u0448\u0435\u043D\u0438\u0439</div>'}
 document.getElementById('jewelrySort').addEventListener('change',renderJewelry);document.getElementById('jewelryStatusFilter').addEventListener('change',renderJewelry);
 
@@ -769,11 +769,11 @@ function attachPhoto(id){const input=document.createElement('input');input.type=
 function removePhoto(id){const j=DATA.jewelry.find(x=>x.id===id);if(!j||!j.photo)return;openModal(`<div class="confirm-dialog"><div class="icon"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--orange)"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div><div class="text">\u0423\u0434\u0430\u043B\u0438\u0442\u044C \u0444\u043E\u0442\u043E \u0443\u043A\u0440\u0430\u0448\u0435\u043D\u0438\u044F <b>${esc(j.name)}</b>?</div><div class="buttons"><button class="btn btn-danger" onclick="confirmRemovePhoto(${id})">\u0414\u0430</button><button class="btn btn-outline" onclick="closeModal()">\u041D\u0435\u0442</button></div></div>`)}
 function confirmRemovePhoto(id){const j=DATA.jewelry.find(x=>x.id===id);if(!j)return;j.photo=null;save();closeModal();renderJewelry();showAchievement('Фото','Фото удалено','trash')}
 function showJewelryDetail(id){const j=DATA.jewelry.find(x=>x.id===id);if(!j)return;const p=calcJewelryPrices(j);const relatedSales=DATA.sales.filter(s=>s.jewelryId===id);let photoHtml='';if(j.photo){photoHtml=`<img src="${j.photo}" style="width:100%;max-height:300px;object-fit:cover;border-radius:12px;margin-bottom:16px;cursor:pointer" onclick="openLightbox('${j.photo.replace(/'/g,"\\'")}','${esc(j.name).replace(/'/g,"\\'")}')">`}let salesHtml='';if(relatedSales.length){salesHtml=`<div style="background:rgba(123,104,174,0.04);border-radius:12px;padding:12px;margin-bottom:16px"><div style="font-size:13px;font-weight:600;color:var(--dark);margin-bottom:8px">\u041F\u0440\u043E\u0434\u0430\u0436\u0438 (\u043F\u0440\u043E\u0434\u0430\u043D\u043E ${relatedSales.length} \u0440\u0430\u0437):</div>${relatedSales.map(s=>`<div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(0,0,0,0.05);font-size:13px"><span>${fmtDate(s.date)}${s.buyer?' — '+esc(s.buyer):''}</span><span style="font-weight:600">${fmt(s.actualPrice)}</span></div>`).join('')}</div>`}openModal(`<div class="modal-header"><h2>${esc(j.name)||'\u0411\u0435\u0437 \u043D\u0430\u0437\u0432\u0430\u043D\u0438\u044F'} <span style="font-size:14px;color:#999;font-weight:400">\u2116${j.id}</span></h2><button class="modal-close" onclick="closeModal()">&times;</button></div>${photoHtml}<div class="form-group"><label>\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435</label><input type="text" id="jewDetailName" value="${esc(j.name||'')}"></div><div class="form-group"><label>\u0421\u0442\u0430\u0442\u0443\u0441</label><select id="jewDetailStatus"><option ${j.status==='\u0412 \u043D\u0430\u043B\u0438\u0447\u0438\u0438'?'selected':''}>\u0412 \u043D\u0430\u043B\u0438\u0447\u0438\u0438</option><option ${j.status==='\u041F\u0440\u043E\u0434\u0430\u043D\u043E'||j.status==='\u041F\u0440\u043E\u0434\u0430\u043D'?'selected':''}>\u041F\u0440\u043E\u0434\u0430\u043D\u043E</option><option ${j.status==='\u0412 \u0440\u0435\u043C\u043E\u043D\u0442\u0435'?'selected':''}>\u0412 \u0440\u0435\u043C\u043E\u043D\u0442\u0435</option><option ${j.status==='\u0417\u0430\u0440\u0435\u0437\u0435\u0440\u0432\u0438\u0440\u043E\u0432\u0430\u043D'?'selected':''}>\u0417\u0430\u0440\u0435\u0437\u0435\u0440\u0432\u0438\u0440\u043E\u0432\u0430\u043D</option></select></div><div class="form-group"><label>\u0421\u043E\u0441\u0442\u0430\u0432</label><textarea id="jewDetailComp" rows="4">${escTextarea(j.composition||'')}</textarea></div><div class="form-row"><div class="form-group"><label>\u0421\u0435\u0431\u0435\u0441\u0442\u043E\u0438\u043C\u043E\u0441\u0442\u044C (\u20BD)</label><input type="number" id="jewDetailCost" value="${j.cost||0}" step="0.01"></div><div class="form-group"><label>\u041A\u043E\u044D\u0444\u0444. \u0441\u043B\u043E\u0436\u043D\u043E\u0441\u0442\u0438 (\u20BD)</label><input type="number" id="jewDetailComplexity" value="${j.complexity||0}" step="1" min="0"></div><div class="form-group"><label>Цена Алёны (₽) <span style="color:#999;font-weight:400;font-size:12px">Поставьте 0 для авто. расчёта</span></label><input type="number" id="jewDetailCustomPrice" value="${j.customPrice||0}" step="1" min="0"></div></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px"><div class="metric-card" style="padding:14px"><div class="label">\u0421\u0435\u0431\u0435\u0441\u0442\u043E\u0438\u043C\u043E\u0441\u0442\u044C</div><div class="value" style="font-size:18px" id="jewDetailCostView">${fmt(p.cost)}</div></div><div class="metric-card green" style="padding:14px"><div class="label">\u0426\u0435\u043D\u0430 \u0410\u043B\u0451\u043D\u044B</div><div class="value" style="font-size:18px" id="jewDetailPriceView">${fmt(p.price)}</div></div></div>${j.createdAt?`<div style="font-size:13px;color:#888;margin-bottom:16px">\u0421\u043E\u0437\u0434\u0430\u043D\u043E: ${fmtDate(j.createdAt)}</div>`:''}${salesHtml}<div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn btn-primary" onclick="saveJewelryDetail(${id})"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg> \u0421\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u044C</button>${j.status!=='\u041F\u0440\u043E\u0434\u0430\u043D\u043E'&&j.status!=='\u041F\u0440\u043E\u0434\u0430\u043D'?`<button class="btn btn-success" onclick="closeModal();sellJewelry(${j.id})">\uD83D\uDCB0 \u041F\u0440\u043E\u0434\u0430\u0442\u044C</button>`:''}<button class="btn btn-danger" onclick="closeModal();confirmDeleteJewelry(${j.id})">\uD83D\uDDD1\uFE0F \u0423\u0434\u0430\u043B\u0438\u0442\u044C</button></div>`);const costEl=document.getElementById('jewDetailCost');const complexEl=document.getElementById('jewDetailComplexity');function updatePrices(){const c=parseFloat(costEl.value)||0;const cx=parseFloat(complexEl.value)||0;const s=DATA.settings;const cost=c+cx;const price=cost*s.markupCoefficient+s.alenaMarkup;document.getElementById('jewDetailCostView').textContent=fmt(cost);document.getElementById('jewDetailPriceView').textContent=fmt(price)}costEl.addEventListener('input',updatePrices);complexEl.addEventListener('input',updatePrices)}
-function saveJewelryDetail(id){const j=DATA.jewelry.find(x=>x.id===id);if(!j)return;j.name=document.getElementById('jewDetailName').value;j.status=document.getElementById('jewDetailStatus').value;j.composition=document.getElementById('jewDetailComp').value;j.cost=parseFloat(document.getElementById('jewDetailCost').value)||0;j.complexity=parseFloat(document.getElementById('jewDetailComplexity').value)||0;var cp=parseFloat(document.getElementById('jewDetailCustomPrice').value)||0;j.customPrice=cp>0?cp:undefined;trackPriceChange(j.id,'manual');save();closeModal();renderJewelry();showAchievement('Украшение','Украшение изменено','check')}
+function saveJewelryDetail(id){const j=DATA.jewelry.find(x=>x.id===id);if(!j)return;trackPriceChange(j.id,'manual');j.name=document.getElementById('jewDetailName').value;j.status=document.getElementById('jewDetailStatus').value;j.composition=document.getElementById('jewDetailComp').value;j.cost=parseFloat(document.getElementById('jewDetailCost').value)||0;j.complexity=parseFloat(document.getElementById('jewDetailComplexity').value)||0;var cp=parseFloat(document.getElementById('jewDetailCustomPrice').value)||0;j.customPrice=cp>0?cp:undefined;trackPriceChange(j.id,'manual');save();closeModal();renderJewelry();showAchievement('Украшение','Украшение изменено','check')}
 function editJewelry(id){showJewelryDetail(id)}
 let pendingEditJewelry=null;
 function saveEditJewelry(id){const j=DATA.jewelry.find(x=>x.id===id);if(!j)return;pendingEditJewelry={id,name:document.getElementById('editName').value,status:document.getElementById('editStatus').value,composition:document.getElementById('editComp').value,cost:parseFloat(document.getElementById('editCost').value)||0,complexity:parseFloat(document.getElementById('editComplexity').value)||0,customPrice:parseFloat(document.getElementById('editCustomPrice').value)||0};openModal(`<div class="confirm-dialog"><div class="icon"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--orange)"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div><div class="text">\u0421\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u044C \u0438\u0437\u043C\u0435\u043D\u0435\u043D\u0438\u044F \u0432 \u0443\u043A\u0440\u0430\u0448\u0435\u043D\u0438\u0438?</div><div class="buttons"><button class="btn btn-primary" onclick="confirmSaveEditJewelry()">\u0421\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u044C</button><button class="btn btn-outline" onclick="pendingEditJewelry=null;closeModal()">\u041E\u0442\u043C\u0435\u043D\u0430</button></div></div>`)}
-function confirmSaveEditJewelry(){if(!pendingEditJewelry)return;const j=DATA.jewelry.find(x=>x.id===pendingEditJewelry.id);if(!j)return;j.name=pendingEditJewelry.name;j.status=pendingEditJewelry.status;j.composition=pendingEditJewelry.composition;j.cost=pendingEditJewelry.cost;j.complexity=pendingEditJewelry.complexity;trackPriceChange(pendingEditJewelry.id,'manual');pendingEditJewelry=null;save();closeModal();renderJewelry();showAchievement('Украшение','Украшение изменено','check')}
+function confirmSaveEditJewelry(){if(!pendingEditJewelry)return;const j=DATA.jewelry.find(x=>x.id===pendingEditJewelry.id);if(!j)return;trackPriceChange(j.id,'manual');j.name=pendingEditJewelry.name;j.status=pendingEditJewelry.status;j.composition=pendingEditJewelry.composition;j.cost=pendingEditJewelry.cost;j.complexity=pendingEditJewelry.complexity;trackPriceChange(pendingEditJewelry.id,'manual');pendingEditJewelry=null;save();closeModal();renderJewelry();showAchievement('Украшение','Украшение изменено','check')}
 function confirmDeleteJewelry(id){openModal(`<div class="confirm-dialog"><div class="icon"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--orange)"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div><div class="text">\u041E\u0434\u0443\u043C\u0430\u0439\u0441\u044F!! \u0422\u044B \u0442\u043E\u0447\u043D\u043E \u0445\u043E\u0447\u0435\u0448\u044C \u0435\u0433\u043E \u0443\u0434\u0430\u043B\u0438\u0442\u044C?</div><div class="buttons"><button class="btn btn-danger" onclick="deleteJewelry(${id})">\u0414\u0430</button><button class="btn btn-outline" onclick="closeModal()">\u041D\u0435\u0442</button></div></div>`)}
 function deleteJewelry(id){DATA.jewelry=DATA.jewelry.filter(x=>x.id!==id);save();closeModal();renderJewelry();showAchievement('Украшение','Украшение удалено','trash')}
 function sellJewelry(id){const j=DATA.jewelry.find(x=>x.id===id);if(!j)return;const p=calcJewelryPrices(j);openModal(`<div class="modal-header"><h2>\u041F\u0440\u043E\u0434\u0430\u0436\u0430: ${esc(j.name)}</h2><button class="modal-close" onclick="closeModal()">&times;</button></div><div class="form-group"><label>\u0414\u0430\u0442\u0430 \u043F\u0440\u043E\u0434\u0430\u0436\u0438</label><input type="date" id="saleDate" value="${new Date().toISOString().split('T')[0]}"></div><div class="form-group"><label>\u0424\u0430\u043A\u0442. \u0446\u0435\u043D\u0430</label><input type="number" id="salePrice" value="${Math.round(p.price)}" step="1"></div><div class="form-group"><label>\u041F\u043E\u043A\u0443\u043F\u0430\u0442\u0435\u043B\u044C</label><input type="text" id="saleBuyer" placeholder="\u0418\u043C\u044F \u043F\u043E\u043A\u0443\u043F\u0430\u0442\u0435\u043B\u044F"></div><div id="saleProfit" style="margin:12px 0;font-size:14px">\u041F\u0440\u0438\u0431\u044B\u043B\u044C: ${fmt(p.price-p.cost)}</div><button class="btn btn-success" onclick="confirmSell(${id})">\u041E\u0444\u043E\u0440\u043C\u0438\u0442\u044C \u043F\u0440\u043E\u0434\u0430\u0436\u0443</button>`);document.getElementById('salePrice').addEventListener('input',()=>{const pr=parseFloat(document.getElementById('salePrice').value)||0;document.getElementById('saleProfit').innerHTML=`\u041F\u0440\u0438\u0431\u044B\u043B\u044C: <b>${fmt(pr-p.cost)}</b>`})}
@@ -925,47 +925,69 @@ async function signInWithGoogle(){
 }
 async function signOutGoogle(){try{if(fbAuth){await window.firebaseModules.signOut(fbAuth);showAchievement('\u0410\u0432\u0442\u043E\u0440\u0438\u0437\u0430\u0446\u0438\u044F','\u0412\u044B\u0445\u043E\u0434 \u0432\u044B\u043F\u043E\u043B\u043D\u0435\u043D','logout')}}catch(e){}}
 // Photo sync via separate Firestore collection
+function simpleHash(str){var hash=0;for(var i=0;i<str.length;i++){hash=((hash<<5)-hash)+str.charCodeAt(i);hash|=0}return hash.toString(36)}
+function getPhotoSyncKey(type,id){return type+'_'+id}
 async function syncPhotosToFirestore(){
-  if(!fbDb||!fbUser)return;
+  if(!fbDb||!fbUser)return 0;
   var fm=window.firebaseModules;
   var photosRef=fm.collection(fbDb,'users',fbUser.uid,'photos');
-  var batch=fm.writeBatch(fbDb);
-  var count=0;
+  if(!DATA._photoSyncState)DATA._photoSyncState={};
+  var toUpload=[];
   for(var i=0;i<DATA.jewelry.length;i++){
     var j=DATA.jewelry[i];
+    var key=getPhotoSyncKey('jewelry',j.id);
     if(j.photo&&j.photo.startsWith('data:')){
-      batch.set(fm.doc(photosRef,'jewelry_'+j.id),{data:j.photo,type:'jewelry',itemId:j.id});
-      count++;
+      var h=simpleHash(j.photo);
+      if(DATA._photoSyncState[key]!==h){
+        toUpload.push({ref:fm.doc(photosRef,key),data:{data:j.photo,type:'jewelry',itemId:j.id},key:key,hash:h});
+      }
+    }else if(!j.photo&&DATA._photoSyncState[key]){
+      delete DATA._photoSyncState[key];
     }
   }
   for(var i=0;i<DATA.receipts.length;i++){
     var r=DATA.receipts[i];
+    var key=getPhotoSyncKey('receipt',r.id);
     if(r.photo&&r.photo.startsWith('data:')){
-      batch.set(fm.doc(photosRef,'receipt_'+r.id),{data:r.photo,type:'receipt',itemId:r.id});
-      count++;
+      var h=simpleHash(r.photo);
+      if(DATA._photoSyncState[key]!==h){
+        toUpload.push({ref:fm.doc(photosRef,key),data:{data:r.photo,type:'receipt',itemId:r.id},key:key,hash:h});
+      }
+    }else if(!r.photo&&DATA._photoSyncState[key]){
+      delete DATA._photoSyncState[key];
     }
   }
-  if(count>0){
-    showFbStatus('Загрузка '+count+' фото...','orange');
+  var total=toUpload.length;
+  if(total===0)return 0;
+  var CONCURRENCY=5;
+  for(var i=0;i<total;i+=CONCURRENCY){
+    var batch=fm.writeBatch(fbDb);
+    var chunk=toUpload.slice(i,i+CONCURRENCY);
+    chunk.forEach(function(d){batch.set(d.ref,d.data);DATA._photoSyncState[d.key]=d.hash});
+    showFbStatus('Загрузка фото '+(i+chunk.length)+'/'+total+'...','orange');
     await batch.commit();
   }
-  return count;
+  idbPut('businki_data',DATA);
+  return total;
 }
 async function loadPhotosFromFirestore(){
   if(!fbDb||!fbUser)return 0;
   var fm=window.firebaseModules;
   var photosRef=fm.collection(fbDb,'users',fbUser.uid,'photos');
   var snapshot=await fm.getDocs(photosRef);
+  if(!DATA._photoSyncState)DATA._photoSyncState={};
   var count=0;
   snapshot.forEach(function(doc){
     var d=doc.data();
     if(d&&d.data){
+      var key=getPhotoSyncKey(d.type,d.itemId);
+      var h=simpleHash(d.data);
       if(d.type==='jewelry'){
         var j=DATA.jewelry.find(function(x){return x.id==d.itemId});
-        if(j&&!j.photo){j.photo=d.data;count++}
+        if(j&&!j.photo){j.photo=d.data;count++;DATA._photoSyncState[key]=h}
       }else if(d.type==='receipt'){
         var r=DATA.receipts.find(function(x){return x.id==d.itemId});
-        if(r&&!r.photo){r.photo=d.data;count++}
+        if(r&&!r.photo){r.photo=d.data;count++;DATA._photoSyncState[key]=h}
       }
     }
   });
@@ -976,8 +998,10 @@ function stripPhotos(data){var copy=JSON.parse(JSON.stringify(data));if(copy.jew
 function mergePhotos(local,remote){if(remote&&remote.jewelry&&local&&local.jewelry){remote.jewelry.forEach(function(rj){var lj=local.jewelry.find(function(l){return l.id===rj.id});if(lj&&lj.photo){if(!rj.photo||rj.photo==='')rj.photo=lj.photo}else if(rj.photo&&rj.photo.startsWith('http')){}})}if(remote&&remote.receipts&&local&&local.receipts){remote.receipts.forEach(function(rr){var lr=local.receipts.find(function(l){return l.id===rr.id});if(lr&&lr.photo){if(!rr.photo||rr.photo==='')rr.photo=lr.photo}else if(rr.photo&&rr.photo.startsWith('http')){}})}return remote}
 
 async function syncToFirebase(){
-  if(!fbDb||!fbUser||_receivingFromFirebase)return;
+  if(!fbDb||!fbUser||_receivingFromFirebase||_syncing)return;
+  _syncing=true;
   try{_lastPushTime=Date.now();var fm=window.firebaseModules;await syncPhotosToFirestore();await fm.setDoc(fbDoc,stripPhotos(DATA));showFbStatus('Синхронизировано','green')}catch(e){showFbStatus('Ошибка: '+e.message,'red')}
+  _syncing=false;
 }
 var fbDoc=null;
 function listenFirebase(){
