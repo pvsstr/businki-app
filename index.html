@@ -21,6 +21,7 @@ import{getAuth,signInWithPopup,GoogleAuthProvider,onAuthStateChanged,signOut}fro
 import{getFirestore,doc,getDoc,setDoc,onSnapshot,collection,getDocs,writeBatch}from'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
 window.firebaseModules={initializeApp,getAuth,signInWithPopup,GoogleAuthProvider,onAuthStateChanged,signOut,getFirestore,doc,getDoc,setDoc,onSnapshot,collection,getDocs,writeBatch};
 </script>
+<script src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js"></script>
 <style>
 @font-face{font-family:'Comba Test Bold Ultra Wide';font-style:normal;font-weight:normal;src:url('combatest-boldultrawide.woff') format('woff')}
 </style>
@@ -620,6 +621,7 @@ body.theme-liquid-dark .bottom-nav a.active{background:rgba(255,255,255,0.1);col
       
       
       
+      <button class="btn btn-success" onclick="exportToExcel()">📊 Экспорт в Excel</button>
       <button class="btn btn-danger" onclick="confirmClearAll()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg> Очистить всё</button>
       <button class="btn btn-outline" onclick="confirmRefresh()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg> Очистить кэш</button>
     </div>
@@ -1045,7 +1047,59 @@ function confirmClearAll(){openModal(`<div class="confirm-dialog"><div class="ic
 function clearAll(){DATA={jewelry:[],materials:[],categories:JSON.parse(JSON.stringify(DEFAULT_CATEGORIES)),sales:[],receipts:[],clients:[],expenses:[],settings:JSON.parse(JSON.stringify(DEFAULT_SETTINGS))};save();closeModal();currentMaterialTab=DATA.categories[0]||'';renderDashboard();renderJewelry();renderMaterials();renderReceipts();renderSales();renderClients();renderExpenses();loadSettings();showAchievement('\u0414\u0430\u043D\u043D\u044B\u0435','\u0412\u0441\u0435 \u043E\u0447\u0438\u0449\u0435\u043D\u043E','trash')}
 function confirmRefresh(){if('caches' in window){caches.keys().then(function(names){return Promise.all(names.map(function(n){return caches.delete(n)}))}).then(function(){showAchievement('\u041a\u044d\u0448','\u041e\u0447\u0438\u0449\u0435\u043d \u0438 \u043e\u0431\u043d\u043e\u0432\u043b\u0451\u043d','refresh');setTimeout(function(){window.location.reload(true)},1800)})}else{showAchievement('\u041a\u044d\u0448','\u041e\u0431\u043d\u043e\u0432\u043b\u0451\u043d','refresh');setTimeout(function(){window.location.reload(true)},1800)}}
 
-// ===== Firebase Sync =====
+// ===== Export to Excel =====
+function exportToExcel(){
+  if(typeof XLSX==='undefined'){alert('Библиотека XLSX не загружена. Проверьте подключение к интернету.');return}
+  var wb=XLSX.utils.book_new();
+  // Sales sheet
+  var salesData=[['Дата','№','Украшение','Себестоимость','Факт. цена','Без наценки','Прибыль','Покупатель','Без наценки Алёны']];
+  DATA.sales.forEach(function(s){
+    var j=DATA.jewelry.find(function(x){return x.id===s.jewelryId});
+    var pnm=s.noMarkup===true?(s.actualPrice||0):(s.priceWithoutMarkup!==undefined?s.priceWithoutMarkup:(s.actualPrice||0)-(DATA.settings.alenaMarkup||0));
+    var profit=pnm-(s.cost||0);
+    salesData.push([s.date||'',s.jewelryId||'—',j?j.name:(s.name||'—'),s.cost||0,s.actualPrice||0,pnm,profit,s.buyer||'',s.noMarkup?'Да':'Нет']);
+  });
+  var wsSales=XLSX.utils.aoa_to_sheet(salesData);
+  wsSales['!cols']=[{wch:12},{wch:5},{wch:30},{wch:12},{wch:12},{wch:12},{wch:12},{wch:20},{wch:15}];
+  XLSX.utils.book_append_sheet(wb,wsSales,'Продажи');
+  // Materials sheet
+  var matData=[['Категория','Наименование','Закуп. цена','Длина','Диаметр','Цена за см','Цена за шт']];
+  DATA.materials.forEach(function(m){
+    matData.push([m.category||'',m.name||'',m.purchasePrice||0,m.length||0,m.diameter||0,m.pricePerCm||0,m.pricePerPiece||0]);
+  });
+  var wsMat=XLSX.utils.aoa_to_sheet(matData);
+  wsMat['!cols']=[{wch:15},{wch:30},{wch:12},{wch:10},{wch:10},{wch:10},{wch:10}];
+  XLSX.utils.book_append_sheet(wb,wsMat,'Материалы');
+  // Expenses sheet
+  var expData=[['Дата','Категория','Описание','Сумма']];
+  (DATA.expenses||[]).forEach(function(e){
+    expData.push([e.date||'',e.category||'',e.description||'',e.amount||0]);
+  });
+  var wsExp=XLSX.utils.aoa_to_sheet(expData);
+  wsExp['!cols']=[{wch:12},{wch:15},{wch:30},{wch:12}];
+  XLSX.utils.book_append_sheet(wb,wsExp,'Расходы');
+  // Receipts sheet
+  var rcData=[['Дата','Поставщик','Сумма','Позиции']];
+  (DATA.receipts||[]).forEach(function(r){
+    rcData.push([r.date||'',r.supplier||'',r.total||0,(r.items||'').replace(/\n/g,', ')]);
+  });
+  var wsRc=XLSX.utils.aoa_to_sheet(rcData);
+  wsRc['!cols']=[{wch:12},{wch:20},{wch:12},{wch:50}];
+  XLSX.utils.book_append_sheet(wb,wsRc,'Чеки');
+  // Clients sheet
+  var clData=[['Имя','Телефон','Instagram','Покупок','Потрачено']];
+  (DATA.clients||[]).forEach(function(c){
+    clData.push([c.name||'',c.phone||'',c.instagram||'',c.purchaseCount||0,c.totalSpent||0]);
+  });
+  var wsCl=XLSX.utils.aoa_to_sheet(clData);
+  wsCl['!cols']=[{wch:20},{wch:15},{wch:20},{wch:10},{wch:12}];
+  XLSX.utils.book_append_sheet(wb,wsCl,'Клиенты');
+  // Download
+  var date=new Date().toISOString().split('T')[0];
+  XLSX.writeFile(wb,'BAWI_'+date+'.xlsx');
+  showAchievement('Экспорт','Файл BAWI_'+date+'.xlsx сохранён','save');
+}
+
 let fbApp=null,fbAuth=null,fbDb=null,fbUser=null;var _receivingFromFirebase=false;var _lastPushTime=0;var _pendingSync=false;
 function saveFirebaseConfig(){
   var k=document.getElementById('fbApiKey').value.trim();
