@@ -713,6 +713,54 @@ function calcJewelryPrices(item){var s=DATA.settings;var cost=(item.cost||0)+(it
 function getStatusClass(st){if(st==='\u041F\u0440\u043E\u0434\u0430\u043D\u043E'||st==='\u041F\u0440\u043E\u0434\u0430\u043D')return'status-sold';if(st==='\u0412 \u043D\u0430\u043B\u0438\u0447\u0438\u0438')return'status-stock';if(st==='\u0412 \u0440\u0435\u043C\u043E\u043D\u0442\u0435')return'status-repair';if(st==='\u0417\u0430\u0440\u0435\u0437\u0435\u0440\u0432\u0438\u0440\u043E\u0432\u0430\u043D')return'status-reserved';return''}
 function openLightbox(src,name){document.getElementById('lightboxImg').src=src;document.getElementById('lightboxName').textContent=name||'';document.getElementById('photoLightbox').classList.add('active');document.body.style.overflow='hidden'}
 function closeLightbox(){document.getElementById('photoLightbox').classList.remove('active');document.body.style.overflow=''}
+function renderTopROI(){
+  var salesByType={};
+  DATA.sales.forEach(function(s){
+    var j=DATA.jewelry.find(function(x){return x.id===s.jewelryId});
+    if(!j)return;
+    var name=j.name.replace(/\s*\(ПОВТОР\)\s*/gi,'').trim();
+    if(!salesByType[name])salesByType[name]={name:name,revenue:0,cost:0,count:0};
+    salesByType[name].revenue+=(s.actualPrice||0);
+    salesByType[name].cost+=(s.cost||0);
+    salesByType[name].count++;
+  });
+  var roiList=Object.values(salesByType).filter(function(t){return t.cost>0}).map(function(t){
+    var profit=t.revenue-t.cost;
+    var roi=Math.round(profit/t.cost*100);
+    return{name:t.name,detail:roi+'% ('+t.count+' шт)',price:profit}
+  }).sort(function(a,b){return b.price-a.price}).slice(0,5);
+  var svgROI='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:4px"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>';
+  return '<div class="top-block"><h3>'+svgROI+' ROI по типам</h3>'+(roiList.length?roiList.map(function(i){return '<div class="item"><span class="name">'+esc(i.name)+'</span><span class="price" style="color:'+(i.price>=0?'var(--green)':'var(--pink)')+'">'+fmt(i.price)+' ('+esc(i.detail)+')</span></div>'}).join(''):'<div style="color:#999;font-size:13px">Нет данных</div>')+'</div>';
+}
+function renderTopMaterials(){
+  var matUsage={};
+  DATA.jewelry.forEach(function(j){
+    if(!j.composition)return;
+    j.composition.split('\n').forEach(function(line){
+      var match=line.match(/^(.+?)\s*[–—-]\s*(\d+)/);
+      if(match){
+        var name=match[1].trim();
+        var qty=parseInt(match[2])||0;
+        if(!matUsage[name])matUsage[name]={name:name,total:0,count:0};
+        matUsage[name].total+=qty;
+        matUsage[name].count++;
+      }
+    });
+  });
+  var topMat=Object.values(matUsage).sort(function(a,b){return b.count-a.count}).slice(0,5).map(function(m){
+    return{name:m.name,detail:m.count+' украшений',price:m.total}
+  });
+  var svgMat='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:4px"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>';
+  return '<div class="top-block"><h3>'+svgMat+' Топ-5 материалов</h3>'+(topMat.length?topMat.map(function(i){return '<div class="item"><span class="name">'+esc(i.name)+'</span><span class="price">'+esc(i.detail)+'</span></div>'}).join(''):'<div style="color:#999;font-size:13px">Нет данных</div>')+'</div>';
+}
+function renderDefectRate(){
+  var total=DATA.jewelry.length;
+  var repair=DATA.jewelry.filter(function(j){return j.status==='\u0412 \u0440\u0435\u043C\u043E\u043D\u0442\u0435'}).length;
+  var pct=total>0?Math.round(repair/total*100):0;
+  var svgDefect='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:4px"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>';
+  var color=pct>10?'var(--pink)':pct>5?'var(--orange)':'var(--green)';
+  return '<div class="top-block"><h3>'+svgDefect+' Процент брака</h3><div style="text-align:center;padding:16px"><div style="font-size:32px;font-weight:700;color:'+color+'">'+pct+'%</div><div style="font-size:13px;color:#888;margin-top:4px">'+repair+' из '+total+' в ремонте</div></div></div>';
+}
 function renderDashboard(){
   var items=DATA.jewelry;
   var total=items.length;
@@ -765,7 +813,7 @@ function renderDashboard(){
   var svgFire='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:4px"><path d="M12 2c.5 2.5 2 4.5 2 7a4 4 0 1 1-8 0c0-2.5 2-5 2-7 1 1 2.5 1.5 4 0z"/></svg>';
   var svgGem='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:4px"><polygon points="6 3 18 3 22 9 12 22 2 9"/><line x1="2" y1="9" x2="22" y2="9"/><line x1="12" y1="22" x2="12" y2="9"/></svg>';
   var svgMoney='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:4px"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>';
-  document.getElementById('dashboardTops').innerHTML=renderTop(svgFire+' Популярные',topPopular,false)+renderTop(svgGem+' Самые дорогие',topExpensive,true)+renderTop(svgMoney+' Самые дешёвые',topCheap,true);
+  document.getElementById('dashboardTops').innerHTML=renderTop(svgFire+' Популярные',topPopular,false)+renderTop(svgGem+' Самые дорогие',topExpensive,true)+renderTop(svgMoney+' Самые дешёвые',topCheap,true)+renderTopROI()+renderTopMaterials()+renderDefectRate();
   
   var statusData=[{label:'В наличии',count:inStock,color:'#2196F3'},{label:'Продано',count:sold,color:'#4CAF50'},{label:'В ремонте',count:repair,color:'#FF9800'},{label:'Другое',count:total-inStock-sold-repair,color:'#ccc'}];
   var totalForPie=statusData.reduce(function(s,d){return s+d.count},0)||1;var gradParts=[];var angle=0;statusData.forEach(function(d){var pct=d.count/totalForPie*100;gradParts.push(d.color+' '+angle+'deg '+(angle+pct*3.6)+'deg');angle+=pct*3.6});
