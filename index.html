@@ -724,7 +724,7 @@ function renderDashboard(){
   var totalRevenue=DATA.sales.reduce(function(s,i){return s+(i.actualPrice||0)},0);
   
   // Profit from all sales
-  var totalProfit=DATA.sales.reduce(function(s,i){var pnm=i.noMarkup===true?(i.actualPrice||0):(i.priceWithoutMarkup!==undefined?i.priceWithoutMarkup:(i.actualPrice||0)-(DATA.settings.alenaMarkup||0));return s+(pnm-(i.cost||0))},0);var totalExpenses=getTotalExpenses();var realProfit=totalProfit-totalExpenses;
+  var totalProfit=DATA.sales.reduce(function(s,i){var pnm=i.noMarkup===true?(i.actualPrice||0):(i.priceWithoutMarkup!==undefined?i.priceWithoutMarkup:(i.actualPrice||0)-(DATA.settings.alenaMarkup||0));return s+(pnm-(i.cost||0))},0);var totalExpenses=getAllExpenses();var realProfit=totalProfit-totalExpenses;
   
   // Total sales count from DATA.sales (including unknown)
   var totalSalesCount=DATA.sales.length;
@@ -993,7 +993,8 @@ function renderExpenses(){
   var total=expenses.reduce(function(s,e){return s+(e.amount||0)},0);
   var thisMonth=expenses.filter(function(e){return e.date&&e.date.substring(0,7)===new Date().toISOString().substring(0,7)});
   var monthTotal=thisMonth.reduce(function(s,e){return s+(e.amount||0)},0);
-  document.getElementById('expensesMetrics').innerHTML='<div class="metric-card pink"><div class="value">'+fmt(total)+'</div><div class="label">Всего расходов</div></div><div class="metric-card orange"><div class="value">'+fmt(monthTotal)+'</div><div class="label">В этом месяце</div></div><div class="metric-card"><div class="value">'+expenses.length+'</div><div class="label">Записей</div></div>';
+  var receiptsTotal=getTotalReceipts();
+  document.getElementById('expensesMetrics').innerHTML='<div class="metric-card pink"><div class="value">'+fmt(total)+'</div><div class="label">Расходы</div></div><div class="metric-card orange"><div class="value">'+fmt(receiptsTotal)+'</div><div class="label">Закупки материалов</div></div><div class="metric-card"><div class="value">'+fmt(total+receiptsTotal)+'</div><div class="label">Итого</div></div>';
   var tabs=['Все'].concat(EXPENSE_CATEGORIES);
   document.getElementById('expenseTabs').innerHTML=tabs.map(function(t){return '<button class="tab'+(currentExpenseTab===t?' active':'')+'" onclick="currentExpenseTab=\''+t+'\';renderExpenses()">'+t+'</button>'}).join('');
   var filtered=currentExpenseTab==='Все'?expenses:expenses.filter(function(e){return e.category===currentExpenseTab});
@@ -1027,6 +1028,8 @@ function confirmDeleteExpense(id){
 }
 function deleteExpense(id){DATA.expenses=DATA.expenses.filter(function(x){return x.id!==id});save();closeModal();renderExpenses();renderDashboard();showAchievement('Расход','Расход удалён','trash')}
 function getTotalExpenses(){return(DATA.expenses||[]).reduce(function(s,e){return s+(e.amount||0)},0)}
+function getTotalReceipts(){return(DATA.receipts||[]).reduce(function(s,r){return s+(r.total||0)},0)}
+function getAllExpenses(){return getTotalExpenses()+getTotalReceipts()}
 
 function loadSettings(){var cfg=JSON.parse(localStorage.getItem('fb_config')||'null');if(!cfg||!cfg.apiKey)cfg={apiKey:'AIzaSyBf3fj8xp8KAOD6PfHvijktMmGupWOS6bs',authDomain:'bawi-100423.firebaseapp.com',projectId:'bawi-100423',storageBucket:'bawi-100423.firebasestorage.app',messagingSenderId:'643328515779',appId:'1:643328515779:web:70a1cec52e63bd88b5cc76'};if(cfg){var el;el=document.getElementById('fbApiKey');if(el)el.value=cfg.apiKey||'';el=document.getElementById('fbAuthDomain');if(el)el.value=cfg.authDomain||'';el=document.getElementById('fbProjectId');if(el)el.value=cfg.projectId||''}document.getElementById('setMarkup').value=DATA.settings.markupCoefficient;document.getElementById('setAlena').value=DATA.settings.alenaMarkup;document.getElementById('setExtra').value=DATA.settings.additionalCosts;document.getElementById('setDiscount').value=DATA.settings.defaultDiscount;var savedTheme=localStorage.getItem('bawi_theme')||'classic';document.getElementById('setTheme').value=savedTheme;loadGitHubSettings()}
 function switchTheme(theme){document.body.className='';if(theme!=='classic')document.body.classList.add('theme-'+theme);localStorage.setItem('bawi_theme',theme);var mc=document.getElementById('metaThemeColor');if(theme==='liquid-glass')mc.content='#5B7FFF';else if(theme==='liquid-dark')mc.content='#1A1A2E';else mc.content='#7B68AE'}
