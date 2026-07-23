@@ -88,20 +88,27 @@ label{display:block;font-size:13px;font-weight:500;color:#555;margin-bottom:6px}
 @keyframes achIconPop{0%{transform:scale(0) rotate(-180deg)}60%{transform:scale(1.2) rotate(10deg)}100%{transform:scale(1) rotate(0deg)}}
 /* Medals */
 .medal-wrap{display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;transition:transform 0.2s}
-.medal-wrap:hover{transform:scale(1.1)}
-.medal{position:relative;width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 12px rgba(0,0,0,0.3),inset 0 2px 4px rgba(255,255,255,0.3),inset 0 -2px 4px rgba(0,0,0,0.2)}
-.medal::before{content:'';position:absolute;inset:2px;border-radius:50%;border:2px solid rgba(255,255,255,0.3)}
-.medal::after{content:'';position:absolute;top:4px;left:50%;transform:translateX(-50%);width:60%;height:30%;background:linear-gradient(180deg,rgba(255,255,255,0.4),transparent);border-radius:50%;pointer-events:none}
-.medal svg{width:22px;height:22px;filter:drop-shadow(0 1px 2px rgba(0,0,0,0.3));position:relative;z-index:1}
-.medal-ribbon{width:16px;height:10px;clip-path:polygon(0 0,100% 0,80% 100%,50% 70%,20% 100%)}
-.medal-label{font-size:9px;color:#666;text-align:center;max-width:56px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.medal-wrap:hover{transform:scale(1.08)}
+.medal{position:relative;width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 12px rgba(0,0,0,0.25),inset 0 2px 4px rgba(255,255,255,0.35),inset 0 -2px 4px rgba(0,0,0,0.15)}
+.medal::before{content:'';position:absolute;inset:2px;border-radius:50%;border:1.5px solid rgba(255,255,255,0.25)}
+.medal::after{content:'';position:absolute;top:4px;left:50%;transform:translateX(-50%);width:55%;height:28%;background:linear-gradient(180deg,rgba(255,255,255,0.45),transparent);border-radius:50%;pointer-events:none}
+.medal svg,.medal div{width:22px;height:22px;filter:drop-shadow(0 1px 2px rgba(0,0,0,0.25));position:relative;z-index:1}
+.medal-ribbon{width:14px;height:9px;clip-path:polygon(0 0,100% 0,80% 100%,50% 70%,20% 100%)}
+.medal-label{font-size:9px;color:#777;text-align:center;max-width:56px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;line-height:1.2}
 .medal-paper{background:linear-gradient(145deg,#E8D5B7,#D2B48C,#C4A67A)}
 .medal-wood{background:linear-gradient(145deg,#A0522D,#8B4513,#6B3410)}
 .medal-bronze{background:linear-gradient(145deg,#E8A860,#CD7F32,#B8732A)}
 .medal-silver{background:linear-gradient(145deg,#E8E8E8,#C0C0C0,#A8A8A8)}
 .medal-gold{background:linear-gradient(145deg,#FFE44D,#FFD700,#E6C200)}
 .medal-diamond{background:linear-gradient(145deg,#E0F7FF,#B9F2FF,#8DE4FF)}
-.medal-cat-title{font-size:12px;font-weight:600;color:var(--dark);margin:16px 0 8px;padding-bottom:4px;border-bottom:1px solid rgba(123,104,174,0.15)}
+.medals-summary{display:flex;justify-content:center;gap:16px;margin-bottom:20px;flex-wrap:wrap}
+.medals-summary-item{display:flex;align-items:center;gap:6px;padding:6px 12px;border-radius:20px;font-size:12px;font-weight:600}
+.medal-cat-card{background:var(--card);border-radius:12px;padding:14px;margin-bottom:12px;box-shadow:0 2px 8px rgba(0,0,0,0.06)}
+.medal-cat-header{display:flex;align-items:center;gap:8px;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid rgba(123,104,174,0.1)}
+.medal-cat-icon{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px}
+.medal-cat-name{font-size:13px;font-weight:600;color:var(--dark);flex:1}
+.medal-cat-count{font-size:11px;color:#999;background:rgba(123,104,174,0.08);padding:2px 8px;border-radius:10px}
+.medal-cat-grid{display:flex;flex-wrap:wrap;gap:10px;justify-content:flex-start}
 .achievement-toast{position:fixed;top:20px;left:20px;z-index:5000;display:flex;align-items:center;gap:10px;padding:8px 14px 8px 10px;border-radius:8px;font-family:'Segoe UI',system-ui,sans-serif;animation:achSlideIn 3.2s cubic-bezier(0.22,1,0.36,1) forwards;pointer-events:none;overflow:hidden;max-width:280px}
 .achievement-toast::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.5),transparent)}
 .achievement-toast .ach-icon{width:30px;height:30px;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;animation:achIconPop 0.5s cubic-bezier(0.34,1.56,0.64,1) 0.15s both;position:relative}
@@ -645,7 +652,7 @@ body.theme-liquid-dark #profileAchievements>div{background:rgba(25,25,40,0.4);bo
   <div id="profileLevelCard" style="background:linear-gradient(135deg,var(--accent),var(--dark));border-radius:var(--radius);padding:24px;color:#fff;margin-bottom:24px;text-align:center"></div>
   <div id="profileStreak" style="text-align:center;margin-bottom:24px"></div>
   <h3 style="margin-bottom:12px;font-size:16px">Медали</h3>
-  <div id="profileMedals" style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px"></div>
+  <div id="profileMedals" style="margin-bottom:24px"></div>
   <h3 style="margin-bottom:12px;font-size:16px">Ачивки</h3>
   <div id="profileAchievements" style="display:grid;grid-template-columns:1fr;gap:8px"></div>
 </div>
@@ -1304,10 +1311,24 @@ function renderProfile(){
   document.getElementById('profileStreak').innerHTML='<div style="display:flex;align-items:center;justify-content:center;gap:8px;font-size:14px"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 2c.5 2.5 2 4.5 2 7a4 4 0 1 1-8 0c0-2.5 2-5 2-7 1 1 2.5 1.5 4 0z" fill="'+(streak>0?'#FF6B35':'#ccc')+'" stroke="'+(streak>0?'#FF4500':'#999')+'" stroke-width="1.5"/></svg><span>\u0421\u0435\u0440\u0438\u044F: <b>'+streak+' \u0434\u043D.</b></span><span style="color:#888;font-size:12px">('+streak*10+' XP)</span></div>';
   // Group earned medals by category
   var medalCats={};ACHIEVEMENTS.forEach(function(a){var ml=getMedalLevel(a.id);if(ml){var cat=a.cat||'Другое';if(!medalCats[cat])medalCats[cat]=[];medalCats[cat].push({ach:a,medal:ml})}});
-  var medalsHtml='';var catOrder=['Продажи','Выручка','Прибыль','Клиенты','Материалы','Чеки','Расходы','Сборка','Склад','Ремонт','Экспорт','Синхро','Быстрые','Дубли','Фото','Большие сделки','Серии','Комбо','Богатство','Организация','Калькулятор','Цены','Настройки'];
-  catOrder.forEach(function(cat){if(medalCats[cat]){medalsHtml+='<div class="medal-cat-title">'+cat+'</div><div style="display:flex;flex-wrap:wrap;gap:12px;margin-bottom:8px">';medalCats[cat].forEach(function(m){var lvl=m.ach.levels.length;var ml=m.medal;medalsHtml+='<div class="medal-wrap" onclick="showMedalDetail(\''+m.ach.id+'\')"><div class="medal medal-'+ml+'"><div style="width:22px;height:22px;color:#fff">'+m.ach.icon+'</div></div><div class="medal-ribbon medal-'+ml+'"></div><div class="medal-label">'+m.ach.name+'</div></div>'});medalsHtml+='</div>'}});
-  if(!medalsHtml)medalsHtml='<div style="color:#999;font-size:13px">\u041F\u043E\u043A\u0430 \u043D\u0435\u0442 \u043C\u0435\u0434\u0430\u043B\u0435\u0439</div>';
-  document.getElementById('profileMedals').innerHTML=medalsHtml||'<div style="color:#999;font-size:13px">\u041F\u043E\u043A\u0430 \u043D\u0435\u0442 \u043C\u0435\u0434\u0430\u043B\u0435\u0439</div>';
+  // Count by quality
+  var medalCounts={paper:0,wood:0,bronze:0,silver:0,gold:0,diamond:0};ACHIEVEMENTS.forEach(function(a){var ml=getMedalLevel(a.id);if(ml)medalCounts[ml]++});
+  var medalsHtml='';
+  // Summary bar
+  medalsHtml+='<div class="medals-summary">';
+  var summaryItems=[{q:'diamond',label:'Бриллиант',color:'#B9F2FF',bg:'#E0F7FF'},{q:'gold',label:'Золото',color:'#E6C200',bg:'#FFF8DC'},{q:'silver',label:'Серебро',color:'#A8A8A8',bg:'#F5F5F5'},{q:'bronze',label:'Бронза',color:'#B8732A',bg:'#FFF3E0'}];
+  summaryItems.forEach(function(s){if(medalCounts[s.q]>0){medalsHtml+='<div class="medals-summary-item" style="background:'+s.bg+';color:'+s.color+';border:1px solid '+s.color+'30"><div style="width:16px;height:16px;border-radius:50%;background:linear-gradient(145deg,'+s.color+','+s.color+'CC);display:flex;align-items:center;justify-content:center"><div style="width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.4)"></div></div>'+medalCounts[s.q]+' '+s.label+'</div>'}});
+  medalsHtml+='</div>';
+  // Category cards
+  var catIcons={Продажи:'💰',Выручка:'💵',Прибыль:'📈',Клиенты:'👤',Материалы:'💎',Чеки:'🧾',Расходы:'🛒',Сборка:'🔧',Склад:'📦',Ремонт:'🔩',Экспорт:'⬇️',Синхро:'☁️',Быстрые:'⚡',Дубли:'📋',Фото:'📷','Большие сделки':'💠',Серии:'🔥',Комбо:'⭐',Богатство:'👑',Организация:'🏷️',Калькулятор:'🔢',Цены:'🔗',Настройки:'🎨'};
+  var catOrder=['Продажи','Выручка','Прибыль','Клиенты','Материалы','Чеки','Расходы','Сборка','Склад','Ремонт','Экспорт','Синхро','Быстрые','Дубли','Фото','Большие сделки','Серии','Комбо','Богатство','Организация','Калькулятор','Цены','Настройки'];
+  catOrder.forEach(function(cat){if(medalCats[cat]){
+    var ci=catIcons[cat]||'🏅';var bgColor='var(--accent)';
+    medalsHtml+='<div class="medal-cat-card"><div class="medal-cat-header"><div class="medal-cat-icon" style="background:'+bgColor+'">'+ci+'</div><div class="medal-cat-name">'+cat+'</div><div class="medal-cat-count">'+medalCats[cat].length+'</div></div><div class="medal-cat-grid">';
+    medalCats[cat].forEach(function(m){var ml=m.medal;medalsHtml+='<div class="medal-wrap" onclick="showMedalDetail(\''+m.ach.id+'\')"><div class="medal medal-'+ml+'"><div style="width:22px;height:22px;color:#fff">'+m.ach.icon+'</div></div><div class="medal-ribbon medal-'+ml+'"></div><div class="medal-label">'+m.ach.name+'</div></div>'});
+    medalsHtml+='</div></div>'}});
+  if(!medalsHtml)medalsHtml='<div style="text-align:center;padding:32px 0;color:#999"><div style="font-size:32px;margin-bottom:8px">🏅</div><div style="font-size:13px">Пока нет медалей</div><div style="font-size:11px;margin-top:4px">Выполняйте ачивки, чтобы получить медали</div></div>';
+  document.getElementById('profileMedals').innerHTML=medalsHtml;
   var achHtml='';ACHIEVEMENTS.forEach(function(a){var pa=(p.achievements||{})[a.id]||{level:0,progress:0};var lvl=pa.level;var nextNeed=lvl<a.levels.length?a.levels[lvl].need:0;var prevNeed=lvl>0?a.levels[lvl-1].need:0;var progPct=nextNeed>0?Math.min(100,Math.round((pa.progress-prevNeed)/(nextNeed-prevNeed)*100)):100;var ml=getMedalLevel(a.id);var border=ml?'3px solid '+MEDAL_COLORS[ml]:'2px solid rgba(123,104,174,0.15)';achHtml+='<div style="background:var(--card);border-radius:12px;padding:12px;border:'+border+'"><div style="display:flex;align-items:center;gap:10px;margin-bottom:8px"><div style="width:28px;height:28px;color:var(--dark)">'+a.icon+'</div><div style="flex:1"><div style="font-weight:600;font-size:13px">'+a.name+(lvl>0?' \u0423\u0440.'+lvl:'')+'</div><div style="font-size:11px;color:#888">'+a.desc+'</div></div><div style="font-size:11px;color:var(--accent);font-weight:600">'+(a.levels[Math.min(lvl,a.levels.length-1)].xp)+' XP</div></div><div style="background:rgba(123,104,174,0.1);border-radius:6px;height:6px;overflow:hidden"><div style="background:var(--accent);height:100%;width:'+progPct+'%;border-radius:6px;transition:width 0.3s"></div></div><div style="display:flex;justify-content:space-between;font-size:10px;color:#888;margin-top:4px"><span>'+pa.progress+'/'+nextNeed+'</span><span>\u0423\u0440.'+lvl+'/'+a.levels.length+'</span></div></div>'});
   document.getElementById('profileAchievements').innerHTML=achHtml;
 }
