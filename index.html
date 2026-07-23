@@ -86,6 +86,22 @@ label{display:block;font-size:13px;font-weight:500;color:#555;margin-bottom:6px}
 @keyframes achSlideIn{0%{transform:translateX(-110%) scale(0.8);opacity:0}12%{transform:translateX(0) scale(1);opacity:1}88%{transform:translateX(0) scale(1);opacity:1}100%{transform:translateX(-110%) scale(0.8);opacity:0}}
 @keyframes achPulse{0%,100%{box-shadow:0 0 0 0 rgba(255,255,255,0.4)}50%{box-shadow:0 0 20px 8px rgba(255,255,255,0.1)}}
 @keyframes achIconPop{0%{transform:scale(0) rotate(-180deg)}60%{transform:scale(1.2) rotate(10deg)}100%{transform:scale(1) rotate(0deg)}}
+/* Medals */
+.medal-wrap{display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;transition:transform 0.2s}
+.medal-wrap:hover{transform:scale(1.1)}
+.medal{position:relative;width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 12px rgba(0,0,0,0.3),inset 0 2px 4px rgba(255,255,255,0.3),inset 0 -2px 4px rgba(0,0,0,0.2)}
+.medal::before{content:'';position:absolute;inset:2px;border-radius:50%;border:2px solid rgba(255,255,255,0.3)}
+.medal::after{content:'';position:absolute;top:4px;left:50%;transform:translateX(-50%);width:60%;height:30%;background:linear-gradient(180deg,rgba(255,255,255,0.4),transparent);border-radius:50%;pointer-events:none}
+.medal svg{width:22px;height:22px;filter:drop-shadow(0 1px 2px rgba(0,0,0,0.3));position:relative;z-index:1}
+.medal-ribbon{width:16px;height:10px;clip-path:polygon(0 0,100% 0,80% 100%,50% 70%,20% 100%)}
+.medal-label{font-size:9px;color:#666;text-align:center;max-width:56px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.medal-paper{background:linear-gradient(145deg,#E8D5B7,#D2B48C,#C4A67A)}
+.medal-wood{background:linear-gradient(145deg,#A0522D,#8B4513,#6B3410)}
+.medal-bronze{background:linear-gradient(145deg,#E8A860,#CD7F32,#B8732A)}
+.medal-silver{background:linear-gradient(145deg,#E8E8E8,#C0C0C0,#A8A8A8)}
+.medal-gold{background:linear-gradient(145deg,#FFE44D,#FFD700,#E6C200)}
+.medal-diamond{background:linear-gradient(145deg,#E0F7FF,#B9F2FF,#8DE4FF)}
+.medal-cat-title{font-size:12px;font-weight:600;color:var(--dark);margin:16px 0 8px;padding-bottom:4px;border-bottom:1px solid rgba(123,104,174,0.15)}
 .achievement-toast{position:fixed;top:20px;left:20px;z-index:5000;display:flex;align-items:center;gap:10px;padding:8px 14px 8px 10px;border-radius:8px;font-family:'Segoe UI',system-ui,sans-serif;animation:achSlideIn 3.2s cubic-bezier(0.22,1,0.36,1) forwards;pointer-events:none;overflow:hidden;max-width:280px}
 .achievement-toast::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.5),transparent)}
 .achievement-toast .ach-icon{width:30px;height:30px;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;animation:achIconPop 0.5s cubic-bezier(0.34,1.56,0.64,1) 0.15s both;position:relative}
@@ -1286,10 +1302,29 @@ function renderProfile(){
   var streak=p.streak||0;
   document.getElementById('profileLevelCard').innerHTML='<div style="margin-bottom:8px"><img src="mascot.svg" alt="\u041C\u0430\u0441\u043A\u043E\u0442" style="height:80px;width:auto"></div><div style="font-size:14px;opacity:0.8;margin-bottom:4px">\u0423\u0440\u043E\u0432\u0435\u043D\u044C '+p.level+'</div><div style="font-size:24px;font-weight:700;margin-bottom:12px">'+p.xp+' / '+needed+' XP</div><div style="background:rgba(255,255,255,0.2);border-radius:8px;height:12px;overflow:hidden"><div style="background:linear-gradient(90deg,#FFD700,#FFA500);height:100%;width:'+pct+'%;border-radius:8px;transition:width 0.5s"></div></div><div style="font-size:11px;opacity:0.7;margin-top:4px">'+(needed-p.xp)+' XP \u0434\u043E \u0441\u043B\u0435\u0434\u0443\u044E\u0449\u0435\u0433\u043E \u0443\u0440\u043E\u0432\u043D\u044F</div>';
   document.getElementById('profileStreak').innerHTML='<div style="display:flex;align-items:center;justify-content:center;gap:8px;font-size:14px"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 2c.5 2.5 2 4.5 2 7a4 4 0 1 1-8 0c0-2.5 2-5 2-7 1 1 2.5 1.5 4 0z" fill="'+(streak>0?'#FF6B35':'#ccc')+'" stroke="'+(streak>0?'#FF4500':'#999')+'" stroke-width="1.5"/></svg><span>\u0421\u0435\u0440\u0438\u044F: <b>'+streak+' \u0434\u043D.</b></span><span style="color:#888;font-size:12px">('+streak*10+' XP)</span></div>';
-  var medalsHtml='';ACHIEVEMENTS.forEach(function(a){var ml=getMedalLevel(a.id);if(ml){medalsHtml+='<div style="width:40px;height:40px;border-radius:50%;background:'+MEDAL_COLORS[ml]+';display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,0.2)" title="'+a.name+' - '+MEDAL_NAMES[ml]+'"><div style="width:20px;height:20px;color:#fff">'+a.icon+'</div></div>'}});
+  // Group earned medals by category
+  var medalCats={};ACHIEVEMENTS.forEach(function(a){var ml=getMedalLevel(a.id);if(ml){var cat=a.cat||'Другое';if(!medalCats[cat])medalCats[cat]=[];medalCats[cat].push({ach:a,medal:ml})}});
+  var medalsHtml='';var catOrder=['Продажи','Выручка','Прибыль','Клиенты','Материалы','Чеки','Расходы','Сборка','Склад','Ремонт','Экспорт','Синхро','Быстрые','Дубли','Фото','Большие сделки','Серии','Комбо','Богатство','Организация','Калькулятор','Цены','Настройки'];
+  catOrder.forEach(function(cat){if(medalCats[cat]){medalsHtml+='<div class="medal-cat-title">'+cat+'</div><div style="display:flex;flex-wrap:wrap;gap:12px;margin-bottom:8px">';medalCats[cat].forEach(function(m){var lvl=m.ach.levels.length;var ml=m.medal;medalsHtml+='<div class="medal-wrap" onclick="showMedalDetail(\''+m.ach.id+'\')"><div class="medal medal-'+ml+'"><div style="width:22px;height:22px;color:#fff">'+m.ach.icon+'</div></div><div class="medal-ribbon medal-'+ml+'"></div><div class="medal-label">'+m.ach.name+'</div></div>'});medalsHtml+='</div>'}});
+  if(!medalsHtml)medalsHtml='<div style="color:#999;font-size:13px">\u041F\u043E\u043A\u0430 \u043D\u0435\u0442 \u043C\u0435\u0434\u0430\u043B\u0435\u0439</div>';
   document.getElementById('profileMedals').innerHTML=medalsHtml||'<div style="color:#999;font-size:13px">\u041F\u043E\u043A\u0430 \u043D\u0435\u0442 \u043C\u0435\u0434\u0430\u043B\u0435\u0439</div>';
   var achHtml='';ACHIEVEMENTS.forEach(function(a){var pa=(p.achievements||{})[a.id]||{level:0,progress:0};var lvl=pa.level;var nextNeed=lvl<a.levels.length?a.levels[lvl].need:0;var prevNeed=lvl>0?a.levels[lvl-1].need:0;var progPct=nextNeed>0?Math.min(100,Math.round((pa.progress-prevNeed)/(nextNeed-prevNeed)*100)):100;var ml=getMedalLevel(a.id);var border=ml?'3px solid '+MEDAL_COLORS[ml]:'2px solid rgba(123,104,174,0.15)';achHtml+='<div style="background:var(--card);border-radius:12px;padding:12px;border:'+border+'"><div style="display:flex;align-items:center;gap:10px;margin-bottom:8px"><div style="width:28px;height:28px;color:var(--dark)">'+a.icon+'</div><div style="flex:1"><div style="font-weight:600;font-size:13px">'+a.name+(lvl>0?' \u0423\u0440.'+lvl:'')+'</div><div style="font-size:11px;color:#888">'+a.desc+'</div></div><div style="font-size:11px;color:var(--accent);font-weight:600">'+(a.levels[Math.min(lvl,a.levels.length-1)].xp)+' XP</div></div><div style="background:rgba(123,104,174,0.1);border-radius:6px;height:6px;overflow:hidden"><div style="background:var(--accent);height:100%;width:'+progPct+'%;border-radius:6px;transition:width 0.3s"></div></div><div style="display:flex;justify-content:space-between;font-size:10px;color:#888;margin-top:4px"><span>'+pa.progress+'/'+nextNeed+'</span><span>\u0423\u0440.'+lvl+'/'+a.levels.length+'</span></div></div>'});
   document.getElementById('profileAchievements').innerHTML=achHtml;
+}
+function showMedalDetail(achId){
+  var a=ACHIEVEMENTS.find(function(x){return x.id===achId});if(!a)return;
+  var p=getProfile();var pa=(p.achievements||{})[a.id]||{level:0,progress:0};
+  var ml=getMedalLevel(a.id);var medalName=MEDAL_NAMES[ml]||'—';
+  var lvl=pa.level;var nextNeed=lvl<a.levels.length?a.levels[lvl].need:0;
+  var progPct=nextNeed>0?Math.min(100,Math.round(pa.progress/nextNeed*100)):100;
+  // Build levels HTML
+  var levelsHtml='';a.levels.forEach(function(lv,i){
+    var done=i<lvl;var icon=done?'✓':(i===lvl?'→':'○');
+    var color=done?'var(--green)':(i===lvl?'var(--accent)':'#ccc');
+    levelsHtml+='<div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid rgba(0,0,0,0.05)"><span style="color:'+color+';font-weight:700;width:20px">'+icon+'</span><span style="flex:1;font-size:13px">'+lv.need+' '+a.desc.replace(/^[а-яёА-Яё]+ /i,'').toLowerCase()+'</span><span style="font-size:12px;color:var(--accent);font-weight:600">'+lv.xp+' XP</span></div>';
+  });
+  var html='<div style="text-align:center;padding:8px 0"><div class="medal medal-'+ml+'" style="width:72px;height:72px;margin:0 auto 12px"><div style="width:36px;height:36px;color:#fff">'+a.icon+'</div></div><div class="medal-ribbon medal-'+ml+'" style="width:24px;height:14px;margin:0 auto 8px"></div><div style="font-size:18px;font-weight:700;margin-bottom:4px">'+a.name+'</div><div style="font-size:13px;color:#888;margin-bottom:4px">'+a.desc+'</div><div style="display:inline-block;padding:4px 12px;border-radius:12px;font-size:12px;font-weight:600;background:'+MEDAL_COLORS[ml]+'20;color:'+MEDAL_COLORS[ml]+';border:1px solid '+MEDAL_COLORS[ml]+'40">'+medalName+' медаль</div></div><div style="margin-top:16px;padding-top:12px;border-top:1px solid rgba(0,0,0,0.08)"><div style="display:flex;justify-content:space-between;font-size:12px;color:#888;margin-bottom:8px"><span>Прогресс: <b>'+pa.progress+'</b></span><span>Уровень: <b>'+lvl+'/'+a.levels.length+'</b></span></div><div style="background:rgba(123,104,174,0.1);border-radius:6px;height:8px;overflow:hidden"><div style="background:linear-gradient(90deg,var(--accent),var(--dark));height:100%;width:'+progPct+'%;border-radius:6px;transition:width 0.3s"></div></div></div><div style="margin-top:16px"><div style="font-size:13px;font-weight:600;color:var(--dark);margin-bottom:8px">Уровни медали:</div>'+levelsHtml+'</div>';
+  openModal(html);
 }
 
 function exportToExcel(){
