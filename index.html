@@ -115,7 +115,7 @@ label{display:block;font-size:13px;font-weight:500;color:#555;margin-bottom:6px}
 #profileLevelCard{background:linear-gradient(135deg,rgba(139,107,174,0.65),rgba(160,124,197,0.6),rgba(196,155,216,0.55));backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,0.25)}
 #ocrBtn.loading{opacity:0.6;pointer-events:none}
 /* AI Chat */
-.ai-chat-btn{position:fixed;bottom:80px;right:16px;width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#7B68AE,#5B7FFF);color:#fff;border:none;cursor:pointer;box-shadow:0 4px 16px rgba(91,127,255,0.4);z-index:999;display:flex;align-items:center;justify-content:center;transition:transform 0.2s}
+.ai-chat-btn{position:fixed;bottom:140px;right:16px;width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#7B68AE,#5B7FFF);color:#fff;border:none;cursor:pointer;box-shadow:0 4px 16px rgba(91,127,255,0.4);z-index:999;display:flex;align-items:center;justify-content:center;transition:transform 0.2s}
 .ai-chat-btn:hover{transform:scale(1.08)}
 .ai-chat-btn svg{width:24px;height:24px}
 .ai-chat-list{min-width:110px;max-height:180px;overflow-y:auto;border:1px solid rgba(123,104,174,0.12);border-radius:10px;padding:6px;font-size:12px;background:rgba(123,104,174,0.03)}
@@ -135,7 +135,7 @@ label{display:block;font-size:13px;font-weight:500;color:#555;margin-bottom:6px}
 .ai-quick-btn{display:inline-flex;align-items:center;gap:4px;padding:5px 10px;border:1px solid rgba(123,104,174,0.15);border-radius:16px;font-size:11px;cursor:pointer;background:rgba(255,255,255,0.8);transition:all 0.15s;color:var(--text)}
 .ai-quick-btn:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
 .ai-quick-btn svg{width:14px;height:14px}
-@media(max-width:768px){.ai-chat-btn{bottom:calc(64px + env(safe-area-inset-bottom,0px));right:12px;width:44px;height:44px}.ai-chat-btn svg{width:20px;height:20px}}
+@media(max-width:768px){.ai-chat-btn{bottom:calc(130px + env(safe-area-inset-bottom,0px));right:12px;width:44px;height:44px}.ai-chat-btn svg{width:20px;height:20px}}
 .achievement-toast{position:fixed;top:12px;left:12px;z-index:5000;display:flex;align-items:center;gap:8px;padding:6px 12px 6px 8px;border-radius:8px;font-family:'Segoe UI',system-ui,sans-serif;animation:achSlideIn 3.2s cubic-bezier(0.22,1,0.36,1) forwards;pointer-events:none;overflow:hidden;max-width:220px}
 .achievement-toast::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.5),transparent)}
 .achievement-toast .ach-icon{width:24px;height:24px;min-width:24px;border-radius:5px;display:flex;align-items:center;justify-content:center;flex-shrink:0;animation:achIconPop 0.5s cubic-bezier(0.34,1.56,0.64,1) 0.15s both;position:relative}
@@ -719,6 +719,8 @@ body.theme-liquid-dark #profileLevelCard{background:linear-gradient(135deg,rgba(
       <button class="btn btn-sm btn-outline" onclick="saveGroqKey()">Сохранить ключ</button>
     </div>
   </div>
+  <div class="table-container" style="max-width:500px;margin-top:24px">
+    <h3 style="margin-bottom:16px;font-size:16px;color:var(--dark)">Синхронизация</h3>
     <p style="font-size:13px;color:#888;margin-bottom:16px">Войдите через Google для синхронизации данных между устройствами.</p>
     <div style="margin-bottom:16px;padding:12px;background:rgba(123,104,174,0.04);border-radius:12px;border:1px solid rgba(123,104,174,0.1)">
       <div style="font-size:13px;font-weight:600;color:var(--dark);margin-bottom:8px">Конфигурация Firebase</div>
