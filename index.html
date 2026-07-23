@@ -697,6 +697,15 @@ body.theme-liquid-dark #profileLevelCard{background:linear-gradient(135deg,rgba(
       <button class="btn btn-sm btn-outline" onclick="saveGroqKey()">Сохранить ключ</button>
     </div>
   </div>
+  <div class="table-container" style="max-width:500px;margin-top:24px">
+    <h3 style="margin-bottom:16px;font-size:16px;color:var(--dark)">Восстановление данных</h3>
+    <p style="font-size:13px;color:#888;margin-bottom:16px">Если данные пропали, попробуйте восстановить.</p>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <button class="btn btn-primary" onclick="recoverFromFirebase()">Восстановить из Firebase</button>
+      <button class="btn btn-outline" onclick="recoverFromFile()">Восстановить из data.json</button>
+    </div>
+    <div id="recoverStatus" style="font-size:12px;color:#888;margin-top:8px"></div>
+  </div>
     <p style="font-size:13px;color:#888;margin-bottom:16px">Войдите через Google для синхронизации данных между устройствами.</p>
     <div style="margin-bottom:16px;padding:12px;background:rgba(123,104,174,0.04);border-radius:12px;border:1px solid rgba(123,104,174,0.1)">
       <div style="font-size:13px;font-weight:600;color:var(--dark);margin-bottom:8px">Конфигурация Firebase</div>
@@ -1608,6 +1617,8 @@ var _aiChats=[];
 var _aiCurrentChat=parseInt(localStorage.getItem('ai_current_chat')||'-1');
 function saveGroqKey(){var k=document.getElementById('groqApiKey').value.trim();if(!k){alert('Введите ключ');return}localStorage.setItem('groq_api_key',k);alert('Ключ Groq сохранён!');showAchievement('ИИ','Groq API сохранён','save')}
 function saveAiChats(){if(DATA){DATA.aiChats=_aiChats;save()}localStorage.setItem('ai_current_chat',String(_aiCurrentChat))}
+function recoverFromFirebase(){var el=document.getElementById('recoverStatus');el.textContent='Восстановление из Firebase...';el.style.color='orange';if(!fbUser){el.textContent='Нужно войти через Google!';el.style.color='red';return}var fm=window.firebaseModules;var docRef=fm.doc(fbDb,'users',fbUser.uid);fm.getDoc(docRef).then(function(doc){if(doc.exists()){var data=doc.data();if(data&&data.jewelry){DATA=data;idbPut('businki_data',DATA);_aiChats=DATA.aiChats||[];saveAiChats();renderDashboard();renderJewelry();renderMaterials();renderReceipts();renderSales();renderClients();renderExpenses();loadSettings();el.textContent='Данные восстановлены! '+data.jewelry.length+' украшений';el.style.color='var(--green)'}else{el.textContent='Firebase пуст';el.style.color='red'}}else{el.textContent='Нет данных в Firebase';el.style.color='red'}}).catch(function(e){el.textContent='Ошибка: '+e.message;el.style.color='red'})}
+function recoverFromFile(){var el=document.getElementById('recoverStatus');el.textContent='Загрузка data.json...';el.style.color='orange';fetch('data.json').then(function(r){return r.json()}).then(function(data){if(data&&data.jewelry){DATA=data;if(!DATA.sales)DATA.sales=[];if(!DATA.clients)DATA.clients=[];if(!DATA.expenses)DATA.expenses=[];if(!DATA.profile)DATA.profile={};if(!DATA.settings)DATA.settings={markupCoefficient:2,alenaMarkup:300,additionalCosts:0,defaultDiscount:0};if(!DATA.aiChats)DATA.aiChats=[];_aiChats=DATA.aiChats;save();idbPut('businki_data',DATA);renderDashboard();renderJewelry();renderMaterials();renderReceipts();renderSales();renderClients();renderExpenses();loadSettings();el.textContent='Данные восстановлены из data.json! '+data.jewelry.length+' украшений';el.style.color='var(--green)'}else{el.textContent='Неверный формат';el.style.color='red'}}).catch(function(e){el.textContent='Ошибка: '+e.message;el.style.color='red'})}
 function newAiChat(){var name='Диалог '+(new Date()).toLocaleDateString('ru-RU')+' '+new Date().toLocaleTimeString('ru-RU',{hour:'2-digit',minute:'2-digit'});_aiChats.push({name:name,messages:[]});_aiCurrentChat=_aiChats.length-1;saveAiChats();_aiHistory=[];renderAiMessages();renderAiChatList()}
 function switchAiChat(idx){if(idx<0||idx>=_aiChats.length)return;_aiCurrentChat=idx;_aiHistory=_aiChats[idx].messages||[];saveAiChats();renderAiMessages();renderAiChatList()}
 function deleteAiChat(idx){if(!confirm('Удалить диалог?'))return;_aiChats.splice(idx,1);if(_aiCurrentChat>=_aiChats.length)_aiCurrentChat=_aiChats.length-1;if(_aiCurrentChat<0)_aiCurrentChat=0;_aiHistory=_aiChats[_aiCurrentChat]?_aiChats[_aiCurrentChat].messages:[];saveAiChats();renderAiMessages();renderAiChatList()}
