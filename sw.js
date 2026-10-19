@@ -1,4 +1,4 @@
-const CACHE = 'bawi-v17';
+const CACHE = 'bawi-v18';
 const PRECACHE = ['./', './index.html', './manifest.json', './apple-touch-icon.png'];
 
 self.addEventListener('install', function (e) {
